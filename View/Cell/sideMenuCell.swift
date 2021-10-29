@@ -24,7 +24,7 @@ class sideMenuCell:UICollectionViewCell{
         sideMenutext.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
         sideMenutext.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
         
-        sideMenutext.backgroundColor = .blue
+        sideMenutext.backgroundColor = .clear
         
     }
     

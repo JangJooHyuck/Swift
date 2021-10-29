@@ -8,7 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+   
     
     var HamBT: UIButton = {
         let HamBT : UIButton = UIButton(frame: .zero)
@@ -44,6 +45,7 @@ class ViewController: UIViewController {
         
         
         Layout()
+        
         
     }
     
@@ -86,7 +88,7 @@ class ViewController: UIViewController {
         contents.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         contents.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         contents.topAnchor.constraint(equalTo: topMenu.bottomAnchor).isActive = true
-        contents.alpha = 0.5
+        
         contents.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         
@@ -121,6 +123,8 @@ class ViewController: UIViewController {
         topMenu.isUserInteractionEnabled = true
         contents.isUserInteractionEnabled = true
     }
+    
+   
     
     
     

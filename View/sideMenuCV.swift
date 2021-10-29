@@ -51,7 +51,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         SidecollectionView.translatesAutoresizingMaskIntoConstraints = false
         SidecollectionView.delegate = self
         SidecollectionView.dataSource = self
-       
+        SidecollectionView.backgroundColor = .yellow
         SidecollectionView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
