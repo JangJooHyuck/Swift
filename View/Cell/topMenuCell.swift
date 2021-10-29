@@ -19,12 +19,14 @@ class topMenuCell:UICollectionViewCell{
         super.init(frame: frame)
         
         addSubview(tmenutext)
+        tmenutext.textAlignment = .center
         tmenutext.translatesAutoresizingMaskIntoConstraints = false
+        
         tmenutext.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
         tmenutext.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
+       
         
-        tmenutext.backgroundColor = .red
-        
+        tmenutext.backgroundColor = .blue
     }
     
     required init?(coder: NSCoder) {

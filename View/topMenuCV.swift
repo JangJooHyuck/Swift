@@ -10,6 +10,7 @@ import UIKit
 
 class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     
+    // 셀의 갯수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         ViewModel.VM.MenuList.count
         
@@ -23,6 +24,7 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
         return cell
         
     }
+    
     let collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -31,27 +33,31 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
         layout.sectionInset = .zero
        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
 
         return collectionView
     }()
     
+   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(collectionView)
+       
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+        collectionView.widthAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count)*50).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 60).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        collectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        
+        collectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         
         
         collectionView.register(topMenuCell.self, forCellWithReuseIdentifier: "topMenu")
     }
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

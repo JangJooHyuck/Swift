@@ -22,6 +22,9 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         return cell
         
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
     let SidecollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -38,18 +41,23 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+    
+        
+        
         addSubview(SidecollectionView)
+        
         SidecollectionView.translatesAutoresizingMaskIntoConstraints = false
         SidecollectionView.delegate = self
         SidecollectionView.dataSource = self
+       
+        SidecollectionView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
-        SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 60).isActive = true
-        SidecollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-        SidecollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 200).isActive = true
-        SidecollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
-        
-        
+        SidecollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        SidecollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         SidecollectionView.register(sideMenuCell.self, forCellWithReuseIdentifier: "sideMenu")
+        
+                
     }
     
     required init?(coder: NSCoder) {
