@@ -15,7 +15,7 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
         ViewModel.VM.MenuList.count
         
     }
-    
+    // 셀에 텍스트 넣기
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topMenu", for: indexPath) as! topMenuCell
@@ -23,6 +23,13 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
         cell.tmenutext.text = ViewModel.VM.MenuList[indexPath.item]
         return cell
         
+    }
+    // 셀 간 최소 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print (indexPath.row)
     }
     
     let collectionView:UICollectionView = {
@@ -33,7 +40,7 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
         layout.sectionInset = .zero
        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
+        
 
         return collectionView
     }()
@@ -42,16 +49,18 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         addSubview(collectionView)
        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.widthAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count)*50).isActive = true
+        collectionView.backgroundColor = .lightGray
+        collectionView.widthAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count)*60).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 60).isActive = true
         
-        collectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         
         collectionView.register(topMenuCell.self, forCellWithReuseIdentifier: "topMenu")

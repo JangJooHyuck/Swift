@@ -22,8 +22,10 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         return cell
         
     }
+    // 클릭 이벤트
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        ViewModel.VM.CurrentCell = indexPath.row
+        print("CurrentCell = \(ViewModel.VM.CurrentCell)")
     }
     let SidecollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -33,7 +35,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         layout.sectionInset = .zero
        
         let SidecollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        SidecollectionView.backgroundColor = .white
+       
 
         return SidecollectionView
     }()

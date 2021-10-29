@@ -44,6 +44,8 @@ class contentsCV : UIView {
         contentscollectionView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         contentscollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
         
+        contentscollectionView.isPagingEnabled = true
+        
         
         contentscollectionView.register(contentsCell.self, forCellWithReuseIdentifier: "contents")
     }
@@ -75,8 +77,13 @@ extension contentsCV: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         return CGSize(width: width, height: height)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        print(ViewModel.VM.CurrentCell)
+        
+        collectionView.scrollToItem(at: IndexPath(index: 2), at: .centeredHorizontally, animated: true)
+    
     }
+    
+    
 }
 
 
