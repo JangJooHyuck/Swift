@@ -136,32 +136,34 @@ class MainCell:UICollectionViewCell{
         TodayWordTextLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true
         TodayWordTextLabel.topAnchor.constraint(equalTo: topAnchor, constant: 100).isActive = true
         TodayWordTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        TodayWordTextLabel.backgroundColor = .red
+     
         
         
         //todayword 단어
         TodayWordLabel.textAlignment = .center
         TodayWordLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         TodayWordLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        TodayWordLabel.topAnchor.constraint(equalTo: TodayWordTextLabel.bottomAnchor, constant: 50).isActive = true
+        TodayWordLabel.topAnchor.constraint(equalTo: TodayWordTextLabel.bottomAnchor, constant: 100).isActive = true
         TodayWordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        TodayWordLabel.backgroundColor = .blue
+        
         
         //todayword 단어 뜻
-        TodayWordContentLabel.textAlignment = .left
+        TodayWordContentLabel.textAlignment = .center
         TodayWordContentLabel.heightAnchor.constraint(equalToConstant: 200).isActive = true
         TodayWordContentLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        TodayWordContentLabel.topAnchor.constraint(equalTo: TodayWordLabel.bottomAnchor, constant:80).isActive = true
+        TodayWordContentLabel.topAnchor.constraint(equalTo: TodayWordLabel.bottomAnchor, constant:30).isActive = true
         TodayWordContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        TodayWordContentLabel.backgroundColor = .yellow
+        TodayWordContentLabel.layer.cornerRadius = 10
+        TodayWordContentLabel.layer.borderWidth = 1
+        
         
         // todayword 새로고침버튼
         
-        TodayWordReplaceBT.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        TodayWordReplaceBT.heightAnchor.constraint(equalToConstant: 100).isActive = true
         TodayWordReplaceBT.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        TodayWordReplaceBT.topAnchor.constraint(equalTo: TodayWordContentLabel.bottomAnchor, constant:10).isActive = true
+        TodayWordReplaceBT.topAnchor.constraint(equalTo: TodayWordContentLabel.bottomAnchor, constant:50).isActive = true
         TodayWordReplaceBT.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        
+        TodayWordReplaceBT.layer.cornerRadius = 10
        
     }
    
