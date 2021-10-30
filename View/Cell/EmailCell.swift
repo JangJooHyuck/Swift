@@ -6,30 +6,24 @@
 //
 
 import UIKit
+import WebKit
 
 class EmailCell:UICollectionViewCell{
 
-    let contents: UILabel = {
-        let contents = UILabel()
-        contents.textAlignment = .center
-        return contents
-    }()
+  
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        // 웹뷰 추가
+        let EmailWebview = WKWebView()
+       
+        // url 설정
+        let url = URL(string: "http://localhost:1233/main")
+        // 응답을 저장
+        let request = URLRequest(url: url!)
+        // request 가져오기
+        EmailWebview.load(request)
         
-        addSubview(contents)
-        
-        contents.backgroundColor = .yellow
-        contents.text = "Email"
-        contents.textAlignment = .center
-        contents.translatesAutoresizingMaskIntoConstraints = false
-        contents.backgroundColor = .cyan
-        contents.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        contents.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        contents.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        contents.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        contents.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         
     }
