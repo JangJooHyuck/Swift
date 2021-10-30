@@ -12,6 +12,7 @@ class topMenuCell:UICollectionViewCell{
     let tmenutext: UILabel = {
         let tmenutext = UILabel()
         tmenutext.textAlignment = .center
+       
         return tmenutext
     }()
     
@@ -21,11 +22,12 @@ class topMenuCell:UICollectionViewCell{
         addSubview(tmenutext)
         tmenutext.textAlignment = .center
         tmenutext.translatesAutoresizingMaskIntoConstraints = false
-        tmenutext.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+      
         tmenutext.widthAnchor.constraint(equalToConstant: 50).isActive = true
         tmenutext.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        tmenutext.backgroundColor = .clear
+        tmenutext.backgroundColor = .red
+        
     }
     
     required init?(coder: NSCoder) {

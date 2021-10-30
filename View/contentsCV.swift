@@ -67,6 +67,7 @@ class contentsCV : UIView {
         ViewModel.VM.$CurrentCell.sink { value in
             let currenCellidx = IndexPath(item: value, section: 0)
             self.contentscollectionView.scrollToItem(at: currenCellidx, at: .centeredHorizontally, animated: true)
+            
         }.store(in: &cancellable)
     }
     

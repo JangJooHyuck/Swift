@@ -10,11 +10,10 @@ import UIKit
 
 class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     
+   
     // 셀의 갯수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        ViewModel.VM.MenuList.count
-        
-    }
+        ViewModel.VM.MenuList.count     }
     // 셀에 텍스트 넣기
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -28,21 +27,25 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print (indexPath.row)
+   
+    internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("hi")
     }
     
-    let collectionView:UICollectionView = {
+    
+    let TopMenucollectionView: UICollectionView = {
+        
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         layout.sectionInset = .zero
        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let TopMenucollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+       
         
-
-        return collectionView
+        
+        return TopMenucollectionView
     }()
     
    
@@ -50,20 +53,20 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(collectionView)
+        addSubview(TopMenucollectionView)
        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .lightGray
-        collectionView.widthAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count)*60).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 60).isActive = true
+        TopMenucollectionView.translatesAutoresizingMaskIntoConstraints = false
+        TopMenucollectionView.delegate = self
+        TopMenucollectionView.dataSource = self
+        TopMenucollectionView.backgroundColor = .lightGray
+        TopMenucollectionView.widthAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count)*60).isActive = true
+        TopMenucollectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 60).isActive = true
         
-        collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        TopMenucollectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        TopMenucollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         
-        collectionView.register(topMenuCell.self, forCellWithReuseIdentifier: "topMenu")
+        TopMenucollectionView.register(topMenuCell.self, forCellWithReuseIdentifier: "topMenu")
     }
     
     
