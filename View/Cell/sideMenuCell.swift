@@ -23,7 +23,8 @@ class sideMenuCell:UICollectionViewCell{
         
         sideMenutext.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
         sideMenutext.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
-        
+        sideMenutext.layer.cornerRadius = 20
+        sideMenutext.layer.borderWidth = 1
         sideMenutext.backgroundColor = .clear
         
     }

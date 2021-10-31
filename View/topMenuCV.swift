@@ -30,7 +30,9 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
    
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         ViewModel.VM.CurrentCell = indexPath.row
+
         print("CurrentCell = \(ViewModel.VM.CurrentCell)")
+        
     }
     
     
