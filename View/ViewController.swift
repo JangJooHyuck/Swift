@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
     
-   
+  
+    
+    
+    var indicator : UIView = {
+        let indicator : UIView = UIView(frame: .zero)
+        return indicator
+    }()
     
     var HamBT: UIButton = {
         let HamBT : UIButton = UIButton(frame: .zero)
@@ -41,8 +48,9 @@ class ViewController: UIViewController {
         view.addSubview(topMenu)
         view.addSubview(sideMenu)
         view.addSubview(contents)
+        view.addSubview(indicator)
         
-        
+       
         
         Layout()
         
@@ -50,6 +58,18 @@ class ViewController: UIViewController {
     }
     
     func Layout() {
+        //indicator 레이아웃
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        indicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
+       
+        indicator.topAnchor.constraint(equalTo: topMenu.bottomAnchor, constant: 5).isActive = true
+       
+        indicator.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        indicator.leftAnchor.constraint(equalTo: view.leftAnchor, constant: CGFloat(ViewModel.VM.CurrentCell) * 70).isActive = true
+        
+        
+        indicator.backgroundColor = .red
         
         //탑 메뉴레이아웃
         topMenu.translatesAutoresizingMaskIntoConstraints = false
@@ -126,6 +146,7 @@ class ViewController: UIViewController {
         topMenu.isUserInteractionEnabled = true
         contents.isUserInteractionEnabled = true
     }
+    
     
    
     

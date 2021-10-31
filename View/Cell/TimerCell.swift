@@ -17,12 +17,18 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
     
     //타이머 시작버튼
     var startTimerBT: UIButton = UIButton()
+    // timer
+    let timer : UILabel = UILabel()
+    
+    // timer 시간
+    var limitTime : Int = 180 // 3분으로 설정
     // 버튼 타이틀
     
     
         
     override init(frame: CGRect) {
         super.init(frame: frame)
+        timer.frame = CGRect(x:0,y:0,width: bounds.width, height: bounds.height )
         
         self.myTableView.dataSource = self
         self.myTableView.delegate = self
@@ -30,6 +36,7 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
         self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.addSubview(myTableView)
         self.addSubview(startTimerBT)
+        self.addSubview(timer)
         
         self.myTableView.translatesAutoresizingMaskIntoConstraints = false
         self.startTimerBT.translatesAutoresizingMaskIntoConstraints = false
@@ -90,20 +97,46 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        //현재 시간
+      
+        
         
         // 타이머 순서 VM 에 전달
         ViewModel.VM.TimerNum += 1
-      
+        
+        getSetTime()
         // 테이블뷰에 아이템 추가
        
-        self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 현재시간 : " + "\(Date())")
-        
-        self.timerlist.append("종료시간 : " + "\(Date() - 300)")
+       // self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 현재시간 : " + "\(Date())")
+        self.timerlist.append(timer.text!)
+       // self.timerlist.append("종료시간 : " + "\(Date() - 300)")
      
         //테이블뷰 리로드
         self.myTableView.reloadData()
        
+    }
+    
+    @objc func getSetTime(){
+        secToTime(sec: limitTime)
+        limitTime -= 1
+       
+    }
+    
+    func secToTime(sec: Int) {
+        let minute = (sec % 3600) / 60
+        let second = (sec % 3600) % 60
+
+        if second < 10 {
+            timer.text = String(minute) + ":" + "0" + String(second)
+        } else {
+            timer.text = String(minute) + ":" + String(second)
+        }
+        
+        if limitTime != 0 {
+            perform(#selector(getSetTime), with: nil, afterDelay: 1.0)
+        }
+        else if limitTime == 0 {
+            timer.isHidden = true
+        }
     }
     
     required init?(coder: NSCoder) {
