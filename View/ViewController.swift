@@ -54,8 +54,11 @@ class ViewController: UIViewController {
         //탑 메뉴레이아웃
         topMenu.translatesAutoresizingMaskIntoConstraints = false
         
-        topMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20).isActive = true
+        topMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 60).isActive = true
+      
+        topMenu.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 0).isActive = true
         topMenu.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+       
         topMenu.heightAnchor.constraint(equalToConstant: 50).isActive = true
       
         //햄버거메뉴 버튼 레이아웃
@@ -66,7 +69,7 @@ class ViewController: UIViewController {
         HamBT.widthAnchor.constraint(equalToConstant: 50).isActive = true
         HamBT.heightAnchor.constraint(equalToConstant: 50).isActive = true
         HamBT.topAnchor.constraint(equalTo: topMenu.topAnchor, constant: 0).isActive = true
-        
+        HamBT.layer.zPosition = 999
         HamBT.addTarget(self, action: #selector(HamBTpressed), for: .touchUpInside)
        
         //사이드 메뉴레이아웃

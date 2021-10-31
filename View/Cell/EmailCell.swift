@@ -23,7 +23,7 @@ class EmailCell:UICollectionViewCell{
         let request = URLRequest(url: url!)
         // request 가져오기
         EmailWebview.load(request)
-        
+        self.addSubview(EmailWebview)
         
         
     }

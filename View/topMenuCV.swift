@@ -29,7 +29,8 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
     }
    
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("hi")
+        ViewModel.VM.CurrentCell = indexPath.row
+        print("CurrentCell = \(ViewModel.VM.CurrentCell)")
     }
     
     
@@ -58,13 +59,15 @@ class topMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLa
         TopMenucollectionView.translatesAutoresizingMaskIntoConstraints = false
         TopMenucollectionView.delegate = self
         TopMenucollectionView.dataSource = self
-        TopMenucollectionView.backgroundColor = .lightGray
+        TopMenucollectionView.backgroundColor = .clear
         TopMenucollectionView.widthAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count)*60).isActive = true
-        TopMenucollectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 60).isActive = true
+        TopMenucollectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10).isActive = true
+       
         
         TopMenucollectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         TopMenucollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
+        TopMenucollectionView.isScrollEnabled = true
         
         TopMenucollectionView.register(topMenuCell.self, forCellWithReuseIdentifier: "topMenu")
     }

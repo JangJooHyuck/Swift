@@ -134,6 +134,7 @@ class DicCell:UICollectionViewCell{
         WordTextField.widthAnchor.constraint(equalToConstant: 400).isActive = true
         WordTextField.topAnchor.constraint(equalTo: topAnchor, constant: 250).isActive = true
         WordTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        WordTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
         
         //사용자가 입력한 단어의 뜻이 표출되는 곳
         WordLabel.textAlignment = .center
@@ -141,6 +142,7 @@ class DicCell:UICollectionViewCell{
         WordLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true
         WordLabel.topAnchor.constraint(equalTo: WordTextField.bottomAnchor, constant: 10).isActive = true
         WordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        WordLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
         WordLabel.layer.cornerRadius = 10
         WordLabel.layer.borderWidth = 1
         
@@ -150,6 +152,7 @@ class DicCell:UICollectionViewCell{
         addWord.widthAnchor.constraint(equalToConstant: 400).isActive = true
         addWord.topAnchor.constraint(equalTo: WordLabel.bottomAnchor, constant: 50).isActive = true
         addWord.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        addWord.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
         
     }
     
