@@ -90,10 +90,20 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+        //현재 시간
+        
+        // 타이머 순서 VM 에 전달
         ViewModel.VM.TimerNum += 1
-        self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "] 현재시간 : " + Date)
+      
+        // 테이블뷰에 아이템 추가
+       
+        self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 현재시간 : " + "\(Date())")
+        
+        self.timerlist.append("종료시간 : " + "\(Date() - 300)")
+     
+        //테이블뷰 리로드
         self.myTableView.reloadData()
-        print("you touched the add timer button")
+       
     }
     
     required init?(coder: NSCoder) {
