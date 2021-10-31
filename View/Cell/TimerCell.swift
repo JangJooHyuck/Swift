@@ -7,32 +7,51 @@
 
 import UIKit
 
-class TimerCell:UICollectionViewCell{
-
-    let contents: UILabel = {
-        let contents = UILabel()
-        contents.textAlignment = .center
-        return contents
-    }()
+class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
+    
+   
+
+    let myTableView: UITableView = UITableView()
+    let list = ViewModel.VM.MenuList
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(contents)
+        self.myTableView.dataSource = self
+        self.myTableView.delegate = self
         
-        contents.backgroundColor = .brown
-        contents.text = "Timer"
-        contents.textAlignment = .center
-        contents.translatesAutoresizingMaskIntoConstraints = false
-        contents.backgroundColor = .magenta
-        contents.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        contents.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        contents.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        contents.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        contents.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.addSubview(myTableView)
+        
+        self.myTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        TVlayout()
         
         
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        list.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
+        
+        cell.textLabel?.text = list[indexPath.row]
+        
+        return cell
+    }
+    func TVlayout(){
+        
+        //tableView layout
+        
+        myTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        myTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        myTableView.topAnchor.constraint(equalTo: topAnchor, constant: 100).isActive = true
+        myTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        myTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
