@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
-   
+    private var cancellable = Set<AnyCancellable>()
     //테이블뷰
     let myTableView: UITableView = UITableView()
     var timerlist = ViewModel.VM.timerlist
@@ -137,16 +138,24 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         ContentsCVTimerView.isTimerDelete = false
         
         // VM에 timeService 호출
+        
         ViewModel.VM.timeService()
-     
+        // vm의 time 값이 변경되면
+        ViewModel.VM.$time.sink {  value in
+            
+            print("\(value)")
+            self.myTableView.reloadData()
+            
+            }.store(in: &cancellable)
+        
+        
         // 테이블뷰에 아이템 추가
         self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
         self.timerlist.append("\(ViewModel.VM.time)")
+        
        
-      
-        //테이블뷰 리로드
-        self.myTableView.reloadData()
        
+        
     }
     @objc func deleteTimer(sender: UIButton!){
         // 버튼 클릭시 애니메이션 설정
