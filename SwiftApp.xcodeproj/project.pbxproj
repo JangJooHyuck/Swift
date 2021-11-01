@@ -102,6 +102,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E8FB85A272FAED000541214 /* ContentsCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				9E930B9D272BDE3200F05BF2 /* MainCell.swift */,
+				9E930B9F272BDF0700F05BF2 /* DicCell.swift */,
+				9E930BA1272BDFEC00F05BF2 /* EmailCell.swift */,
+				9E930BA3272BDFF800F05BF2 /* NoteCell.swift */,
+				9E930BA5272BE00200F05BF2 /* TimerCell.swift */,
+			);
+			path = ContentsCVCell;
+			sourceTree = "<group>";
+		};
 		9EAE3C3C2704296400E22064 = {
 			isa = PBXGroup;
 			children = (
@@ -179,14 +191,10 @@
 		9EFEC4782729254E0094C4BB /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				9E8FB85A272FAED000541214 /* ContentsCVCell */,
 				9EFEC47D272929700094C4BB /* topMenuCell.swift */,
 				9E04774F272AEFAD00A1BF20 /* sideMenuCell.swift */,
 				9E930B9B272B87AA00F05BF2 /* contentsCell.swift */,
-				9E930B9D272BDE3200F05BF2 /* MainCell.swift */,
-				9E930B9F272BDF0700F05BF2 /* DicCell.swift */,
-				9E930BA1272BDFEC00F05BF2 /* EmailCell.swift */,
-				9E930BA3272BDFF800F05BF2 /* NoteCell.swift */,
-				9E930BA5272BE00200F05BF2 /* TimerCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";

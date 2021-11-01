@@ -9,11 +9,10 @@ import UIKit
 
 class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
-    
    
     //테이블뷰
     let myTableView: UITableView = UITableView()
-    var timerlist : Array = [""]
+    var timerlist = ViewModel.VM.timerlist
     
     //타이머 시작버튼
     var startTimerBT: UIButton = UIButton()
@@ -57,7 +56,7 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = timerlist[indexPath.row]
+        cell.textLabel?.text = timerlist[indexPath.row] as? String
         
         return cell
     }
@@ -135,11 +134,20 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
         
         isTimerDelete = false
         
+        //타이머 시간
         var time = 300
-        var timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             if self.isTimerDelete == false {
+                //
             time -= 1
+                
             print(time)
+                
+                self.myTableView.beginUpdates()
+                self.myTableView.reloadRows(at: self.myTableView.indexPathsForVisibleRows!, with: .none)
+                self.myTableView.endUpdates()
+                
             self.myTableView.reloadData()
             }
             else {

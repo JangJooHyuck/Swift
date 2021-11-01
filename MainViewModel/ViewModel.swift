@@ -17,6 +17,7 @@ class ViewModel {
     @Published var MenuList = ["메인","사전","이메일","단어장","타이머"]
     @Published var CurrentCell = 1
     @Published var TimerNum = 0
+    @Published var timerlist = []
     
 }
 
