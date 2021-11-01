@@ -12,7 +12,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     private var cancellable = Set<AnyCancellable>()
     //테이블뷰
-    let myTableView: UITableView = UITableView()
+    static let myTableView: UITableView = UITableView()
     var timerlist = ViewModel.VM.timerlist
     
     //타이머 시작버튼
@@ -29,16 +29,16 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         super.init(frame: frame)
         
         
-        self.myTableView.dataSource = self
-        self.myTableView.delegate = self
+        ContentsCVTimerView.myTableView.dataSource = self
+        ContentsCVTimerView.myTableView.delegate = self
         
-        self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.addSubview(myTableView)
+        ContentsCVTimerView.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.addSubview(ContentsCVTimerView.myTableView)
         self.addSubview(startTimerBT)
         self.addSubview(removeTimerBT)
       
         
-        self.myTableView.translatesAutoresizingMaskIntoConstraints = false
+        ContentsCVTimerView.myTableView.translatesAutoresizingMaskIntoConstraints = false
         self.startTimerBT.translatesAutoresizingMaskIntoConstraints = false
         self.removeTimerBT.translatesAutoresizingMaskIntoConstraints = false
         
@@ -57,7 +57,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = timerlist[indexPath.row] as? String
+        cell.textLabel?.text = timerlist[indexPath.row]
         
         return cell
     }
@@ -65,11 +65,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         //tableView layout
         
-        myTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        myTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        myTableView.topAnchor.constraint(equalTo: topAnchor, constant: 100).isActive = true
-        myTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        myTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        ContentsCVTimerView.myTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        ContentsCVTimerView.myTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        ContentsCVTimerView.myTableView.topAnchor.constraint(equalTo: topAnchor, constant: 100).isActive = true
+        ContentsCVTimerView.myTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        ContentsCVTimerView.myTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
     }
     func TMBTlayout(){
         
@@ -143,8 +143,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // vm의 time 값이 변경되면
         ViewModel.VM.$time.sink {  value in
             
-            print("\(value)")
-            self.myTableView.reloadData()
+            ContentsCVTimerView.myTableView.reloadData()
             
             }.store(in: &cancellable)
         
@@ -153,6 +152,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
         self.timerlist.append("\(ViewModel.VM.time)")
         
+        
+
        
        
         
@@ -170,7 +171,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         ContentsCVTimerView.isTimerDelete = true
         self.timerlist.removeAll()
-        self.myTableView.reloadData()
+        ContentsCVTimerView.myTableView.reloadData()
     
     }
    

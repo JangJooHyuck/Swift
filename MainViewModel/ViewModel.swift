@@ -17,16 +17,18 @@ class ViewModel {
     @Published var MenuList = ["메인","사전","이메일","단어장","타이머"]
     @Published var CurrentCell = 1
     @Published var TimerNum = 0
-    @Published var timerlist = []
     //타이머 시간
     @Published var time = 300
+    
+    @Published var timerlist = ["time"]
+    
     
     func timeService() {
         
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
         
             ViewModel.VM.time -= 1
-                
+            ContentsCVTimerView.myTableView.reloadData()
             print(self.time)
             if ContentsCVTimerView.isTimerDelete == true {
                 timer.invalidate()
