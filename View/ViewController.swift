@@ -10,11 +10,11 @@ import Combine
 
 class ViewController: UIViewController {
     
-  
+    private var cancellable = Set<AnyCancellable>()
     
-    
+    //62씩
     var indicator : UIView = {
-        let indicator : UIView = UIView(frame: .zero)
+        let indicator : UIView = UIView(frame: CGRect(x: 0, y: 100, width: 50, height: 10))
         return indicator
     }()
     
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         view.addSubview(indicator)
         
        
-        
+        indicatorMove()
         Layout()
         
         
@@ -61,14 +61,7 @@ class ViewController: UIViewController {
         //indicator 레이아웃
         indicator.translatesAutoresizingMaskIntoConstraints = false
         
-        indicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
-       
-        indicator.topAnchor.constraint(equalTo: topMenu.bottomAnchor, constant: 5).isActive = true
-       
-        indicator.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        indicator.leftAnchor.constraint(equalTo: view.leftAnchor, constant: CGFloat(ViewModel.VM.CurrentCell) * 70).isActive = true
-        
-        
+        indicator.layer.cornerRadius = 5
         indicator.backgroundColor = .red
         
         //탑 메뉴레이아웃
@@ -122,6 +115,7 @@ class ViewController: UIViewController {
         if buttonTap == false {
         HamBT.backgroundColor = .red
             SideMenuOpen()
+            
         }
         else{
             HamBT.backgroundColor = .black
@@ -147,9 +141,30 @@ class ViewController: UIViewController {
         contents.isUserInteractionEnabled = true
     }
     
+    func indicatorMove(){
+        ViewModel.VM.$CurrentCell.sink { value in
+            
+            UIView.animate(withDuration: 1.0, delay: 0.0,
+                options: .curveEaseOut,
+                animations: {
+                    print("dd")
+                },
+                completion: nil
+              )
+
+        }.store(in: &cancellable)
+    }
     
    
     
     
     
 }
+
+//UIView.animate(withDuration: 1.0, delay: 0.0,
+//    options: .curveEaseOut,
+//    animations: {
+//        self.indicator.center.x += 60
+//    },
+//    completion: nil
+//  )
