@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DicCell:UICollectionViewCell{
+class ContentsCVDicView:UICollectionViewCell{
 
     // 사용자가 단어를 입력하는 곳
     let WordTextField =  UITextField()

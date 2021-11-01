@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class EmailCell:UICollectionViewCell, WKUIDelegate{
+class ContentsCVEmailView:UICollectionViewCell, WKUIDelegate{
 
   
     

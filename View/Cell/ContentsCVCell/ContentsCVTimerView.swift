@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
+class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
    
     //테이블뷰
@@ -21,7 +21,7 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
     var removeTimerBT: UIButton = UIButton()
  
     // 타이머가 모두 삭제됬는지?
-    var isTimerDelete = false
+    static var isTimerDelete = false
    
    
     override init(frame: CGRect) {
@@ -124,41 +124,25 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
      
         // 시간 포맷
         let nowDate = Date() // 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-        let endDate = Date() + 30
-        
+    
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "a hh시mm분ss초" // 데이터 포맷
-        dateFormatter.locale =  Locale(identifier: "ko_KR") // PM, AM 을 오전, 오후로 변경
-        let str = dateFormatter.string(from: nowDate) // 현재 시간의 Date를 format에 맞춰 string으로 반환
-        let strEnd = dateFormatter.string(from: endDate)
+        // 데이터 포맷
+        dateFormatter.dateFormat = "a hh시mm분ss초"
+        // PM, AM 을 오전, 오후로 변경
+        dateFormatter.locale =  Locale(identifier: "ko_KR")
+        // 현재 시간의 Date를 format에 맞춰 string으로 반환
+        let str = dateFormatter.string(from: nowDate)
         
-        isTimerDelete = false
+        // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
+        ContentsCVTimerView.isTimerDelete = false
         
-        //타이머 시간
-        var time = 300
-        
-        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if self.isTimerDelete == false {
-                //
-            time -= 1
-                
-            print(time)
-                
-                self.myTableView.beginUpdates()
-                self.myTableView.reloadRows(at: self.myTableView.indexPathsForVisibleRows!, with: .none)
-                self.myTableView.endUpdates()
-                
-            self.myTableView.reloadData()
-            }
-            else {
-                timer.invalidate()
-            }
-        }
+        // VM에 timeService 호출
+        ViewModel.VM.timeService()
      
         // 테이블뷰에 아이템 추가
         self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
-        self.timerlist.append("\(time)")
-        self.timerlist.append("종료 예정시간: " + "\(strEnd )")
+        self.timerlist.append("\(ViewModel.VM.time)")
+       
       
         //테이블뷰 리로드
         self.myTableView.reloadData()
@@ -173,7 +157,9 @@ class TimerCell:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate
         
         // vm 초기화
         ViewModel.VM.TimerNum = 0
-        isTimerDelete = true
+        ViewModel.VM.time = 300
+        
+        ContentsCVTimerView.isTimerDelete = true
         self.timerlist.removeAll()
         self.myTableView.reloadData()
     

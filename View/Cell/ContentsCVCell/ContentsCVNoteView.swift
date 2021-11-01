@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoteCell:UICollectionViewCell{
+class ContentsCVNoteView:UICollectionViewCell{
 
     let contents: UILabel = {
         let contents = UILabel()

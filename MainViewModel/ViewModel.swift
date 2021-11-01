@@ -18,6 +18,22 @@ class ViewModel {
     @Published var CurrentCell = 1
     @Published var TimerNum = 0
     @Published var timerlist = []
+    //타이머 시간
+    @Published var time = 300
+    
+    func timeService() {
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        
+            ViewModel.VM.time -= 1
+                
+            print(self.time)
+            if ContentsCVTimerView.isTimerDelete == true {
+                timer.invalidate()
+            }
+        
+        }
+    }
     
 }
 

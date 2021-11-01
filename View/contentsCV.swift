@@ -53,11 +53,11 @@ class contentsCV : UIView {
         
         
         contentscollectionView.register(contentsCell.self, forCellWithReuseIdentifier: "contents")
-        contentscollectionView.register(MainCell.self, forCellWithReuseIdentifier: "Main")
-        contentscollectionView.register(DicCell.self, forCellWithReuseIdentifier: "Dic")
-        contentscollectionView.register(EmailCell.self, forCellWithReuseIdentifier: "Email")
-        contentscollectionView.register(NoteCell.self, forCellWithReuseIdentifier: "Note")
-        contentscollectionView.register(TimerCell.self, forCellWithReuseIdentifier: "Timer")
+        contentscollectionView.register(ContentsCVMainView.self, forCellWithReuseIdentifier: "Main")
+        contentscollectionView.register(ContentsCVDicView.self, forCellWithReuseIdentifier: "Dic")
+        contentscollectionView.register(ContentsCVEmailView.self, forCellWithReuseIdentifier: "Email")
+        contentscollectionView.register(ContentsCVNoteView.self, forCellWithReuseIdentifier: "Note")
+        contentscollectionView.register(ContentsCVTimerView.self, forCellWithReuseIdentifier: "Timer")
         autoScroll()
         
        

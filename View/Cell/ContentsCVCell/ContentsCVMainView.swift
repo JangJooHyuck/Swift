@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainCell:UICollectionViewCell{
+class ContentsCVMainView:UICollectionViewCell{
 
     var TodayWordTextLabel = UILabel()
     var TodayWordLabel = UILabel()
