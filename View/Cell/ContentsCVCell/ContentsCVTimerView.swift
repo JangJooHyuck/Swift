@@ -21,7 +21,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     // 전체삭제 버튼
     var removeTimerBT: UIButton = UIButton()
  
-    // 타이머가 모두 삭제됬는지?
+    // 타이머가 모두 삭제됬는지? (타이머 멈추게 하기위함)
     static var isTimerDelete = false
    
    
@@ -62,7 +62,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
        
-        cell.textLabel?.text = " 타이머 : " + "\(String(ViewModel.VM.time))"
+        cell.textLabel?.text = ("타이머 : " + "\(String(ViewModel.VM.time))")
         
         return cell
     }
@@ -172,8 +172,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         ContentsCVTimerView.isTimerDelete = true
         // vm 초기화
         ViewModel.VM.TimerNum = 0
-        ViewModel.VM.time = 301
-        
+        ViewModel.VM.time = 302
         ViewModel.VM.timerlist.removeAll()
         
         self.myTableView.reloadData()
