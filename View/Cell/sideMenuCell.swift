@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import Combine
+
 
 class sideMenuCell:UICollectionViewCell{
 
-    private var cancellable = Set<AnyCancellable>()
+   
     
     let sideMenutext: UILabel = {
         let sideMenutext = UILabel()
@@ -31,19 +31,9 @@ class sideMenuCell:UICollectionViewCell{
         sideMenutext.layer.borderWidth = 1
         
         sideMenutext.backgroundColor = .yellow
-        highlightSideMenu()
+      
     }
-    func highlightSideMenu(){
-        ViewModel.VM.$didSideMenuHighright.sink { value in
-            print(value)
-            if value == true {
-                self.sideMenutext.backgroundColor = .red
-            }
-            else {
-                self.sideMenutext.backgroundColor = .yellow
-            }
-        }.store(in: &cancellable)
-    }
+  
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
