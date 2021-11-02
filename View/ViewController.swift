@@ -11,10 +11,11 @@ import Combine
 class ViewController: UIViewController {
     
     private var cancellable = Set<AnyCancellable>()
-   
-    //62씩
+  
+    var blurView = UIView()
+    
     var indicator = UIView()
-        
+    
     
     var HamBT: UIButton = {
         let HamBT : UIButton = UIButton(frame: .zero)
@@ -47,13 +48,28 @@ class ViewController: UIViewController {
         view.addSubview(sideMenu)
         view.addSubview(contents)
         view.addSubview(indicator)
-        
+        view.addSubview(blurView)
+       
         Layout()
         indicatorMove()
-        
+        closeSide()
     }
     
     func Layout() {
+        //blurview 레이아웃
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        
+        blurView.isUserInteractionEnabled = false
+       
+        blurView.topAnchor.constraint(equalTo: topMenu.topAnchor, constant: 0).isActive = true
+        blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.5).isActive = true
+        blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0.5).isActive = true
+        blurView.layer.zPosition = -1
+        blurView.layer.cornerRadius = 5
+        blurView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        blurView.isHidden = true
+        
         //indicator 레이아웃
         indicator.translatesAutoresizingMaskIntoConstraints = false
         
@@ -72,7 +88,7 @@ class ViewController: UIViewController {
       
         topMenu.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 0).isActive = true
         topMenu.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-       
+        topMenu.layer.zPosition = -2
         topMenu.heightAnchor.constraint(equalToConstant: 50).isActive = true
       
         //햄버거메뉴 버튼 레이아웃
@@ -93,6 +109,7 @@ class ViewController: UIViewController {
         sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 10).isActive = true
         sideMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
         sideMenu.heightAnchor.constraint(equalToConstant: CGFloat((ViewModel.VM.MenuList.count) * 100)).isActive = true
+        sideMenu.bringSubviewToFront(blurView)
         sideMenu.isHidden = true
         
         //콘텐츠 레이아웃
@@ -110,32 +127,40 @@ class ViewController: UIViewController {
     //햄버거메뉴버튼 터치이벤트
     @objc func HamBTpressed() {
         if buttonTap == false {
-        HamBT.backgroundColor = .red
+       
             SideMenuOpen()
             
         }
         else{
-            HamBT.backgroundColor = .black
+           
             SideMenuClose()
+            
         }
     }
     // 사이드메뉴 오픈
     func SideMenuOpen(){
         print("sideMenuOpen")
+        HamBT.backgroundColor = .red
         sideMenu.isHidden = false
         buttonTap = true
+        blurView.isHidden = false
         //콘텐츠 및 탑 메뉴 클릭 제한
+      
         topMenu.isUserInteractionEnabled = false
         contents.isUserInteractionEnabled = false
     }
     // 사이드메뉴 클로즈
     func SideMenuClose(){
+        HamBT.backgroundColor = .black
         print("sideMenuClose")
         sideMenu.isHidden = true
         buttonTap = false
+        blurView.isHidden = true
         //콘텐츠 및 탑 메뉴 클릭 제한 해제
         topMenu.isUserInteractionEnabled = true
         contents.isUserInteractionEnabled = true
+        topMenu.backgroundColor = .clear
+        contents.backgroundColor = .clear
     }
     
     func indicatorMove(){
@@ -152,9 +177,12 @@ class ViewController: UIViewController {
         }.store(in: &cancellable)
     }
     
-   
+    func closeSide() {
+        ViewModel.VM.$CurrentCell.sink { value in
+            self.SideMenuClose()
+    }.store(in: &cancellable)
     
-    
+    }
     
 }
 

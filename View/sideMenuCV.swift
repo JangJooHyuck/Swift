@@ -40,6 +40,13 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         return SidecollectionView
     }()
     
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        ViewModel.VM.didSideMenuHighright = true
+    }
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        ViewModel.VM.didSideMenuHighright = false
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,6 +59,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         SidecollectionView.delegate = self
         SidecollectionView.dataSource = self
         SidecollectionView.backgroundColor = .clear
+       
         SidecollectionView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         

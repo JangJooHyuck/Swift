@@ -17,6 +17,9 @@ class ViewModel {
     @Published var MenuList = ["메인","사전","이메일","단어장","타이머"]
     @Published var CurrentCell = 0
     @Published var TimerNum = 0
+    
+    // 사이드메뉴 하이라이트
+    @Published var didSideMenuHighright = false
     //타이머 시간
     @Published var time = 300
     

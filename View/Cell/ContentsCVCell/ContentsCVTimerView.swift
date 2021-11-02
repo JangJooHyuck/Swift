@@ -62,7 +62,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
        
-        cell.textLabel?.text = ViewModel.VM.timerlist[indexPath.row] as! String
+        cell.textLabel?.text = ViewModel.VM.timerlist[indexPath.row] as? String
         
         return cell
     }
