@@ -25,6 +25,7 @@
 		9EAE3C582704296400E22064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EAE3C562704296400E22064 /* LaunchScreen.storyboard */; };
 		9EAE3C632704296400E22064 /* SwiftAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE3C622704296400E22064 /* SwiftAppTests.swift */; };
 		9EAE3C6E2704296400E22064 /* SwiftAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE3C6D2704296400E22064 /* SwiftAppUITests.swift */; };
+		9EDB61FE273121E7009EF1FF /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EDB61FD273121E7009EF1FF /* menu.png */; };
 		9EFEC47A272925750094C4BB /* topMenuCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEC479272925750094C4BB /* topMenuCV.swift */; };
 		9EFEC47C2729288F0094C4BB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEC47B2729288F0094C4BB /* ViewModel.swift */; };
 		9EFEC47E272929700094C4BB /* topMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEC47D272929700094C4BB /* topMenuCell.swift */; };
@@ -72,6 +73,7 @@
 		9EAE3C692704296400E22064 /* SwiftAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EAE3C6D2704296400E22064 /* SwiftAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAppUITests.swift; sourceTree = "<group>"; };
 		9EAE3C6F2704296400E22064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EDB61FD273121E7009EF1FF /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = ../../menu.png; sourceTree = "<group>"; };
 		9EFEC479272925750094C4BB /* topMenuCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topMenuCV.swift; sourceTree = "<group>"; };
 		9EFEC47B2729288F0094C4BB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		9EFEC47D272929700094C4BB /* topMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topMenuCell.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		9EAE3C3C2704296400E22064 = {
 			isa = PBXGroup;
 			children = (
+				9EDB61FD273121E7009EF1FF /* menu.png */,
 				9EFEC4772729242A0094C4BB /* View */,
 				9EFEC476272924200094C4BB /* MainViewModel */,
 				9EAE3C472704296400E22064 /* SwiftApp */,
@@ -302,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EDB61FE273121E7009EF1FF /* menu.png in Resources */,
 				9EAE3C582704296400E22064 /* LaunchScreen.storyboard in Resources */,
 				9EAE3C552704296400E22064 /* Assets.xcassets in Resources */,
 				9EAE3C502704296400E22064 /* Main.storyboard in Resources */,
