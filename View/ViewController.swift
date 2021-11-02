@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         indicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
         indicator.heightAnchor.constraint(equalToConstant: 10).isActive = true
         indicator.topAnchor.constraint(equalTo: topMenu.bottomAnchor, constant: 5).isActive = true
-        indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
+        indicator.transform = CGAffineTransform(translationX: 70, y: 0)
         
         indicator.layer.cornerRadius = 5
         indicator.backgroundColor = .red
@@ -165,11 +165,10 @@ class ViewController: UIViewController {
     
     func indicatorMove(){
         ViewModel.VM.$CurrentCell.sink { value in
-            
             UIView.animate(withDuration: 1.0,
                 animations: {
-                    self.indicator.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
-                    print(self.indicator.frame.minY)
+                    self.indicator.transform = CGAffineTransform(translationX: CGFloat(Int(value + 1) * 65), y: 0)
+                    
                 },
                 completion: nil
               )
