@@ -73,9 +73,9 @@ class ViewController: UIViewController {
         //indicator 레이아웃
         indicator.translatesAutoresizingMaskIntoConstraints = false
         
-        indicator.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        indicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
         indicator.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        indicator.topAnchor.constraint(equalTo: topMenu.bottomAnchor, constant: 5).isActive = true
+        indicator.topAnchor.constraint(equalTo: topMenu.bottomAnchor, constant: -10).isActive = true
         indicator.transform = CGAffineTransform(translationX: 0, y: 0)
         
         indicator.layer.cornerRadius = 5
@@ -170,10 +170,10 @@ class ViewController: UIViewController {
                 animations: {
                     
                     if value == 0 {
-                        self.indicator.transform = CGAffineTransform(translationX: CGFloat(((value + 1)) * 75), y: 0)
+                        self.indicator.transform = CGAffineTransform(translationX: CGFloat(((value + 1)) * 70), y: 0)
                     }
                     else {
-                        self.indicator.transform = CGAffineTransform(translationX: CGFloat((value + 1) * 66), y: 0)
+                        self.indicator.transform = CGAffineTransform(translationX: CGFloat(((value + 1)) * 64), y: 0)
                     }
                     
                 },

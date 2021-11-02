@@ -25,8 +25,8 @@ class topMenuCell:UICollectionViewCell{
       
         tmenutext.widthAnchor.constraint(equalToConstant: 50).isActive = true
         tmenutext.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        tmenutext.layer.cornerRadius = 20
-        tmenutext.layer.borderWidth = 1
+        tmenutext.layer.cornerRadius = 1
+      
         
         tmenutext.backgroundColor = .clear
         
