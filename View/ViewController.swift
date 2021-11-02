@@ -53,6 +53,7 @@ class ViewController: UIViewController {
         Layout()
         indicatorMove()
         closeSide()
+        closeSideMenuMove()
     }
     
     func Layout() {
@@ -124,17 +125,20 @@ class ViewController: UIViewController {
         
         
         
-        
     }
     //햄버거메뉴버튼 터치이벤트
     @objc func HamBTpressed() {
         if buttonTap == false {
-       
+            UIView.animate(withDuration: 0.5, animations: {
+                self.HamBT.transform = self.HamBT.transform.rotated(by: CGFloat.pi / 2.0)
+            })
             SideMenuOpen()
             
         }
         else{
-           
+            UIView.animate(withDuration: 0.5, animations: {
+                self.HamBT.transform = self.HamBT.transform.rotated(by: CGFloat.pi / -2.0)
+            })
             SideMenuClose()
             
         }
@@ -142,9 +146,7 @@ class ViewController: UIViewController {
     // 사이드메뉴 오픈
     func SideMenuOpen(){
         print("sideMenuOpen")
-        UIView.animate(withDuration: 1.0, animations: {
-            self.HamBT.transform = self.HamBT.transform.rotated(by: CGFloat.pi / 2.0)
-        })
+        
         sideMenu.isHidden = false
         buttonTap = true
         blurView.isHidden = false
@@ -156,9 +158,7 @@ class ViewController: UIViewController {
     // 사이드메뉴 클로즈
     func SideMenuClose(){
         print("sideMenuClose")
-        UIView.animate(withDuration: 1.0, animations: {
-            self.HamBT.transform = self.HamBT.transform.rotated(by: CGFloat.pi / 2.0)
-        })
+        
         sideMenu.isHidden = true
         buttonTap = false
         blurView.isHidden = true
@@ -192,6 +192,21 @@ class ViewController: UIViewController {
     func closeSide() {
         ViewModel.VM.$CurrentCell.sink { value in
             self.SideMenuClose()
+    }.store(in: &cancellable)
+    
+    }
+    
+    func closeSideMenuMove() {
+        
+        // 시작시 메뉴버튼 로테이션 초기화
+        UIView.animate(withDuration: 0.5, animations: {
+            self.HamBT.transform = self.HamBT.transform.rotated(by: CGFloat.pi / -2.0)
+        })
+        
+        ViewModel.VM.$SideCurrentCell.sink { value in
+            UIView.animate(withDuration: 0.5, animations: {
+                self.HamBT.transform = self.HamBT.transform.rotated(by: CGFloat.pi / -2.0)
+            })
     }.store(in: &cancellable)
     
     }

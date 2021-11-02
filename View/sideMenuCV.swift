@@ -25,7 +25,16 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
     // 클릭 이벤트
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         ViewModel.VM.CurrentCell = indexPath.row
+        
+        //사이드메뉴 이동을 위함.
+        //기존에 위에 커렌트셀만 변경하면 탑메뉴 이동시에도 메뉴버튼이 움직였음.
+        ViewModel.VM.SideCurrentCell = indexPath.row
+        
+   
         print("CurrentCell = \(ViewModel.VM.CurrentCell)")
+    }
+     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        
     }
     let SidecollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
