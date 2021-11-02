@@ -20,7 +20,7 @@ class ViewModel {
     //타이머 시간
     @Published var time = 300
     
-    @Published var timerlist = [""]
+    @Published var timerlist = []
     
     
     func timeService() {

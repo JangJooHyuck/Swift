@@ -62,7 +62,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
        
-        cell.textLabel?.text = ("타이머 : " + "\(String(ViewModel.VM.time))")
+        cell.textLabel?.text = ViewModel.VM.timerlist[indexPath.row] as! String
         
         return cell
     }
@@ -137,16 +137,16 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머 순서 VM 에 전달
         ViewModel.VM.TimerNum += 1
 //
-//        // 시간 포맷
-//        let nowDate = Date() // 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-//
-//        let dateFormatter = DateFormatter()
-//        // 데이터 포맷
-//        dateFormatter.dateFormat = "a hh시mm분ss초"
-//        // PM, AM 을 오전, 오후로 변경
-//        dateFormatter.locale =  Locale(identifier: "ko_KR")
-//        // 현재 시간의 Date를 format에 맞춰 string으로 반환
-//        let str = dateFormatter.string(from: nowDate)
+        // 시간 포맷
+        let nowDate = Date() // 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
+
+        let dateFormatter = DateFormatter()
+        // 데이터 포맷
+        dateFormatter.dateFormat = "a hh시mm분ss초"
+        // PM, AM 을 오전, 오후로 변경
+        dateFormatter.locale =  Locale(identifier: "ko_KR")
+        // 현재 시간의 Date를 format에 맞춰 string으로 반환
+        let str = dateFormatter.string(from: nowDate)
         
         // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
         ContentsCVTimerView.isTimerDelete = false
@@ -155,7 +155,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         ViewModel.VM.timeService()
        
 //        // 테이블뷰에 아이템 추가
-//        ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
+        ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
         
     }
     
