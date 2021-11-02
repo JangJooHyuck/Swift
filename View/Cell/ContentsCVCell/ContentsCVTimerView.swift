@@ -12,8 +12,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     private var cancellable = Set<AnyCancellable>()
     //테이블뷰
-    static let myTableView: UITableView = UITableView()
-    var timerlist = ViewModel.VM.timerlist
+    let myTableView: UITableView = UITableView()
+    
     
     //타이머 시작버튼
     var startTimerBT: UIButton = UIButton()
@@ -29,35 +29,40 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         super.init(frame: frame)
         
         
-        ContentsCVTimerView.myTableView.dataSource = self
-        ContentsCVTimerView.myTableView.delegate = self
+        self.myTableView.dataSource = self
+        self.myTableView.delegate = self
         
-        ContentsCVTimerView.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.addSubview(ContentsCVTimerView.myTableView)
+        self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.addSubview(self.myTableView)
         self.addSubview(startTimerBT)
         self.addSubview(removeTimerBT)
       
         
-        ContentsCVTimerView.myTableView.translatesAutoresizingMaskIntoConstraints = false
+        self.myTableView.translatesAutoresizingMaskIntoConstraints = false
         self.startTimerBT.translatesAutoresizingMaskIntoConstraints = false
         self.removeTimerBT.translatesAutoresizingMaskIntoConstraints = false
         
         TVlayout()
         TMBTlayout()
         TMBTremoveLayout()
-        self.timerlist.removeAll()
+        sinkVm()
+        ViewModel.VM.timerlist.removeAll()
         
         
         
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        timerlist.count
+        Int(ViewModel.VM.TimerNum)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
-        
-        cell.textLabel?.text = timerlist[indexPath.row]
+       
+        cell.textLabel?.text = " 타이머 : " + "\(String(ViewModel.VM.time))"
         
         return cell
     }
@@ -65,11 +70,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         //tableView layout
         
-        ContentsCVTimerView.myTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        ContentsCVTimerView.myTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        ContentsCVTimerView.myTableView.topAnchor.constraint(equalTo: topAnchor, constant: 100).isActive = true
-        ContentsCVTimerView.myTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        ContentsCVTimerView.myTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        self.myTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        self.myTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.myTableView.topAnchor.constraint(equalTo: topAnchor, constant: 100).isActive = true
+        self.myTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        self.myTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
     }
     func TMBTlayout(){
         
@@ -111,6 +116,15 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         removeTimerBT.layer.cornerRadius = 10
     }
+    func sinkVm(){
+        
+    // vm의 time 값이 변경되면
+    ViewModel.VM.$time.sink {  value in
+       
+        self.myTableView.reloadData()
+        
+        }.store(in: &cancellable)
+    }
     
     @objc func addTimer(sender: UIButton!)
     {
@@ -122,42 +136,30 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         // 타이머 순서 VM 에 전달
         ViewModel.VM.TimerNum += 1
-     
-        // 시간 포맷
-        let nowDate = Date() // 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-    
-        let dateFormatter = DateFormatter()
-        // 데이터 포맷
-        dateFormatter.dateFormat = "a hh시mm분ss초"
-        // PM, AM 을 오전, 오후로 변경
-        dateFormatter.locale =  Locale(identifier: "ko_KR")
-        // 현재 시간의 Date를 format에 맞춰 string으로 반환
-        let str = dateFormatter.string(from: nowDate)
+//
+//        // 시간 포맷
+//        let nowDate = Date() // 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
+//
+//        let dateFormatter = DateFormatter()
+//        // 데이터 포맷
+//        dateFormatter.dateFormat = "a hh시mm분ss초"
+//        // PM, AM 을 오전, 오후로 변경
+//        dateFormatter.locale =  Locale(identifier: "ko_KR")
+//        // 현재 시간의 Date를 format에 맞춰 string으로 반환
+//        let str = dateFormatter.string(from: nowDate)
         
         // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
         ContentsCVTimerView.isTimerDelete = false
         
         // VM에 timeService 호출
-        
         ViewModel.VM.timeService()
-        // vm의 time 값이 변경되면
-        ViewModel.VM.$time.sink {  value in
-            
-            ContentsCVTimerView.myTableView.reloadData()
-            
-            }.store(in: &cancellable)
-        
-        
-        // 테이블뷰에 아이템 추가
-        self.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
-        self.timerlist.append("\(ViewModel.VM.time)")
-        
-        
-
        
-       
+//        // 테이블뷰에 아이템 추가
+//        ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
         
     }
+    
+    // 모두 삭제버튼 액션
     @objc func deleteTimer(sender: UIButton!){
         // 버튼 클릭시 애니메이션 설정
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
@@ -165,20 +167,20 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        // vm 초기화
-        ViewModel.VM.TimerNum = 0
-        ViewModel.VM.time = 300
+        
         
         ContentsCVTimerView.isTimerDelete = true
-        self.timerlist.removeAll()
-        ContentsCVTimerView.myTableView.reloadData()
+        // vm 초기화
+        ViewModel.VM.TimerNum = 0
+        ViewModel.VM.time = 301
+        
+        ViewModel.VM.timerlist.removeAll()
+        
+        self.myTableView.reloadData()
     
     }
    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+  
    
 }
 

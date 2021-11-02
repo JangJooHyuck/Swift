@@ -145,8 +145,8 @@ class ContentsCVMainView:UICollectionViewCell{
         TodayWordLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         TodayWordLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true
         TodayWordLabel.topAnchor.constraint(equalTo: TodayWordTextLabel.bottomAnchor, constant: 100).isActive = true
-        TodayWordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        TodayWordLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+       
+        TodayWordLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
         
         
         
@@ -155,8 +155,8 @@ class ContentsCVMainView:UICollectionViewCell{
         TodayWordContentLabel.heightAnchor.constraint(equalToConstant: 200).isActive = true
         TodayWordContentLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true
         TodayWordContentLabel.topAnchor.constraint(equalTo: TodayWordLabel.bottomAnchor, constant:30).isActive = true
-        TodayWordContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        TodayWordContentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        
+        TodayWordContentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25).isActive = true
         TodayWordContentLabel.layer.cornerRadius = 10
         TodayWordContentLabel.layer.borderWidth = 1
         
@@ -166,8 +166,8 @@ class ContentsCVMainView:UICollectionViewCell{
         TodayWordReplaceBT.heightAnchor.constraint(equalToConstant: 100).isActive = true
         TodayWordReplaceBT.widthAnchor.constraint(equalToConstant: 400).isActive = true
         TodayWordReplaceBT.topAnchor.constraint(equalTo: TodayWordContentLabel.bottomAnchor, constant:50).isActive = true
-        TodayWordReplaceBT.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        TodayWordReplaceBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+       
+        TodayWordReplaceBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
         TodayWordReplaceBT.layer.cornerRadius = 10
        
     }

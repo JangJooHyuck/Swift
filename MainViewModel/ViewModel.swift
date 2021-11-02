@@ -15,25 +15,29 @@ class ViewModel {
     static let VM = ViewModel()
     
     @Published var MenuList = ["메인","사전","이메일","단어장","타이머"]
-    @Published var CurrentCell = 1
+    @Published var CurrentCell = 0
     @Published var TimerNum = 0
     //타이머 시간
     @Published var time = 300
     
-    @Published var timerlist = ["time"]
+    @Published var timerlist = [""]
     
     
     func timeService() {
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-        
-            ViewModel.VM.time -= 1
-            ContentsCVTimerView.myTableView.reloadData()
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [self] timer in
+            
+            self.time -= 1
+            
             print(self.time)
+            
+            // 타이머 멈추면 스탑
             if ContentsCVTimerView.isTimerDelete == true {
+                
                 timer.invalidate()
+                
             }
-        
+            
         }
     }
     

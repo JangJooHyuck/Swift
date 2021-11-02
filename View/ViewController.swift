@@ -11,12 +11,10 @@ import Combine
 class ViewController: UIViewController {
     
     private var cancellable = Set<AnyCancellable>()
-    
+   
     //62씩
-    var indicator : UIView = {
-        let indicator : UIView = UIView(frame: CGRect(x: 0, y: 100, width: 50, height: 10))
-        return indicator
-    }()
+    var indicator = UIView()
+        
     
     var HamBT: UIButton = {
         let HamBT : UIButton = UIButton(frame: .zero)
@@ -50,16 +48,19 @@ class ViewController: UIViewController {
         view.addSubview(contents)
         view.addSubview(indicator)
         
-       
-        indicatorMove()
         Layout()
-        
+        indicatorMove()
         
     }
     
     func Layout() {
         //indicator 레이아웃
         indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        indicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        indicator.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        indicator.topAnchor.constraint(equalTo: topMenu.bottomAnchor, constant: 5).isActive = true
+        indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
         
         indicator.layer.cornerRadius = 5
         indicator.backgroundColor = .red
@@ -89,11 +90,8 @@ class ViewController: UIViewController {
         sideMenu.translatesAutoresizingMaskIntoConstraints = false
         sideMenu.backgroundColor = .clear
         sideMenu.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -320).isActive = true
-        sideMenu.heightAnchor.constraint(equalToConstant: 300).isActive = true
         sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 10).isActive = true
-        
         sideMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
-
         sideMenu.heightAnchor.constraint(equalToConstant: CGFloat((ViewModel.VM.MenuList.count) * 100)).isActive = true
         sideMenu.isHidden = true
         
@@ -105,7 +103,6 @@ class ViewController: UIViewController {
         contents.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         contents.topAnchor.constraint(equalTo: topMenu.bottomAnchor).isActive = true
         
-        contents.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         
         
@@ -144,10 +141,10 @@ class ViewController: UIViewController {
     func indicatorMove(){
         ViewModel.VM.$CurrentCell.sink { value in
             
-            UIView.animate(withDuration: 1.0, delay: 0.0,
-                options: .curveEaseOut,
+            UIView.animate(withDuration: 1.0,
                 animations: {
-                    print("dd")
+                    self.indicator.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
+                    print(self.indicator.frame.minY)
                 },
                 completion: nil
               )
