@@ -46,7 +46,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         TVlayout()
         TMBTlayout()
         TMBTremoveLayout()
-        sinkVm()
+      //  sinkVm()
         ViewModel.VM.timerlist.removeAll()
         
         
@@ -118,15 +118,15 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         removeTimerBT.layer.cornerRadius = 10
     }
     // 값이 변경되면 테이블뷰 아이템 재배치 (리로드)
-    func sinkVm(){
-        
-    // vm의 time 값이 변경되면
-    ViewModel.VM.$time.sink {  value in
-       
-        self.myTableView.reloadData()
-        
-        }.store(in: &cancellable)
-    }
+//    func sinkVm(){
+//
+//    // vm의 time 값이 변경되면
+//    ViewModel.VM.$time.sink {  value in
+//
+//        self.myTableView.reloadData()
+//
+//        }.store(in: &cancellable)
+//    }
     
     @objc func addTimer(sender: UIButton!)
     {
@@ -141,9 +141,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
 // 타이머 시작시간
         // 시간 포맷
-        let nowDate = Date() // 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-
+        let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
         let dateFormatter = DateFormatter()
+        
         // 데이터 포맷
         dateFormatter.dateFormat = "a hh시mm분ss초"
         // PM, AM 을 오전, 오후로 변경
@@ -154,17 +154,15 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
         ContentsCVTimerView.isTimerDelete = false
         
-        
-        
-        
+        var time = 300
         // 타이머
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-                var time = ViewModel.VM.time
+                
                 time -= 1
+                print("\(time)")
                 self.myTableView.reloadData()
-                // 테이블뷰에 타이머시작시간 추가.
-                ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)" + ". 타이머: " + "\(time))")
-                print("\(ViewModel.VM.timerlist)")
+                
+               
         // 타이머 멈추면 스탑
         if ContentsCVTimerView.isTimerDelete == true {
                         
@@ -174,6 +172,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
                
         }
         
+        // 테이블뷰에 타이머시작시간 추가.
+       // ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)" + ". 타이머: " + "\(time))")
+        ViewModel.VM.timerlist.append("\(time)")
        
 
         
