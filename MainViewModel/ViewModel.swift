@@ -32,9 +32,7 @@ class ViewModel {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [self] timer in
             
             self.time -= 1
-            
-            print(self.time)
-            
+           
             // 타이머 멈추면 스탑
             if ContentsCVTimerView.isTimerDelete == true {
                 

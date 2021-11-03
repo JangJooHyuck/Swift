@@ -116,6 +116,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         removeTimerBT.layer.cornerRadius = 10
     }
+    // 값이 변경되면 테이블뷰 아이템 재배치 (리로드)
     func sinkVm(){
         
     // vm의 time 값이 변경되면
@@ -134,9 +135,10 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        // 타이머 순서 VM 에 전달
+        // 타이머 순서 VM 에 전달, 셀의 갯수 설정
         ViewModel.VM.TimerNum += 1
-//
+        
+// 타이머 시작시간
         // 시간 포맷
         let nowDate = Date() // 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
 
@@ -151,11 +153,21 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
         ContentsCVTimerView.isTimerDelete = false
         
-        // VM에 timeService 호출
-        ViewModel.VM.timeService()
+// 타이머
+                var time = ViewModel.VM.time
+                
+                // VM에 timeService 호출 (1초마다 time 1초씩 감소)
+                ViewModel.VM.timeService()
        
-//        // 테이블뷰에 아이템 추가
-        ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)")
+       
+//        // 테이블뷰에 타이머시작시간 추가.
+        ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)" + ". 타이머: " + "\(time)")
+        
+        
+
+        
+       
+        
         
     }
     
