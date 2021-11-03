@@ -10,11 +10,12 @@ import Combine
 
 class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
+    
     private var cancellable = Set<AnyCancellable>()
     //테이블뷰
     let myTableView: UITableView = UITableView()
     
-    //타이머 순서
+    //타이머 순서 및 셀 개수
     var timerNum = 0
     
     //타이머 시작버튼
@@ -47,7 +48,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         TVlayout()
         TMBTlayout()
         TMBTremoveLayout()
-      //  sinkVm()
+        sinkVm()
         ViewModel.VM.timerlist.removeAll()
         
         
@@ -58,7 +59,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         fatalError("init(coder:) has not been implemented")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Int(ViewModel.VM.TimerNum)
+        Int(self.timerNum)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -118,17 +119,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         removeTimerBT.layer.cornerRadius = 10
     }
-    // 값이 변경되면 테이블뷰 아이템 재배치 (리로드)
-//    func sinkVm(){
-//
-//    // vm의 time 값이 변경되면
-//    ViewModel.VM.$time.sink {  value in
-//
-//        self.myTableView.reloadData()
-//
-//        }.store(in: &cancellable)
-//    }
-    
+        
     @objc func addTimer(sender: UIButton!)
     {
         // 버튼 클릭시 애니메이션 설정
@@ -136,10 +127,16 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.fromValue = UIColor.white.cgColor
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
+        // 셀추가
+        timerNum += 1
         
-        // 시작버튼 누를때마다 vm 의 timerNum 을 1씩 올려주며 셀의 갯수 설정
-        ViewModel.VM.TimerNum += 1
+        // 타이머
         
+        var timerSet = 300
+        
+        ViewModel.VM.timerlist.append("\(timerSet)")
+        
+      
 // 타이머 시작시간
 //        // 시간 포맷
 //        let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
@@ -155,39 +152,53 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
 //        // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
 //        ContentsCVTimerView.isTimerDelete = false
         
-        var time = 300
        
-        timerNum += 1
-        
-        ViewModel.VM.timerlist.append("\(time)")
-        
-        // 타이머
-            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        // 1초마다 timerSet 을 -1 해준다
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            
+            timerSet -= 1
+            
+            print("\(timerSet)")
+            // 타이머 멈추면 스탑
+            if ContentsCVTimerView.isTimerDelete == true {
                 
-                time -= 1
-                print("\(time)")
+                timer.invalidate()
                 
-                //1초마다 테이블뷰 새로고침
-                ViewModel.VM.timerlist[0] = ("\(time)")
-                self.myTableView.reloadData()
-                
-               
-        // 타이머 멈추면 스탑
-        if ContentsCVTimerView.isTimerDelete == true {
-                        
-            timer.invalidate()
-            print("stopTimer")
             }
-               
+            
         }
+        // 0.1초마다 테이블 재배치
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            
+            self.myTableView.reloadData()
+             
+            // 타이머 멈추면 스탑
+            if ContentsCVTimerView.isTimerDelete == true {
+                
+                timer.invalidate()
+                
+            }
+            
+        }
+
+        
         
         // 테이블뷰에 타이머시작시간 추가.
        // ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)" + ". 타이머: " + "\(time))")
         
-       
-
-        
     }
+    
+    // 값이 변경되면 테이블뷰 아이템 재배치 (리로드)
+    func sinkVm(){
+
+    // vm의 time 값이 변경되면
+    ViewModel.VM.$time.sink {  value in
+
+        self.myTableView.reloadData()
+
+        }.store(in: &cancellable)
+    }
+
     
     // 모두 삭제버튼 액션
     @objc func deleteTimer(sender: UIButton!){
@@ -201,10 +212,12 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         ContentsCVTimerView.isTimerDelete = true
         // vm 초기화
-        ViewModel.VM.TimerNum = 0
+        
         ViewModel.VM.time = 302
         ViewModel.VM.timerlist.removeAll()
         
+        // timernum 초기화
+        timerNum = 0 
         self.myTableView.reloadData()
     
     }

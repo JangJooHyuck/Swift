@@ -17,7 +17,7 @@ class ViewModel {
     @Published var MenuList = ["메인","사전","이메일","단어장","타이머"]
     @Published var CurrentCell = 0
     @Published var SideCurrentCell = 0
-    @Published var TimerNum = 0
+   
     
     // 사이드메뉴 하이라이트
     @Published var didSideMenuHighright = false
@@ -27,21 +27,26 @@ class ViewModel {
     @Published var timerlist = []
     
     
-    func timeService() {
-        
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [self] timer in
-            
-            self.time -= 1
-           
-            // 타이머 멈추면 스탑
-            if ContentsCVTimerView.isTimerDelete == true {
-                
-                timer.invalidate()
-                
-            }
-            
-        }
-    }
+//    func timeService() {
+//        
+//        // 1초마다 타임을 1씩 빼준다.
+//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+//            
+//            self.time -= 1
+//            print("\(self.time)")
+//            
+//            
+//            // 타이머 멈추면 스탑
+//            if ContentsCVTimerView.isTimerDelete == true {
+//                
+//                timer.invalidate()
+//                
+//            }
+//            
+//        }
+//        
+//    }
+//   
     
 }
 
