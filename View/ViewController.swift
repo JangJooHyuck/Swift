@@ -150,6 +150,12 @@ class ViewController: UIViewController {
         sideMenu.isHidden = false
         buttonTap = true
         blurView.isHidden = false
+        
+        //사이드메뉴 무브
+        UIView.animate(withDuration: 0.5, animations: {
+            self.sideMenu.transform = CGAffineTransform(translationX: -10, y: -10)
+        })
+      
         //콘텐츠 및 탑 메뉴 클릭 제한
       
         topMenu.isUserInteractionEnabled = false
@@ -162,6 +168,12 @@ class ViewController: UIViewController {
         sideMenu.isHidden = true
         buttonTap = false
         blurView.isHidden = true
+        
+        //사이드메뉴 무브
+        UIView.animate(withDuration: 0.5, animations: {
+            self.sideMenu.transform = CGAffineTransform(translationX: -200, y: -10)
+        })
+        
         //콘텐츠 및 탑 메뉴 클릭 제한 해제
         topMenu.isUserInteractionEnabled = true
         contents.isUserInteractionEnabled = true

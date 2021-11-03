@@ -10,8 +10,6 @@ import UIKit
 
 class sideMenuCell:UICollectionViewCell{
 
-   
-    
     let sideMenutext: UILabel = {
         let sideMenutext = UILabel()
         sideMenutext.textAlignment = .center
@@ -27,10 +25,10 @@ class sideMenuCell:UICollectionViewCell{
         sideMenutext.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
         sideMenutext.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
         
-       
-        sideMenutext.layer.borderWidth = 1
+
         
-        sideMenutext.backgroundColor = .yellow
+        
+        sideMenutext.backgroundColor = .clear
       
     }
   

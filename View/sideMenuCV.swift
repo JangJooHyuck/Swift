@@ -19,6 +19,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sideMenu", for: indexPath) as! sideMenuCell
         
         cell.sideMenutext.text = ViewModel.VM.MenuList[indexPath.item]
+       
         return cell
         
     }
@@ -30,7 +31,6 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         //기존에 위에 커렌트셀만 변경하면 탑메뉴 이동시에도 메뉴버튼이 움직였음.
         ViewModel.VM.SideCurrentCell = indexPath.row
         
-   
         print("CurrentCell = \(ViewModel.VM.CurrentCell)")
     }
      func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -62,14 +62,16 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         SidecollectionView.translatesAutoresizingMaskIntoConstraints = false
         SidecollectionView.delegate = self
         SidecollectionView.dataSource = self
-        SidecollectionView.backgroundColor = .clear
+        SidecollectionView.backgroundColor = .white
        
-        SidecollectionView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        SidecollectionView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        SidecollectionView.heightAnchor.constraint(equalToConstant: 750).isActive = true
         SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         SidecollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        SidecollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+       
         SidecollectionView.register(sideMenuCell.self, forCellWithReuseIdentifier: "sideMenu")
+        
         
                 
     }
