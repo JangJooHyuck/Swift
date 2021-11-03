@@ -159,14 +159,16 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
        
         timerNum += 1
         
-        ViewModel.VM.timerlist.append("["+"\(timerNum)"+"]" + " \(time)")
+        ViewModel.VM.timerlist.append("\(time)")
         
         // 타이머
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
                 
                 time -= 1
                 print("\(time)")
-           
+                
+                //1초마다 테이블뷰 새로고침
+                ViewModel.VM.timerlist[0] = ("\(time)")
                 self.myTableView.reloadData()
                 
                
