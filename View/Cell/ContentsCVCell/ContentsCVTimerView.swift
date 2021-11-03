@@ -15,6 +15,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     let myTableView: UITableView = UITableView()
     
     
+    
     //타이머 시작버튼
     var startTimerBT: UIButton = UIButton()
     
@@ -153,21 +154,28 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
         ContentsCVTimerView.isTimerDelete = false
         
-// 타이머
+        
+        
+        
+        // 타이머
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
                 var time = ViewModel.VM.time
-                
-                // VM에 timeService 호출 (1초마다 time 1초씩 감소)
-                ViewModel.VM.timeService()
-       
-       
-//        // 테이블뷰에 타이머시작시간 추가.
-        ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)" + ". 타이머: " + "\(time)")
+                time -= 1
+                self.myTableView.reloadData()
+                // 테이블뷰에 타이머시작시간 추가.
+                ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)" + ". 타이머: " + "\(time))")
+                print("\(ViewModel.VM.timerlist)")
+        // 타이머 멈추면 스탑
+        if ContentsCVTimerView.isTimerDelete == true {
+                        
+            timer.invalidate()
+                        
+            }
+               
+        }
         
-        
+       
 
-        
-       
-        
         
     }
     
