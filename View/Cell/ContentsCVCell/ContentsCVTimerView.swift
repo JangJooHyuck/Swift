@@ -127,14 +127,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.fromValue = UIColor.white.cgColor
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
-        // 셀추가
-        timerNum += 1
         
-        // 타이머
-        
-        var timerSet = 300
-        
-        ViewModel.VM.timerlist.append("\(timerSet)")
         
       
 // 타이머 시작시간
@@ -152,13 +145,22 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
 //        // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
 //        ContentsCVTimerView.isTimerDelete = false
         
+        
+        
+        // 타이머
+        
+        
+        
        
         // 1초마다 timerSet 을 -1 해준다
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
-            timerSet -= 1
+            // 셀추가
+            self.timerNum += 1
+            ViewModel.VM.timerlist.append("\(ViewModel.VM.time)")
+            ViewModel.VM.time -= 1
             
-            print("\(timerSet)")
+            print("\(ViewModel.VM.time)")
             // 타이머 멈추면 스탑
             if ContentsCVTimerView.isTimerDelete == true {
                 
@@ -167,6 +169,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             }
             
         }
+        
         // 0.1초마다 테이블 재배치
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
             
