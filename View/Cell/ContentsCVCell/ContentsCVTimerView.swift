@@ -221,7 +221,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         let userHour: Int = Int(hourText.text!) ?? 0
        
         // 시간설정
-        var timeSet = Int(userSec + userMin + userHour)
+        var timeSet = Int(userSec + (userMin * 60 ) + (userHour * 3600))
         // 현재 뷰모델 배열 갯수
         let nowcell = ViewModel.VM.timerlist.count
         print(timeSet)
@@ -230,6 +230,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         print(ViewModel.VM.timerlist)
         
         self.myTableView.reloadData()
+        
         
         
         
