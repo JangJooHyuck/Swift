@@ -10,11 +10,11 @@ import Combine
 
 class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
-    let hourTextField =  UITextField()
+    let hourTextField = UITextField()
     
-    let minTextField =  UITextField()
+    let minTextField = UITextField()
    
-    let secTextField =  UITextField()
+    let secTextField = UITextField()
    
   
     //테이블뷰
@@ -218,7 +218,12 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         // 타이머
         
-        var timeSet = 10
+        //사용자가 입력한 시간을 가져오자
+        let sec : String = secTextField.text!
+        let min = self.minTextField.text
+        let hour = self.minTextField.text
+        
+        var timeSet = 3
         let nowcell = ViewModel.VM.timerlist.count
         print(nowcell)
         
