@@ -263,6 +263,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             // 타이머 삭제되면 타이머 스탑
             if ViewModel.VM.isTimerDelete == true {
 
+                self.secText.text = nil
+                self.minText.text = nil
+                self.hourText.text = nil
                 timer.invalidate()
 
             }
