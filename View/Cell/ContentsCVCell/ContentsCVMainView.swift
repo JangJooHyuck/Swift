@@ -38,6 +38,7 @@ class ContentsCVMainView:UICollectionViewCell{
         // 텍스트 좌측 정렬
         TodayWordLabel.textAlignment = .left
         
+        
         // TodayWord의 뜻이 표시될 라벨 생성
         
         TodayWordContentLabel.text = "오늘의 단어가 표시될 라벨"
@@ -134,9 +135,9 @@ class ContentsCVMainView:UICollectionViewCell{
         TodayWordTextLabel.textAlignment = .center
         TodayWordTextLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         TodayWordTextLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        TodayWordTextLabel.topAnchor.constraint(equalTo: topAnchor, constant: 100).isActive = true
-        TodayWordTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        TodayWordTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        TodayWordTextLabel.topAnchor.constraint(equalTo: topAnchor, constant: 70).isActive = true
+
+        TodayWordTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
      
         
         

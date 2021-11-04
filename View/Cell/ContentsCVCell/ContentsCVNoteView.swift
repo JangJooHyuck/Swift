@@ -9,28 +9,28 @@ import UIKit
 
 class ContentsCVNoteView:UICollectionViewCell{
 
-    let contents: UILabel = {
-        let contents = UILabel()
-        contents.textAlignment = .center
-        return contents
-    }()
+    let NoteText = UILabel()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(contents)
-        contents.backgroundColor = .green
-        contents.text = "Note"
-        contents.textAlignment = .center
-        contents.translatesAutoresizingMaskIntoConstraints = false
-        contents.backgroundColor = .green
-        contents.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        contents.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        contents.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        contents.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        contents.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.addSubview(NoteText)
+        NoteText.translatesAutoresizingMaskIntoConstraints = false
+        textLayout()
         
         
+    }
+    
+    func textLayout() {
+        NoteText.textAlignment = .center
+        NoteText.font = UIFont.systemFont(ofSize: 50)
+        NoteText.text = "단어장"
+        NoteText.backgroundColor = .clear
+        NoteText.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        NoteText.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        NoteText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50).isActive = true
+        NoteText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
     }
     
     required init?(coder: NSCoder) {
