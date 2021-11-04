@@ -12,7 +12,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     // 셀의 현재 값
     var currentCellnum = 0
-    
+   
     private var cancellable = Set<AnyCancellable>()
     //테이블뷰
     let myTableView: UITableView = UITableView()
@@ -58,7 +58,6 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         fatalError("init(coder:) has not been implemented")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         ViewModel.VM.timerlist.count
     }
     
@@ -66,9 +65,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
         currentCellnum = indexPath.row
-        
-        cell.textLabel?.text = ViewModel.VM.timerlist[indexPath.row] as? String
-        
+       
+        cell.textLabel?.text = ViewModel.VM.timerlist[currentCellnum] as? String
+     
         return cell
     }
     func TVlayout(){
@@ -124,7 +123,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
     //0.5초마다 테이블뷰 새로고침
     func TableViewReload() {
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
             
             self.myTableView.reloadData()
             
@@ -160,25 +159,22 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머
         
         var timeSet = 300
-        var nowcell = 0
+        var nowcell = currentCellnum
         
-        ViewModel.VM.timerlist.append(timeSet)
+        
+        ViewModel.VM.timerlist.append("\(timeSet)")
         print(ViewModel.VM.timerlist)
         self.myTableView.reloadData()
-        nowcell = currentCellnum
+       
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-
+            
+            if ViewModel.VM.timerlist.isEmpty == false {
             timeSet -= 1
             print(self.currentCellnum)
             
-            // 배열이 비어있지 않을때만(모두삭제했을때 out of range 방지)
-            if ViewModel.VM.timerlist.isEmpty == false {
-                
-                ViewModel.VM.timerlist[nowcell] = (String(timeSet))
-                
+            ViewModel.VM.timerlist[nowcell] = (String(timeSet))
+               
             }
-           
-
             // 타이머 멈추면 스탑
             if ViewModel.VM.isTimerDelete == true {
 
