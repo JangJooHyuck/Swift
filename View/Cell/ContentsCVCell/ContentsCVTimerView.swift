@@ -207,16 +207,13 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
        
         // 시간설정
-        var timeSet = 27005
+        var timeSet = 5
         // 현재 뷰모델 배열 갯수
         let nowcell = ViewModel.VM.timerlist.count
         print(timeSet)
         // 배열에 하나 추가
         ViewModel.VM.timerlist.append("")
         print(ViewModel.VM.timerlist)
-        // 설정한 시간값을 시, 분, 초 로 바꿔준다.
-        var convertedTime = self.convertIntToTime(seconds: timeSet)
-        print (convertedTime)
         
         self.myTableView.reloadData()
         
@@ -225,12 +222,17 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
             if ViewModel.VM.timerlist.isEmpty == false {
+                
+            // 시간세팅해논거에서 -1 하고.
             timeSet -= 1
-            
+            // 현재 시간값을 시분초로 바꿔준 값을 h, m, s 에 저장한다
+            let (h, m, s) = self.convertIntToTime(seconds: timeSet)
+                
             // 아까 배열에 추가한 값을 변경
-            ViewModel.VM.timerlist[nowcell] = (String(timeSet))
-               
-                }
+            ViewModel.VM.timerlist[nowcell] = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
+                
+                
+            }
             //타이머가 0이되면
             if timeSet == 0 {
                 //타이머스탑하고
@@ -252,8 +254,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     
     // int 값을 시 분 초로 바꿔준다.
-    func convertIntToTime (seconds : Int) -> (Int, Int, Int) {
+    func convertIntToTime (seconds : Int) -> (Int, Int, Int)
+    {
+        
       return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+        
     }
     
     
