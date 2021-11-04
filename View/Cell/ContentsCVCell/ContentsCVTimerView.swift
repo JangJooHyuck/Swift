@@ -10,9 +10,9 @@ import Combine
 
 class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
-    let oneBT = UIButton()
-    let fiveBT = UIButton()
-    let tenBT = UIButton()
+    let hourText = UITextField()
+    let minText = UITextField()
+    let secText = UITextField()
    
   
     //테이블뷰
@@ -38,13 +38,13 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         // 시간설정버튼
         
-        self.addSubview(oneBT)
-        self.addSubview(fiveBT)
-        self.addSubview(tenBT)
+        self.addSubview(hourText)
+        self.addSubview(minText)
+        self.addSubview(secText)
         
-        self.oneBT.translatesAutoresizingMaskIntoConstraints = false
-        self.fiveBT.translatesAutoresizingMaskIntoConstraints = false
-        self.tenBT.translatesAutoresizingMaskIntoConstraints = false
+        self.hourText.translatesAutoresizingMaskIntoConstraints = false
+        self.minText.translatesAutoresizingMaskIntoConstraints = false
+        self.secText.translatesAutoresizingMaskIntoConstraints = false
         
         //테이블뷰 밑 시작,삭제버튼
         self.addSubview(self.myTableView)
@@ -92,26 +92,38 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     }
     func TimeSetBtLayout(){
         
-        oneBT.backgroundColor = .green
-        oneBT.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        oneBT.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        oneBT.topAnchor.constraint(equalTo: startTimerBT.topAnchor, constant: -100).isActive = true
-        oneBT.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        oneBT.layer.cornerRadius = 10
+
+        hourText.placeholder = "시간"
+        hourText.textAlignment = .center
+        hourText.backgroundColor = .clear
+        hourText.layer.borderWidth = 1
+        hourText.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        hourText.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        hourText.topAnchor.constraint(equalTo: startTimerBT.topAnchor, constant: -100).isActive = true
+        hourText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        hourText.layer.cornerRadius = 10
         
-        fiveBT.backgroundColor = .green
-        fiveBT.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        fiveBT.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        fiveBT.topAnchor.constraint(equalTo: startTimerBT.topAnchor, constant: -100).isActive = true
-        fiveBT.leadingAnchor.constraint(equalTo: oneBT.leadingAnchor, constant: 130).isActive = true
-        fiveBT.layer.cornerRadius = 10
         
-        tenBT.backgroundColor = .green
-        tenBT.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        tenBT.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        tenBT.topAnchor.constraint(equalTo: startTimerBT.topAnchor, constant: -100).isActive = true
-        tenBT.leadingAnchor.constraint(equalTo: fiveBT.leadingAnchor, constant: 130).isActive = true
-        tenBT.layer.cornerRadius = 10
+        minText.placeholder = "분"
+        minText.textAlignment = .center
+        minText.backgroundColor = .clear
+        minText.layer.borderWidth = 1
+        minText.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        minText.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        minText.topAnchor.constraint(equalTo: startTimerBT.topAnchor, constant: -100).isActive = true
+        minText.leadingAnchor.constraint(equalTo: hourText.leadingAnchor, constant: 130).isActive = true
+        minText.layer.cornerRadius = 10
+        
+        
+        secText.placeholder = "초"
+        secText.textAlignment = .center
+        secText.backgroundColor = .clear
+        secText.layer.borderWidth = 1
+        secText.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        secText.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        secText.topAnchor.constraint(equalTo: startTimerBT.topAnchor, constant: -100).isActive = true
+        secText.leadingAnchor.constraint(equalTo: minText.leadingAnchor, constant: 130).isActive = true
+        secText.layer.cornerRadius = 10
     }
     
     func TVlayout(){
@@ -204,10 +216,12 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
 //        ContentsCVTimerView.isTimerDelete = false
         
         // 타이머
-        
+        let userSec: Int = Int(secText.text!) ?? 0
+        let userMin: Int = Int(minText.text!) ?? 0
+        let userHour: Int = Int(hourText.text!) ?? 0
        
         // 시간설정
-        var timeSet = 5
+        var timeSet = Int(userSec + userMin + userHour)
         // 현재 뷰모델 배열 갯수
         let nowcell = ViewModel.VM.timerlist.count
         print(timeSet)
