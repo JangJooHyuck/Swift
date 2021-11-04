@@ -206,15 +206,20 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머
         
        
-        
+        // 시간설정
         var timeSet = 27005
+        // 현재 뷰모델 배열 갯수
         let nowcell = ViewModel.VM.timerlist.count
-        print(nowcell)
         print(timeSet)
-        ViewModel.VM.timerlist.append("\(timeSet)")
+        // 배열에 하나 추가
+        ViewModel.VM.timerlist.append("")
         print(ViewModel.VM.timerlist)
+        // 설정한 시간값을 시, 분, 초 로 바꿔준다.
+        var convertedTime = self.convertIntToTime(seconds: timeSet)
+        print (convertedTime)
+        
         self.myTableView.reloadData()
-        print(convertIntToTime(seconds: timeSet))
+        
         
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
@@ -222,7 +227,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             if ViewModel.VM.timerlist.isEmpty == false {
             timeSet -= 1
             
-            
+            // 아까 배열에 추가한 값을 변경
             ViewModel.VM.timerlist[nowcell] = (String(timeSet))
                
                 }
@@ -242,14 +247,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
 
         
         }
-
-    
-
-        
-        
-        // 테이블뷰에 타이머시작시간 추가.
-       // ViewModel.VM.timerlist.append("[" + String(ViewModel.VM.TimerNum) + "]" + " 시작시간 : " + "\(str)" + ". 타이머: " + "\(time))")
-        
+   
     }
     
     
@@ -257,6 +255,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func convertIntToTime (seconds : Int) -> (Int, Int, Int) {
       return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
+    
     
     // 모두 삭제버튼 액션
     @objc func deleteTimer(sender: UIButton!){
