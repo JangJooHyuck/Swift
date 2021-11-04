@@ -10,8 +10,7 @@ import Combine
 
 class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
-    // 셀의 현재 값
-    var currentCellnum = 0
+  
    
     private var cancellable = Set<AnyCancellable>()
     //테이블뷰
@@ -64,12 +63,14 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        currentCellnum = indexPath.row
+        
+      
        
-        cell.textLabel?.text = ViewModel.VM.timerlist[currentCellnum] as? String
+        cell.textLabel?.text = ViewModel.VM.timerlist[indexPath.row] as? String
      
         return cell
     }
+    
     func TVlayout(){
         
         //tableView layout
@@ -159,8 +160,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머
         
         var timeSet = 300
-        var nowcell = currentCellnum
-        
+        let nowcell = ViewModel.VM.timerlist.count
+        print(nowcell)
         
         ViewModel.VM.timerlist.append("\(timeSet)")
         print(ViewModel.VM.timerlist)
@@ -168,13 +169,15 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
        
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
+            
             if ViewModel.VM.timerlist.isEmpty == false {
             timeSet -= 1
-            print(self.currentCellnum)
+            
             
             ViewModel.VM.timerlist[nowcell] = (String(timeSet))
                
-            }
+                }
+            
             // 타이머 멈추면 스탑
             if ViewModel.VM.isTimerDelete == true {
 
@@ -207,7 +210,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         // vm 초기화
         ViewModel.VM.isTimerDelete = true
-        self.currentCellnum = 0
+       
         ViewModel.VM.timerlist.removeAll()
         self.myTableView.reloadData()
     
