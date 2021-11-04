@@ -174,7 +174,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             // 배열이 비어있지 않을때만(모두삭제했을때 out of range 방지)
             if ViewModel.VM.timerlist.isEmpty == false {
                 
-            ViewModel.VM.timerlist[nowcell] = (String(timeSet))
+                ViewModel.VM.timerlist[nowcell] = (String(timeSet))
                 
             }
            

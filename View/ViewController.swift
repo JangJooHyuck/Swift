@@ -98,12 +98,14 @@ class ViewController: UIViewController {
         
         HamBT.backgroundColor = .clear
         HamBT.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 10).isActive = true
-        HamBT.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        HamBT.widthAnchor.constraint(equalToConstant: 60).isActive = true
         HamBT.heightAnchor.constraint(equalToConstant: 50).isActive = true
         HamBT.topAnchor.constraint(equalTo: topMenu.topAnchor, constant: 0).isActive = true
+        HamBT.layer.cornerRadius = 22
         HamBT.layer.zPosition = 999
         HamBT.setImage(UIImage(named: "menu.png"), for: .normal)
         HamBT.addTarget(self, action: #selector(HamBTpressed), for: .touchUpInside)
+        
        
         //사이드 메뉴레이아웃
         sideMenu.translatesAutoresizingMaskIntoConstraints = false
@@ -147,6 +149,7 @@ class ViewController: UIViewController {
     func SideMenuOpen(){
         print("sideMenuOpen")
         
+        HamBT.backgroundColor = .white
         sideMenu.isHidden = false
         buttonTap = true
         blurView.isHidden = false
@@ -164,7 +167,7 @@ class ViewController: UIViewController {
     // 사이드메뉴 클로즈
     func SideMenuClose(){
         print("sideMenuClose")
-        
+        HamBT.backgroundColor = .clear
         sideMenu.isHidden = true
         buttonTap = false
         blurView.isHidden = true
