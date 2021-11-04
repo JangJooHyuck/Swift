@@ -51,7 +51,6 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.addSubview(startTimerBT)
         self.addSubview(removeTimerBT)
       
-     
         
         self.myTableView.translatesAutoresizingMaskIntoConstraints = false
         self.startTimerBT.translatesAutoresizingMaskIntoConstraints = false
@@ -90,6 +89,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
      
         return cell
     }
+ 
+    
+    
     func TimeSetBtLayout(){
         
 
@@ -200,20 +202,19 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         ViewModel.VM.isTimerDelete = false
         
       
-// 타이머 시작시간
-//        // 시간 포맷
-//        let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-//        let dateFormatter = DateFormatter()
-//
-//        // 데이터 포맷
-//        dateFormatter.dateFormat = "a hh시mm분ss초"
-//        // PM, AM 을 오전, 오후로 변경
-//        dateFormatter.locale =  Locale(identifier: "ko_KR")
-//        // 현재 시간의 Date를 format에 맞춰 string으로 반환
-//        let str = dateFormatter.string(from: nowDate)
-//
-//        // 타이머 시작버튼 누르면 isTimerDelete 를 다시 false 로 초기화
-//        ContentsCVTimerView.isTimerDelete = false
+
+        // 시간 포맷
+        let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
+        let dateFormatter = DateFormatter()
+
+        // 데이터 포맷
+        dateFormatter.dateFormat = "a hh시 mm분 ss초"
+        // PM, AM 을 오전, 오후로 변경
+        dateFormatter.locale =  Locale(identifier: "ko_KR")
+        // 현재 시간의 Date를 format에 맞춰 string으로 반환
+        let str = dateFormatter.string(from: nowDate)
+
+       
         
         // 타이머
         let userSec: Int = Int(secText.text!) ?? 0
@@ -257,7 +258,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             if timeSet <= 0 {
                 //타이머스탑하고
                 timer.invalidate()
-                ViewModel.VM.timerlist[nowcell] = ("시간 종료")
+                ViewModel.VM.timerlist[nowcell] = ("[시간 종료]" + " 종료시간 : " + "\(str)" )
             }
             
             // 타이머 삭제되면 타이머 스탑

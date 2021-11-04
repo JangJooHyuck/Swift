@@ -21,6 +21,7 @@ class contentsCV : UIView {
         layout.minimumLineSpacing = 0
         
         layout.scrollDirection = .horizontal
+        
         layout.sectionInset = .zero
         
        
@@ -35,7 +36,7 @@ class contentsCV : UIView {
         super.init(frame: frame)
         addSubview(contentscollectionView)
         
-        contentscollectionView.isScrollEnabled = true
+        contentscollectionView.isScrollEnabled = false
         contentscollectionView.translatesAutoresizingMaskIntoConstraints = false
         contentscollectionView.delegate = self
         contentscollectionView.dataSource = self
