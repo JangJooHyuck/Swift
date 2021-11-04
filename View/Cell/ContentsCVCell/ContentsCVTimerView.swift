@@ -237,6 +237,10 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             
             if ViewModel.VM.timerlist.isEmpty == false {
                 
+                if timeSet == 0 {
+                    print("시간이 입력되지 않았음")
+                }
+                else{
             // 시간세팅해논거에서 -1 하고.
             timeSet -= 1
             // 현재 시간값을 시분초로 바꿔준 값을 h, m, s 에 저장한다
@@ -247,8 +251,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
                 
                 
             }
+        }
             //타이머가 0이되면
-            if timeSet == 0 {
+            if timeSet <= 0 {
                 //타이머스탑하고
                 timer.invalidate()
                 ViewModel.VM.timerlist[nowcell] = ("시간 종료")
