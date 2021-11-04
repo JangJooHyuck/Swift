@@ -11,8 +11,11 @@ import Combine
 class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
     let hourTextField =  UITextField()
+    
     let minTextField =  UITextField()
+   
     let secTextField =  UITextField()
+   
   
     //테이블뷰
     let myTableView: UITableView = UITableView()
@@ -35,6 +38,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
+     
         //사용자 시간설정 텍스트필드
         self.addSubview(hourTextField)
         self.addSubview(minTextField)
@@ -44,6 +48,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.addSubview(self.myTableView)
         self.addSubview(startTimerBT)
         self.addSubview(removeTimerBT)
+      
         
         self.hourTextField.translatesAutoresizingMaskIntoConstraints = false
         self.minTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -53,11 +58,18 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.startTimerBT.translatesAutoresizingMaskIntoConstraints = false
         self.removeTimerBT.translatesAutoresizingMaskIntoConstraints = false
         
+        //테이블뷰
         TVlayout()
+        //타이머시작버튼
         TMBTlayout()
+        //타이머모두삭제버튼
         TMBTremoveLayout()
+        //테이블뷰 새로고침
         TableViewReload()
+        //사용자 시간설정 (시간, 분, 초)
         timeSetTextFieldLayout()
+       
+        //VM 초기화
         ViewModel.VM.timerlist.removeAll()
         
         
@@ -140,9 +152,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         hourTextField.backgroundColor = UIColor(red: 102/255, green: 240/255, blue: 10/255, alpha: 0.5)
         hourTextField.borderStyle = UITextField.BorderStyle.roundedRect
         hourTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        hourTextField.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        hourTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
         hourTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
-        hourTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+        hourTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
         
         
         minTextField.placeholder = "분"
@@ -151,9 +163,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         minTextField.backgroundColor = UIColor(red: 102/255, green: 240/255, blue: 10/255, alpha: 0.5)
         minTextField.borderStyle = UITextField.BorderStyle.roundedRect
         minTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        minTextField.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        minTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
         minTextField.topAnchor.constraint(equalTo: hourTextField.topAnchor, constant: 0).isActive = true
-        minTextField.leadingAnchor.constraint(equalTo: hourTextField.leadingAnchor, constant: 100).isActive = true
+        minTextField.leadingAnchor.constraint(equalTo: hourTextField.leadingAnchor, constant: 120).isActive = true
         
         
         secTextField.placeholder = "초"
@@ -162,15 +174,12 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         secTextField.backgroundColor = UIColor(red: 102/255, green: 240/255, blue: 10/255, alpha: 0.5)
         secTextField.borderStyle = UITextField.BorderStyle.roundedRect
         secTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        secTextField.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        secTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
         secTextField.topAnchor.constraint(equalTo: hourTextField.topAnchor, constant: 0).isActive = true
-        secTextField.leadingAnchor.constraint(equalTo: minTextField.leadingAnchor, constant: 100).isActive = true
+        secTextField.leadingAnchor.constraint(equalTo: minTextField.leadingAnchor, constant: 120).isActive = true
         
-        
-
-        
-      
     }
+  
         
     //0.5초마다 테이블뷰 새로고침
     func TableViewReload() {
