@@ -21,32 +21,10 @@ class ViewModel {
     // 타이머가 모두 삭제됬는지? (타이머 멈추게 하기위함)
     @Published var isTimerDelete = false
    
-    //타이머 시간
-    @Published var time = 300
+ 
     
     @Published var timerlist = []
     
-    
-    func timeService() {
-        
-        // 1초마다 타임을 1씩 빼준다.
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            
-            self.time -= 1
-            print("\(self.time)")
-            
-            
-            // 타이머 멈추면 스탑
-            if self.isTimerDelete == true {
-                
-                timer.invalidate()
-                
-            }
-            
-        }
-        
-    }
-   
     
 }
 

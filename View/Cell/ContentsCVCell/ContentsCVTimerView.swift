@@ -63,10 +63,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        
-      
-       
         cell.textLabel?.text = ViewModel.VM.timerlist[indexPath.row] as? String
+        
      
         return cell
     }
@@ -159,7 +157,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         // 타이머
         
-        var timeSet = 300
+        var timeSet = 10
         let nowcell = ViewModel.VM.timerlist.count
         print(nowcell)
         
@@ -177,8 +175,14 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             ViewModel.VM.timerlist[nowcell] = (String(timeSet))
                
                 }
+            //타이머가 0이되면
+            if timeSet == 0 {
+                //타이머스탑하고
+                timer.invalidate()
+                ViewModel.VM.timerlist[nowcell] = ("시간 종료")
+            }
             
-            // 타이머 멈추면 스탑
+            // 타이머 삭제되면 타이머 스탑
             if ViewModel.VM.isTimerDelete == true {
 
                 timer.invalidate()
@@ -210,7 +214,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         // vm 초기화
         ViewModel.VM.isTimerDelete = true
-       
+        
         ViewModel.VM.timerlist.removeAll()
         self.myTableView.reloadData()
     
