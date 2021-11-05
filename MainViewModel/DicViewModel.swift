@@ -27,7 +27,6 @@ class DicViewModel {
             
             var request = URLRequest.init(url: urlpath)
             request.httpMethod = "GET"
-            print (urlpath)
             URLSession.shared.dataTask(with: request){ (data, response, error) in
                 guard let data = data
                 else
@@ -44,11 +43,12 @@ class DicViewModel {
                                     DispatchQueue.main.async {
                                         
                                         self.UserWordContents = content
-                                        print(self.UserWordContents)
+                                       
                                     }
                                 }
                     // content 가져오기
                         }
+
             }.resume()
         }
     }

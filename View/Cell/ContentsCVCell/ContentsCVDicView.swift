@@ -54,8 +54,7 @@ class ContentsCVDicView:UICollectionViewCell{
         DicViewModel.VM.$UserWordContents.sink { value in
             
         self.WordLabel.text = value
-            print(value)
-            
+          
         }.store(in: &cancellable)
     }
 
