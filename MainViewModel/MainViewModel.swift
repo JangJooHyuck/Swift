@@ -15,6 +15,7 @@ class MainViewModel {
     @Published var word : String = ""
     @Published var wordContents : String = ""
     
+    
     // 오늘의 단어
     func Todayword() {
         //https://qteveryday.tistory.com/233 참고
@@ -44,10 +45,6 @@ class MainViewModel {
                                     DispatchQueue.main.async {
                                         // TodayWordcontentLabel에 text를 content 로 바꿈
                                         self.wordContents = content
-                                        
-                                        
-                                        // 콘텐츠의 길이가 길면 ... 으로 표시하는걸 막기위해 최대 5줄까지 확장가능하게함
-                                      //  self.TodayWordContentLabel.numberOfLines = 5
                                         
                                     }
                                 }
