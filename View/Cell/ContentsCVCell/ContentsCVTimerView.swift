@@ -10,6 +10,9 @@ import Combine
 
 class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
+    private var cancellable = Set<AnyCancellable>()
+
+    
     let hourText = UITextField()
     let minText = UITextField()
     let secText = UITextField()
@@ -63,7 +66,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         //타이머모두삭제버튼
         TMBTremoveLayout()
         //테이블뷰 새로고침
-        TableViewReload()
+        tableViewReload()
         //시간설정버튼
         TimeSetBtLayout()
        
@@ -182,13 +185,13 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
      
         
-    //0.5초마다 테이블뷰 새로고침
-    func TableViewReload() {
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            
+    //vm 타이머배열이 바뀔 때마다 테이블을 재배치한다.
+    func tableViewReload(){
+        ViewModel.VM.$timerlist.sink { value in
+          
             self.myTableView.reloadData()
             
-        }
+        }.store(in: &cancellable)
     }
 
     
@@ -199,6 +202,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.fromValue = UIColor.white.cgColor
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
+        
         ViewModel.VM.isTimerDelete = false
         
       
@@ -230,7 +234,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         ViewModel.VM.timerlist.append("")
         print(ViewModel.VM.timerlist)
         
-        self.myTableView.reloadData()
+       
         
         
         
