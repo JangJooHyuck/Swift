@@ -8,10 +8,12 @@
 import UIKit
 import Combine
 
+
 class ContentsCVDicView:UICollectionViewCell{
 
-    private var cancellable = Set<AnyCancellable>()
+    var cancellable = Set<AnyCancellable>()
     
+  
     // 사용자가 단어를 입력하는 곳
     let WordTextField =  UITextField()
     
@@ -36,8 +38,7 @@ class ContentsCVDicView:UICollectionViewCell{
         // 버튼을 뷰에 추가
         DicLayout()
         ChangeWordContents()
-        
-    
+        DicViewModel.VM.CoreData()
         
     }
     
@@ -67,6 +68,8 @@ class ContentsCVDicView:UICollectionViewCell{
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+       
+        DicViewModel.VM.fetch()
         
     }
    

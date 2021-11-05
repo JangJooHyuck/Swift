@@ -6,17 +6,18 @@
 //
 
 import UIKit
+import CoreData
 
 class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
     
-    
-
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
+       
         self.addSubview(NoteText)
         self.addSubview(NoteTableView)
         
