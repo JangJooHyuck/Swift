@@ -80,6 +80,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         TimerViewModel.VM.timerlist.count
     }
@@ -205,8 +206,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        TimerViewModel.VM.startTimer()
-        
+        // 타이머가 삭제됬을때 isTimerdelete 가 true 로 바뀌었으므로 다시 타이머가 돌아갈 때 초기화 시켜줌
         TimerViewModel.VM.isTimerDelete = false
         
         
@@ -215,9 +215,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         let userMin = Int(minText.text!) ?? 0
         let userHour = Int(hourText.text!) ?? 0
        
-        // 시간설정
+        // 뷰모델에 사용자가 입력한 시간 전달
         TimerViewModel.VM.timeSet = Int(userSec + (userMin * 60 ) + (userHour * 3600))
-        // 현재 뷰모델 배열 갯수
+        
+        // VM startTimer 실행
+        TimerViewModel.VM.startTimer()
         
         
        

@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 class ContentsCVMainView:UICollectionViewCell{
 
+    private var cancellable = Set<AnyCancellable>()
+    
     var TodayWordTextLabel = UILabel()
     var TodayWordLabel = UILabel()
     var TodayWordContentLabel = UILabel()
@@ -63,49 +66,30 @@ class ContentsCVMainView:UICollectionViewCell{
         addSubview(TodayWordReplaceBT)
         
         // TodayWord func 실행
-        Todayword()
+        MainViewModel.VM.Todayword()
         MainCellLayout()
+        ChangeWord()
+        ChangeContents()
+        
+    }
+    // 뷰모델에 word 가 바뀌면, TodayWordlabel 의 텍스트를 VM 에 word 로 바꾼다.
+    func ChangeWord(){
+        
+        MainViewModel.VM.$word.sink { value in
+           
+            self.TodayWordLabel.text = MainViewModel.VM.word
+            
+        }.store(in: &cancellable)
     }
     
-    // 오늘의 단어
-    private func Todayword() {
-        //https://qteveryday.tistory.com/233 참고
+    // 뷰모델에 contents 가 바뀌면, TodayWordContentslabel 의 텍스트를 VM 에 wordContents 로 바꾼다.
+    func ChangeContents(){
         
-        //visual studio 에서 만든 api 를 불러온다
-        if let url = URL(string: "http://localhost:1233/api/randomword") {
-            var request = URLRequest.init(url: url)
-            request.httpMethod = "GET"
+        MainViewModel.VM.$wordContents.sink { value in
             
-            // URLSession 객체를 통해 전송, 응답값 처리
-            URLSession.shared.dataTask(with: request){ (data, response, error) in
-                guard let data = data else {return}
-                
-                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:Any]{
-                                    
-                    //json 타입에서 word 의 value 를 가져온다.
-                                if let word = json["word"] as? String{
-                                    
-                                    DispatchQueue.main.async {
-                                        self.TodayWordLabel.text = word
-                                        
-                                    }
-                                }
-                    // content 가져오기
-                                if let content = json["content"] as? String{
-                                    
-                                    DispatchQueue.main.async {
-                                        // TodayWordcontentLabel에 text를 content 로 바꿈
-                                       self.TodayWordContentLabel.text = content
-                                        
-                                        
-                                        // 콘텐츠의 길이가 길면 ... 으로 표시하는걸 막기위해 최대 5줄까지 확장가능하게함
-                                        self.TodayWordContentLabel.numberOfLines = 5
-                                        
-                                    }
-                                }
-                }
-            }.resume()
-        }
+            self.TodayWordContentLabel.text = MainViewModel.VM.wordContents
+            
+        }.store(in: &cancellable)
     }
     
     @objc func replaceAction(sender: UIButton!)
@@ -116,8 +100,9 @@ class ContentsCVMainView:UICollectionViewCell{
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         // TodayWord() 실행
-        Todayword()
+        MainViewModel.VM.Todayword()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

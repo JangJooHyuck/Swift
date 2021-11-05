@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import Combine
 
 class TimerViewModel {
@@ -35,8 +34,8 @@ class TimerViewModel {
         let str = dateFormatter.string(from: nowDate)
         
         
-        // 배열에 하나 추가
-        TimerViewModel.VM.timerlist.append("")
+        // 배열에 아이템 하나 추가
+        self.timerlist.append("")
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
