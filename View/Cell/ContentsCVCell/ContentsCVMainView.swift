@@ -82,7 +82,7 @@ class ContentsCVMainView:UICollectionViewCell{
         }.store(in: &cancellable)
     }
     
-    // 뷰모델에 contents 가 바뀌면, TodayWordContentslabel 의 텍스트를 VM 에 wordContents 로 바꾼다.
+    // 뷰모델에 contents 가 바뀌면, TodayWordContentslabel 의 텍스트를 VM 에 word 로 바꾼다.
     func ChangeContents(){
         
         MainViewModel.VM.$wordContents.sink { value in

@@ -37,6 +37,7 @@ class MainViewModel {
                                     DispatchQueue.main.async {
                                         self.word = word
                                         
+                                        
                                     }
                                 }
                     // content 가져오기
