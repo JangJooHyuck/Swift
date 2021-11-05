@@ -18,13 +18,9 @@ class ViewModel {
     @Published var CurrentCell = 0
     @Published var SideCurrentCell = 0
    
-    // 타이머가 모두 삭제됬는지? (타이머 멈추게 하기위함)
-    @Published var isTimerDelete = false
+    
+    
    
- 
-    
-    @Published var timerlist = []
-    
     
 }
 

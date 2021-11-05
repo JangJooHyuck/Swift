@@ -71,7 +71,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         TimeSetBtLayout()
        
         //VM 초기화
-        ViewModel.VM.timerlist.removeAll()
+        TimerViewModel.VM.timerlist.removeAll()
         
         
         
@@ -81,13 +81,13 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         fatalError("init(coder:) has not been implemented")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        ViewModel.VM.timerlist.count
+        TimerViewModel.VM.timerlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = ViewModel.VM.timerlist[indexPath.row] as? String
+        cell.textLabel?.text = TimerViewModel.VM.timerlist[indexPath.row] as? String
         
      
         return cell
@@ -187,7 +187,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
     //vm 타이머배열이 바뀔 때마다 테이블을 재배치한다.
     func tableViewReload(){
-        ViewModel.VM.$timerlist.sink { value in
+        TimerViewModel.VM.$timerlist.sink { value in
           
             self.myTableView.reloadData()
             
@@ -203,14 +203,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        ViewModel.VM.isTimerDelete = false
+        TimerViewModel.VM.isTimerDelete = false
         
-      
-
         // 시간 포맷
         let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
         let dateFormatter = DateFormatter()
-
         // 데이터 포맷
         dateFormatter.dateFormat = "a hh시 mm분 ss초"
         // PM, AM 을 오전, 오후로 변경
@@ -228,11 +225,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 시간설정
         var timeSet = Int(userSec + (userMin * 60 ) + (userHour * 3600))
         // 현재 뷰모델 배열 갯수
-        let nowcell = ViewModel.VM.timerlist.count
+        let nowcell = TimerViewModel.VM.timerlist.count
         print(timeSet)
         // 배열에 하나 추가
-        ViewModel.VM.timerlist.append("")
-        print(ViewModel.VM.timerlist)
+        TimerViewModel.VM.timerlist.append("")
+        print(TimerViewModel.VM.timerlist)
         
        
         
@@ -241,7 +238,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
-            if ViewModel.VM.timerlist.isEmpty == false {
+            if TimerViewModel.VM.timerlist.isEmpty == false {
                 
                 if timeSet == 0 {
                     print("시간이 입력되지 않았음")
@@ -253,7 +250,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             let (h, m, s) = self.convertIntToTime(seconds: timeSet)
                 
             // 아까 배열에 추가한 값을 변경
-            ViewModel.VM.timerlist[nowcell] = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
+            TimerViewModel.VM.timerlist[nowcell] = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
                 
                 
             }
@@ -262,11 +259,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             if timeSet <= 0 {
                 //타이머스탑하고
                 timer.invalidate()
-                ViewModel.VM.timerlist[nowcell] = ("[시간 종료]" + " 종료시간 : " + "\(str)" )
+                TimerViewModel.VM.timerlist[nowcell] = ("[시간 종료]" + " 종료시간 : " + "\(str)" )
             }
             
             // 타이머 삭제되면 타이머 스탑
-            if ViewModel.VM.isTimerDelete == true {
+            if TimerViewModel.VM.isTimerDelete == true {
 
                 self.secText.text = nil
                 self.minText.text = nil
@@ -300,9 +297,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         
         // vm 초기화
-        ViewModel.VM.isTimerDelete = true
+        TimerViewModel.VM.isTimerDelete = true
         
-        ViewModel.VM.timerlist.removeAll()
+        TimerViewModel.VM.timerlist.removeAll()
         self.myTableView.reloadData()
     
     }
