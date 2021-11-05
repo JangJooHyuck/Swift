@@ -69,7 +69,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         tableViewReload()
         //시간설정버튼
         TimeSetBtLayout()
-       
+        
         //VM 초기화
         TimerViewModel.VM.timerlist.removeAll()
         
@@ -193,6 +193,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             
         }.store(in: &cancellable)
     }
+ 
+    
 
     
     @objc func addTimer(sender: UIButton!)
@@ -203,88 +205,26 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+        TimerViewModel.VM.startTimer()
+        
         TimerViewModel.VM.isTimerDelete = false
         
-        // 시간 포맷
-        let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-        let dateFormatter = DateFormatter()
-        // 데이터 포맷
-        dateFormatter.dateFormat = "a hh시 mm분 ss초"
-        // PM, AM 을 오전, 오후로 변경
-        dateFormatter.locale =  Locale(identifier: "ko_KR")
-        // 현재 시간의 Date를 format에 맞춰 string으로 반환
-        let str = dateFormatter.string(from: nowDate)
-
-       
         
         // 타이머
-        let userSec: Int = Int(secText.text!) ?? 0
-        let userMin: Int = Int(minText.text!) ?? 0
-        let userHour: Int = Int(hourText.text!) ?? 0
+        let userSec = Int(secText.text!) ?? 0
+        let userMin = Int(minText.text!) ?? 0
+        let userHour = Int(hourText.text!) ?? 0
        
         // 시간설정
-        var timeSet = Int(userSec + (userMin * 60 ) + (userHour * 3600))
+        TimerViewModel.VM.timeSet = Int(userSec + (userMin * 60 ) + (userHour * 3600))
         // 현재 뷰모델 배열 갯수
-        let nowcell = TimerViewModel.VM.timerlist.count
-        print(timeSet)
-        // 배열에 하나 추가
-        TimerViewModel.VM.timerlist.append("")
-        print(TimerViewModel.VM.timerlist)
+        
         
        
-        
-        
-        
-        
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            
-            if TimerViewModel.VM.timerlist.isEmpty == false {
-                
-                if timeSet == 0 {
-                    print("시간이 입력되지 않았음")
-                }
-                else{
-            // 시간세팅해논거에서 -1 하고.
-            timeSet -= 1
-            // 현재 시간값을 시분초로 바꿔준 값을 h, m, s 에 저장한다
-            let (h, m, s) = self.convertIntToTime(seconds: timeSet)
-                
-            // 아까 배열에 추가한 값을 변경
-            TimerViewModel.VM.timerlist[nowcell] = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
-                
-                
-            }
-        }
-            //타이머가 0이되면
-            if timeSet <= 0 {
-                //타이머스탑하고
-                timer.invalidate()
-                TimerViewModel.VM.timerlist[nowcell] = ("[시간 종료]" + " 종료시간 : " + "\(str)" )
-            }
-            
-            // 타이머 삭제되면 타이머 스탑
-            if TimerViewModel.VM.isTimerDelete == true {
-
-                self.secText.text = nil
-                self.minText.text = nil
-                self.hourText.text = nil
-                timer.invalidate()
-
-            }
-
-        
-        }
-   
     }
     
     
-    // int 값을 시 분 초로 바꿔준다.
-    func convertIntToTime (seconds : Int) -> (Int, Int, Int)
-    {
-        
-      return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
-        
-    }
+    
     
     
     // 모두 삭제버튼 액션
@@ -295,6 +235,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+        self.secText.text = nil
+        self.minText.text = nil
+        self.hourText.text = nil
         
         // vm 초기화
         TimerViewModel.VM.isTimerDelete = true
