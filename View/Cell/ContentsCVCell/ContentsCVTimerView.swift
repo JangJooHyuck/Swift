@@ -12,6 +12,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     private var cancellable = Set<AnyCancellable>()
 
+    var isTimerRun = false
     
     let hourText = UITextField()
     let minText = UITextField()
@@ -81,14 +82,16 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         fatalError("init(coder:) has not been implemented")
     }
     
+    //셀의 갯수는 vm 의 timerlist 배열에 요소 갯수만큼
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         TimerViewModel.VM.timerlist.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = TimerViewModel.VM.timerlist[indexPath.row] as? String
+        cell.textLabel?.text = String(TimerViewModel.VM.timerlist[indexPath.row])
         
      
         return cell
@@ -189,9 +192,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     //vm 타이머배열이 바뀔 때마다 테이블을 재배치한다.
     func tableViewReload(){
         TimerViewModel.VM.$timerlist.sink { value in
-          
+        
             self.myTableView.reloadData()
-            
         }.store(in: &cancellable)
     }
  
@@ -215,12 +217,19 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         let userMin = Int(minText.text!) ?? 0
         let userHour = Int(hourText.text!) ?? 0
        
-        // 뷰모델에 사용자가 입력한 시간 전달
-        TimerViewModel.VM.timeSet = Int(userSec + (userMin * 60 ) + (userHour * 3600))
+        // 뷰모델에 배열에 사용자가 입력한 시간 전달
+        TimerViewModel.VM.timerlist.append(Int(userSec + (userMin * 60 ) + (userHour * 3600)))
         
-        // VM startTimer 실행
+       // print("\(TimerViewModel.VM.timerlist)")
+        
+       
+        // 만약 isTimerRun 이 false 면,
+        if isTimerRun == false {
+            // VM startTimer 실행
         TimerViewModel.VM.startTimer()
-        
+            // isTimerRun 을 true 로 바꿔준다
+            isTimerRun = true
+        }
         
        
     }
@@ -242,11 +251,12 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.hourText.text = nil
         
         // vm 초기화
-        TimerViewModel.VM.isTimerDelete = true
-        
-        TimerViewModel.VM.timerlist.removeAll()
+//        TimerViewModel.VM.isTimerDelete = true
+//
+//        TimerViewModel.VM.timerlist.removeAll()
         self.myTableView.reloadData()
-    
+        
+//
     }
    
   

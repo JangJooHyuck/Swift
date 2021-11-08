@@ -23,18 +23,18 @@ class DicViewModel {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.container = appDelegate.persistentContainer
         
-        let entity = NSEntityDescription.entity(forEntityName: "WordNote", in: self.container.viewContext)
+       // let entity = NSEntityDescription.entity(forEntityName: "WordNote", in: self.container.viewContext)
         
-        let word = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
+     //   let word = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
         
-        word.setValue("Pingu", forKey: "word")
-        word.setValue("010-0000-0000", forKey: "wordcontents")
+      //  word.setValue("Pingu", forKey: "word")
+      //  word.setValue("010-0000-0000", forKey: "wordcontents")
         
-        do {
-            try self.container.viewContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
+//        do {
+//            try self.container.viewContext.save()
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         
     }
     func fetch() {
