@@ -18,6 +18,7 @@ class TimerViewModel {
     // 타이머가 돌아간 값이 들어갈 배열
     @Published var timerlist: [Int] = []
     @Published var timeSet = 0
+    @Published var timerlistCount = 0
     
     
     
@@ -32,25 +33,24 @@ class TimerViewModel {
 //        dateFormatter.locale =  Locale(identifier: "ko_KR")
 //        // 현재 시간의 Date를 format에 맞춰 string으로 반환
 //        let str = dateFormatter.string(from: nowDate)
-//
-        
-        
-        
-        
+
         // 배열에 사용자가 입력한 시간 추가
         //self.timerlist.append("(\(str)")
        
+        
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
            
                 // 배열 전체를 돌면서 -1 해준다.
-                for arrayNum in 0...(self.timerlist.count - 1 ) {
+            if self.timerlist.isEmpty == false {
+            for arrayNum in 0...(self.timerlist.count - 1) {
                     
                     self.timerlist[arrayNum] -= 1
                     print("\(self.timerlist)")
                     
                 }
+            }
         }
     }
             

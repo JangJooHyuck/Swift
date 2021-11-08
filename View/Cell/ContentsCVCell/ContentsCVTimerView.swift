@@ -84,6 +84,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     //셀의 갯수는 vm 의 timerlist 배열에 요소 갯수만큼
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         TimerViewModel.VM.timerlist.count
     }
     
@@ -91,7 +92,13 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = String(TimerViewModel.VM.timerlist[indexPath.row])
+        //배열이 바뀔 때 마다 텍스트 바꾸기
+        TimerViewModel.VM.$timerlist.sink { value in
+        
+        if TimerViewModel.VM.timerlist.isEmpty == false{
+            cell.textLabel?.text = String(TimerViewModel.VM.timerlist[indexPath.row])
+        }
+            }.store(in: &cancellable)
         
      
         return cell
@@ -189,11 +196,12 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
      
         
-    //vm 타이머배열이 바뀔 때마다 테이블을 재배치한다.
+    //vm 배열의 갯수가 바뀔때마다 호출
     func tableViewReload(){
-        TimerViewModel.VM.$timerlist.sink { value in
-        
+        TimerViewModel.VM.$timerlistCount.sink { value in
+            
             self.myTableView.reloadData()
+            
         }.store(in: &cancellable)
     }
  
@@ -222,7 +230,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
        // print("\(TimerViewModel.VM.timerlist)")
         
-       
+        //배열 갯수 하나 추가 전달
+        TimerViewModel.VM.timerlistCount = TimerViewModel.VM.timerlist.count
         // 만약 isTimerRun 이 false 면,
         if isTimerRun == false {
             // VM startTimer 실행
@@ -251,9 +260,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.hourText.text = nil
         
         // vm 초기화
-//        TimerViewModel.VM.isTimerDelete = true
+        TimerViewModel.VM.isTimerDelete = true
 //
-//        TimerViewModel.VM.timerlist.removeAll()
+        TimerViewModel.VM.timerlist.removeAll()
         self.myTableView.reloadData()
         
 //
