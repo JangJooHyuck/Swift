@@ -25,15 +25,21 @@ class TimerViewModel {
     func startTimer() {
         
         
-//        // 시간 포맷
-//        let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-//        let dateFormatter = DateFormatter()
-//        // 데이터 포맷
-//        dateFormatter.dateFormat = "a hh시 mm분 ss초"
-//        // PM, AM 을 오전, 오후로 변경
-//        dateFormatter.locale =  Locale(identifier: "ko_KR")
-//        // 현재 시간의 Date를 format에 맞춰 string으로 반환
-//        let str = dateFormatter.string(from: nowDate)
+        // 시간 포맷
+        
+        // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
+        let nowDate = Date()
+        
+        // 데이터 포맷
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a hh시 mm분 ss초"
+        
+        // PM, AM 을 오전, 오후로 변경
+        dateFormatter.locale =  Locale(identifier: "ko_KR")
+        
+        // 현재 시간의 Date를 format에 맞춰 string으로 반환
+        let str = dateFormatter.string(from: nowDate)
+        print(str)
         
         
        

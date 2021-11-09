@@ -271,7 +271,6 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     @objc func addTimer(sender: UIButton!)
     {
-       
         
         // 버튼 클릭시 애니메이션 설정
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
@@ -297,25 +296,23 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
                 self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / -0.52)
                 self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / 0.52)
                 self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / -0.52)
-//               // self.hourText.transform = self.hourText.transform.translatedBy(x: 15, y: 0)
-//                self.minText.transform = self.minText.transform.translatedBy(x: 15, y: 0)
-//                self.secText.transform = self.secText.transform.translatedBy(x: 15, y: 0)
+
                 self.hourText.layer.borderColor = UIColor.red.cgColor
                 self.minText.layer.borderColor = UIColor.red.cgColor
                 self.secText.layer.borderColor = UIColor.red.cgColor
+                self.hourText.layer.borderWidth = 2
+                self.minText.layer.borderWidth = 2
+                self.secText.layer.borderWidth = 2
                 
                 
             })
             UIView.animate(withDuration: 0.3, animations: {
+                
                 self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / 0.52)
                 self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / -0.52)
                 self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / 0.52)
-//               // self.hourText.transform = self.hourText.transform.translatedBy(x: -15, y: 0)
-//                self.minText.transform = self.minText.transform.translatedBy(x: -15, y: 0)
-//                self.secText.transform = self.secText.transform.translatedBy(x: -15, y: 0)
-                self.hourText.layer.borderWidth = 2
-                self.minText.layer.borderWidth = 2
-                self.secText.layer.borderWidth = 2
+
+                
             })
           
             self.isInsertTime = false
