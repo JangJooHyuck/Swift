@@ -12,7 +12,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     private var cancellable = Set<AnyCancellable>()
 
-    var isTimerRun = false
+    var isTimerRun:Bool = false
+    var backUpTableCount: Int = 0
     
     let hourText = UITextField()
     let minText = UITextField()
@@ -38,7 +39,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.myTableView.dataSource = self
         self.myTableView.delegate = self
         
-        self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.myTableView.register(ContentCVTimerViewTableCell.self, forCellReuseIdentifier: "cell")
         
         // 시간설정버튼
         
@@ -71,10 +72,10 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         //시간설정버튼
         TimeSetBtLayout()
         
-        //VM 초기화
-       // TimerViewModel.VM.timerlist.removeAll()
+        //데이터 바인딩하기
+        TimerCellDataBinding()
         
-            }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -83,38 +84,23 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     //셀의 갯수는 vm 의 timerlist 배열에 요소 갯수만큼
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-       return TimerViewModel.VM.timerlist.count
+        //테이블 사이즈 저장
+        
+        self.backUpTableCount = TimerViewModel.VM.timerlist.count
+        return TimerViewModel.VM.timerlist.count
+        
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
+        print ("[tableView] cellForRowAt :: \(indexPath.row) \(TimerViewModel.VM.timerlist.count)")
         
         
-//        //배열이 바뀔 때 마다 텍스트 바꾸기
-        TimerViewModel.VM.$timerlist.sink { value in
-
-            if TimerViewModel.VM.timerlist.isEmpty == false {
-
-                if let indexPaths = self.myTableView.indexPath(for: cell) {
-                    //배열값이 0이되면
-                    if TimerViewModel.VM.timerlist[indexPaths.row] == 0
-                    {
-                        cell.textLabel?.text = "시간종료"
-                    }
-                    // 값이 0이 아니면
-                    else {
-                        cell.textLabel?.text =  String(TimerViewModel.VM.timerlist[indexPaths.row])
-                    }
-                    
-                   
-                }
-                    
-         
-            }
-
-        }.store(in: &cancellable)
+        let cell: ContentCVTimerViewTableCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentCVTimerViewTableCell
+            
         
+        cell.lbl.text = String(TimerViewModel.VM.timerlist[indexPath.row])
+
         return cell
         
 }
@@ -123,8 +109,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
            
         if editingStyle == .delete {
-               
-            
+
             TimerViewModel.VM.timerlist.remove(at: indexPath.row)
             self.myTableView.deleteRows(at: [indexPath], with: .fade)
             
@@ -135,6 +120,26 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     }
  
     
+    func TimerCellDataBinding(){
+        
+        TimerViewModel.VM.$timerlist.sink { value in
+            
+            if self.backUpTableCount != value.count {
+                self.myTableView.reloadData()
+            } else {
+                //각각 아이템..
+                for (idx, item) in value.enumerated() {
+                    let indexPath:IndexPath = IndexPath(row: idx, section: 0)
+                    
+                    let cell:ContentCVTimerViewTableCell = self.myTableView.cellForRow(at: indexPath) as! ContentCVTimerViewTableCell
+                    cell.lbl.text = String(item)
+                }
+                
+            }
+
+        }.store(in: &cancellable)
+        
+    }
     
     func TimeSetBtLayout(){
         
