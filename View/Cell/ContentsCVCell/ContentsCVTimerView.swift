@@ -17,8 +17,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     let hourText = UITextField()
     let minText = UITextField()
     let secText = UITextField()
-   
-  
+    
     //테이블뷰
     let myTableView: UITableView = UITableView()
     
@@ -27,7 +26,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     // 전체삭제 버튼
     var removeTimerBT: UIButton = UIButton()
- 
+    
+    
    
     var tableCellNum = 0
    
@@ -72,11 +72,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         TimeSetBtLayout()
         
         //VM 초기화
-        TimerViewModel.VM.timerlist.removeAll()
+       // TimerViewModel.VM.timerlist.removeAll()
         
-        
-        
-    }
+            }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -85,23 +83,47 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     //셀의 갯수는 vm 의 timerlist 배열에 요소 갯수만큼
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        TimerViewModel.VM.timerlist.count
+       return TimerViewModel.VM.timerlist.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        //배열이 바뀔 때 마다 텍스트 바꾸기
+        
+//        //배열이 바뀔 때 마다 텍스트 바꾸기
         TimerViewModel.VM.$timerlist.sink { value in
+
+            if TimerViewModel.VM.timerlist.isEmpty == false {
+
+                if let indexPaths = self.myTableView.indexPath(for: cell) {
+                    
+                    cell.textLabel?.text =  String(TimerViewModel.VM.timerlist[indexPaths.row])
+                    
+                }
+                    
+         
+            }
+
+        }.store(in: &cancellable)
         
-        if TimerViewModel.VM.timerlist.isEmpty == false{
-            cell.textLabel?.text = String(TimerViewModel.VM.timerlist[indexPath.row])
-        }
-            }.store(in: &cancellable)
-        
-     
         return cell
+        
+}
+   
+    //delete cell to swipe
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+           
+        if editingStyle == .delete {
+               
+            
+            TimerViewModel.VM.timerlist.remove(at: indexPath.row)
+            self.myTableView.deleteRows(at: [indexPath], with: .fade)
+            
+            TimerViewModel.VM.timerlistCount -= 1
+            
+            
+            }
     }
  
     
@@ -219,7 +241,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머가 삭제됬을때 isTimerdelete 가 true 로 바뀌었으므로 다시 타이머가 돌아갈 때 초기화 시켜줌
         TimerViewModel.VM.isTimerDelete = false
         
-        
+    
         // 타이머
         let userSec = Int(secText.text!) ?? 0
         let userMin = Int(minText.text!) ?? 0
@@ -231,7 +253,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
        // print("\(TimerViewModel.VM.timerlist)")
         
         //배열 갯수 하나 추가 전달
-        TimerViewModel.VM.timerlistCount = TimerViewModel.VM.timerlist.count
+        TimerViewModel.VM.timerlistCount += 1
         // 만약 isTimerRun 이 false 면,
         if isTimerRun == false {
             // VM startTimer 실행
@@ -260,12 +282,15 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.hourText.text = nil
         
         // vm 초기화
+       TimerViewModel.VM.isTimerDelete = true
+//
+        self.isTimerRun = false
         TimerViewModel.VM.isTimerDelete = true
-//
+        // vm 배열에 모든 요소들을 삭제하고,
         TimerViewModel.VM.timerlist.removeAll()
-        self.myTableView.reloadData()
-        
-//
+        // 타이머리스트의 카운트를 0 으로 바꾼다
+        TimerViewModel.VM.timerlistCount = 0
+  
     }
    
   

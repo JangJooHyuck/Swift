@@ -21,8 +21,8 @@ class TimerViewModel {
     @Published var timerlistCount = 0
     
     
-    
     func startTimer() {
+        
         
 //        // 시간 포맷
 //        let nowDate = Date() // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
@@ -33,25 +33,30 @@ class TimerViewModel {
 //        dateFormatter.locale =  Locale(identifier: "ko_KR")
 //        // 현재 시간의 Date를 format에 맞춰 string으로 반환
 //        let str = dateFormatter.string(from: nowDate)
-
-        // 배열에 사용자가 입력한 시간 추가
-        //self.timerlist.append("(\(str)")
+        
+        
        
-        
-        
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
-           
-                // 배열 전체를 돌면서 -1 해준다.
+            //timerlist 가 비어있지 않다면 실행
             if self.timerlist.isEmpty == false {
-            for arrayNum in 0...(self.timerlist.count - 1) {
+                    // 배열 전체를 돌면서 -1 해준다.
+            for arrayNum in 0..<self.timerlist.count {
                     
-                    self.timerlist[arrayNum] -= 1
-                    print("\(self.timerlist)")
-                    
+                self.timerlist[arrayNum] -= 1
+                
                 }
             }
+           //  타이머 삭제되면 타이머 스탑
+            if self.isTimerDelete == true {
+           
+                timer.invalidate()
+           
+            }
+            
+            
         }
+       
     }
             
             

@@ -17,10 +17,5 @@ class ViewModel {
     @Published var CurrentCell = 0
     @Published var SideCurrentCell = 0
     
-   
-    
-    
-   
-    
 }
 
