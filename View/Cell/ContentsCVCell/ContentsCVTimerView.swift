@@ -15,6 +15,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     var isTimerRun:Bool = false
     var backUpTableCount: Int = 0
     
+    var isInsertTime:Bool = false
+    
     let hourText = UITextField()
     let minText = UITextField()
     let secText = UITextField()
@@ -99,6 +101,10 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         let (h, m, s) = TimerViewModel.VM.convertIntToTime(seconds: TimerViewModel.VM.timerlist[indexPath.row])
         
         cell.lbl.text = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
+        
+        if TimerViewModel.VM.timerlist[indexPath.row] == 0 {
+            cell.lbl.text = "[시간종료]"
+        }
 
         return cell
         
@@ -135,6 +141,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
                     let (h, m, s) = TimerViewModel.VM.convertIntToTime(seconds: item)
                     
                     cell.lbl.text = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
+                    if item == 0 {
+                        cell.lbl.text = "[시간종료]"
+                    }
                    
                 }
                 
@@ -176,7 +185,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         secText.heightAnchor.constraint(equalToConstant: 50).isActive = true
         secText.widthAnchor.constraint(equalToConstant: 100).isActive = true
         secText.topAnchor.constraint(equalTo: startTimerBT.topAnchor, constant: -100).isActive = true
-        secText.leadingAnchor.constraint(equalTo: minText.leadingAnchor, constant: 130).isActive = true
+        secText.leadingAnchor.constraint(equalTo: hourText.leadingAnchor, constant: 257).isActive = true
         secText.layer.cornerRadius = 10
     }
     
@@ -248,21 +257,51 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     @objc func addTimer(sender: UIButton!)
     {
+       
+        
         // 버튼 클릭시 애니메이션 설정
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
         colorAnimation.fromValue = UIColor.white.cgColor
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        // 타이머가 삭제됬을때 isTimerdelete 가 true 로 바뀌었으므로 다시 타이머가 돌아갈 때 초기화 시켜줌
-        TimerViewModel.VM.isTimerDelete = false
-        
-    
         // 타이머
         let userSec = Int(secText.text!) ?? 0
         let userMin = Int(minText.text!) ?? 0
         let userHour = Int(hourText.text!) ?? 0
+        
+        // (사용자가 시간을 입력 하였을 때)
+        if secText.text?.isEmpty == false || minText.text?.isEmpty == false || hourText.text?.isEmpty == false
+        {
+            // 사용자가 값을 입력헀다고 전달
+            self.isInsertTime = true
+        }
+        // (사용자가 시간을 입력하지 않았을 때)
+        else {
+            // shake 애니메이션
+            UIView.animate(withDuration: 0.05, animations: {
+                self.hourText.transform = self.hourText.transform.translatedBy(x: 15, y: 0)
+                self.minText.transform = self.minText.transform.translatedBy(x: 15, y: 0)
+                self.secText.transform = self.secText.transform.translatedBy(x: 15, y: 0)
+            })
+            UIView.animate(withDuration: 0.5, animations: {
+                self.hourText.transform = self.hourText.transform.translatedBy(x: -15, y: 0)
+                self.minText.transform = self.minText.transform.translatedBy(x: -15, y: 0)
+                self.secText.transform = self.secText.transform.translatedBy(x: -15, y: 0)
+            })
+          
+         
+           
+            print("시간이 입력되지 않았음")
+            self.isInsertTime = false
+           
+        }
+        
+        // 사용자가 시간을 입력했을 때만 타이머 실행
+        if self.isInsertTime == true {
        
+        // 타이머가 삭제됬을때 isTimerdelete 가 true 로 바뀌었으므로 다시 타이머가 돌아갈 때 초기화 시켜줌
+        TimerViewModel.VM.isTimerDelete = false
         // 뷰모델에 배열에 사용자가 입력한 시간 전달
         TimerViewModel.VM.timerlist.append(Int(userSec + (userMin * 60 ) + (userHour * 3600)))
         
@@ -276,9 +315,9 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         TimerViewModel.VM.startTimer()
             // isTimerRun 을 true 로 바꿔준다
             isTimerRun = true
-        }
+            }
         
-       
+        }
     }
     
     
