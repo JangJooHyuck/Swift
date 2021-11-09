@@ -43,6 +43,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         self.myTableView.register(ContentCVTimerViewTableCell.self, forCellReuseIdentifier: "cell")
         
+        
+        // 텍스트필드 클릭 이벤트
+        hourText.addTarget(self, action: #selector(touchTextField), for: UIControl.Event.touchDown)
+        minText.addTarget(self, action: #selector(touchTextField), for: UIControl.Event.touchDown)
+        secText.addTarget(self, action: #selector(touchTextField), for: UIControl.Event.touchDown)
         // 시간설정버튼
         
         self.addSubview(hourText)
@@ -124,6 +129,15 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             }
     }
  
+    // 텍스트 필드 클릭시
+    @objc func touchTextField(){
+        self.hourText.layer.borderWidth = 1
+        self.minText.layer.borderWidth = 1
+        self.secText.layer.borderWidth = 1
+        self.hourText.layer.borderColor = UIColor.black.cgColor
+        self.minText.layer.borderColor = UIColor.black.cgColor
+        self.secText.layer.borderColor = UIColor.black.cgColor
+    }
     
     func TimerCellDataBinding(){
         
@@ -283,16 +297,21 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
                 self.hourText.transform = self.hourText.transform.translatedBy(x: 15, y: 0)
                 self.minText.transform = self.minText.transform.translatedBy(x: 15, y: 0)
                 self.secText.transform = self.secText.transform.translatedBy(x: 15, y: 0)
+                self.hourText.layer.borderColor = UIColor.red.cgColor
+                self.minText.layer.borderColor = UIColor.red.cgColor
+                self.secText.layer.borderColor = UIColor.red.cgColor
+                
+                
             })
             UIView.animate(withDuration: 0.5, animations: {
                 self.hourText.transform = self.hourText.transform.translatedBy(x: -15, y: 0)
                 self.minText.transform = self.minText.transform.translatedBy(x: -15, y: 0)
                 self.secText.transform = self.secText.transform.translatedBy(x: -15, y: 0)
+                self.hourText.layer.borderWidth = 2
+                self.minText.layer.borderWidth = 2
+                self.secText.layer.borderWidth = 2
             })
           
-         
-           
-            print("시간이 입력되지 않았음")
             self.isInsertTime = false
            
         }

@@ -188,7 +188,7 @@ class ViewController: UIViewController {
     
     func indicatorMove(){
         ViewModel.VM.$CurrentCell.sink { value in
-            UIView.animate(withDuration: 1.0,
+            UIView.animate(withDuration: 0.5,
                 animations: {
                     
                     if value == 0 {
