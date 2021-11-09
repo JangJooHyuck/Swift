@@ -36,6 +36,10 @@ class TimerViewModel {
         let leftDate = Int(flowDate.timeIntervalSince(nowDate))
         //구한 값을 배열에 추가
         self.timerlist.append(leftDate)
+        print("현재시간 : "+"\(nowDate)")
+        print("더한시간 : "+"\(flowDate)")
+        print("남은시간 : "+"\(leftDate)")
+        
     }
     
     func startTimer() {
