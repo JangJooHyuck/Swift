@@ -321,21 +321,21 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         
         // 사용자가 시간을 입력했을 때만 타이머 실행
         if self.isInsertTime == true {
-       
-        // 타이머가 삭제됬을때 isTimerdelete 가 true 로 바뀌었으므로 다시 타이머가 돌아갈 때 초기화 시켜줌
-        TimerViewModel.VM.isTimerDelete = false
-        // 뷰모델에 사용자가 입력한 시간 전달
-        TimerViewModel.VM.UserSetTime = (Int(userSec + (userMin * 60 ) + (userHour * 3600)))
-        // 시간계산 시작
-        TimerViewModel.VM.TimeCalculate()
-       // print("\(TimerViewModel.VM.timerlist)")
-        
-        //배열 갯수 하나 추가 전달
-        TimerViewModel.VM.timerlistCount += 1
-        // 만약 isTimerRun 이 false 면,
-        if isTimerRun == false {
-            // VM startTimer 실행
-        TimerViewModel.VM.startTimer()
+           
+            // 타이머가 삭제됬을때 isTimerdelete 가 true 로 바뀌었으므로 다시 타이머가 돌아갈 때 초기화 시켜줌
+            TimerViewModel.VM.isTimerDelete = false
+            // 뷰모델에 사용자가 입력한 시간 전달
+            TimerViewModel.VM.UserSetTime = (Int(userSec + (userMin * 60 ) + (userHour * 3600)))
+            // 시간계산 시작
+            TimerViewModel.VM.TimeCalculate()
+           // print("\(TimerViewModel.VM.timerlist)")
+            
+            //배열 갯수 하나 추가 전달
+            TimerViewModel.VM.timerlistCount += 1
+            // 만약 isTimerRun 이 false 면,
+            if isTimerRun == false {
+                // VM startTimer 실행
+            TimerViewModel.VM.startTimer()
             // isTimerRun 을 true 로 바꿔준다
             isTimerRun = true
             }

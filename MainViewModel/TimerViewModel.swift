@@ -14,11 +14,12 @@ class TimerViewModel {
     static let VM = TimerViewModel()
     
     // 타이머가 모두 삭제됬는지? (타이머 멈추게 하기위함)
-    @Published var isTimerDelete = false
+    @Published var isTimerDelete: Bool = false
     // 타이머가 돌아간 값이 들어갈 배열
     @Published var timerlist: [Int] = []
     
-    @Published var timerlistCount = 0
+    // 배열 갯수
+    @Published var timerlistCount: Int = 0
     
     //유저가 정한 시간
     var UserSetTime: Int = 0
@@ -38,7 +39,7 @@ class TimerViewModel {
         self.timerlist.append(leftDate)
         print("현재시간 : "+"\(nowDate)")
         print("더한시간 : "+"\(flowDate)")
-        print("남은시간 : "+"\(leftDate)")
+        print("시간차이 : "+"\(leftDate)")
         
     }
     
