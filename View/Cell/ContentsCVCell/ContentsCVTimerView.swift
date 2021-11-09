@@ -324,9 +324,10 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
        
         // 타이머가 삭제됬을때 isTimerdelete 가 true 로 바뀌었으므로 다시 타이머가 돌아갈 때 초기화 시켜줌
         TimerViewModel.VM.isTimerDelete = false
-        // 뷰모델에 배열에 사용자가 입력한 시간 전달
-        TimerViewModel.VM.timerlist.append(Int(userSec + (userMin * 60 ) + (userHour * 3600)))
-        
+        // 뷰모델에 사용자가 입력한 시간 전달
+        TimerViewModel.VM.UserSetTime = (Int(userSec + (userMin * 60 ) + (userHour * 3600)))
+        // 시간계산 시작
+        TimerViewModel.VM.TimeCalculate()
        // print("\(TimerViewModel.VM.timerlist)")
         
         //배열 갯수 하나 추가 전달

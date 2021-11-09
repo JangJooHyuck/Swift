@@ -20,35 +20,27 @@ class TimerViewModel {
     
     @Published var timerlistCount = 0
     
+    //유저가 정한 시간
+    var UserSetTime: Int = 0
     
-   
+    
+    func TimeCalculate(){
+        
+        // 버튼을 눌렀을 때 현재의 Date
+        let nowDate = Date()
+        
+        // 사용자가 입력한 시간을 현재 Date 에 더한다.
+        let flowDate = nowDate.addingTimeInterval(TimeInterval(self.UserSetTime))
+        
+        //현재시간에서 사용자가 입력한 시간까지 남은시간 구하기
+        let leftDate = Int(flowDate.timeIntervalSince(nowDate))
+        //구한 값을 배열에 추가
+        self.timerlist.append(leftDate)
+    }
     
     func startTimer() {
         
-        
-        // 시간 포맷
-
-        // 버튼을 눌렀을 때 현재의 Date (ex: 2000-01-01 09:14:48 +0000)
-        let nowDate = Date()
-
-        let flowDate = nowDate.addingTimeInterval(3600)
-        
-       
-        // 데이터 포맷
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "a hh시 mm분 ss초"
-
-        // PM, AM 을 오전, 오후로 변경
-        dateFormatter.locale =  Locale(identifier: "ko_KR")
-
-        // 현재 시간의 Date를 format에 맞춰 string으로 반환
-        let str = dateFormatter.string(from: nowDate)
-        let str2 = dateFormatter.string(from: flowDate)
-        
-        var leftDate = Int(flowDate.timeIntervalSince(nowDate))
-        print(str)
-        print(str2)
-        print(leftDate)
+    
         
        
         
