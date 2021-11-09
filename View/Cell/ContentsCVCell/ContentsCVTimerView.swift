@@ -294,19 +294,25 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         else {
             // shake 애니메이션
             UIView.animate(withDuration: 0.05, animations: {
-                self.hourText.transform = self.hourText.transform.translatedBy(x: 15, y: 0)
-                self.minText.transform = self.minText.transform.translatedBy(x: 15, y: 0)
-                self.secText.transform = self.secText.transform.translatedBy(x: 15, y: 0)
+                self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / -0.52)
+                self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / 0.52)
+                self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / -0.52)
+//               // self.hourText.transform = self.hourText.transform.translatedBy(x: 15, y: 0)
+//                self.minText.transform = self.minText.transform.translatedBy(x: 15, y: 0)
+//                self.secText.transform = self.secText.transform.translatedBy(x: 15, y: 0)
                 self.hourText.layer.borderColor = UIColor.red.cgColor
                 self.minText.layer.borderColor = UIColor.red.cgColor
                 self.secText.layer.borderColor = UIColor.red.cgColor
                 
                 
             })
-            UIView.animate(withDuration: 0.5, animations: {
-                self.hourText.transform = self.hourText.transform.translatedBy(x: -15, y: 0)
-                self.minText.transform = self.minText.transform.translatedBy(x: -15, y: 0)
-                self.secText.transform = self.secText.transform.translatedBy(x: -15, y: 0)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / 0.52)
+                self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / -0.52)
+                self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / 0.52)
+//               // self.hourText.transform = self.hourText.transform.translatedBy(x: -15, y: 0)
+//                self.minText.transform = self.minText.transform.translatedBy(x: -15, y: 0)
+//                self.secText.transform = self.secText.transform.translatedBy(x: -15, y: 0)
                 self.hourText.layer.borderWidth = 2
                 self.minText.layer.borderWidth = 2
                 self.secText.layer.borderWidth = 2
