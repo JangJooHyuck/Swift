@@ -93,13 +93,12 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print ("[tableView] cellForRowAt :: \(indexPath.row) \(TimerViewModel.VM.timerlist.count)")
-        
-        
+      
         let cell: ContentCVTimerViewTableCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentCVTimerViewTableCell
-            
         
-        cell.lbl.text = String(TimerViewModel.VM.timerlist[indexPath.row])
+        let (h, m, s) = TimerViewModel.VM.convertIntToTime(seconds: TimerViewModel.VM.timerlist[indexPath.row])
+        
+        cell.lbl.text = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
 
         return cell
         
@@ -132,7 +131,11 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
                     let indexPath:IndexPath = IndexPath(row: idx, section: 0)
                     
                     let cell:ContentCVTimerViewTableCell = self.myTableView.cellForRow(at: indexPath) as! ContentCVTimerViewTableCell
-                    cell.lbl.text = String(item)
+                    
+                    let (h, m, s) = TimerViewModel.VM.convertIntToTime(seconds: item)
+                    
+                    cell.lbl.text = String("\(h) 시간 " + "\(m) 분 " + "\(s) 초")
+                   
                 }
                 
             }
