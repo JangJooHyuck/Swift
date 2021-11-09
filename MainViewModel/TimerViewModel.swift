@@ -43,7 +43,16 @@ class TimerViewModel {
                     // 배열 전체를 돌면서 -1 해준다.
             for arrayNum in 0..<self.timerlist.count {
                     
+                // 값이 0보다 크면 실행
+                if self.timerlist[arrayNum] > 0 {
+                    
                 self.timerlist[arrayNum] -= 1
+                    
+                }
+                else {
+                    
+                    self.timerlist[arrayNum] = 0
+                }
                 
                 }
             }
@@ -53,6 +62,7 @@ class TimerViewModel {
                 timer.invalidate()
            
             }
+        
             
             
         }

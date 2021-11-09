@@ -97,9 +97,17 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             if TimerViewModel.VM.timerlist.isEmpty == false {
 
                 if let indexPaths = self.myTableView.indexPath(for: cell) {
+                    //배열값이 0이되면
+                    if TimerViewModel.VM.timerlist[indexPaths.row] == 0
+                    {
+                        cell.textLabel?.text = "시간종료"
+                    }
+                    // 값이 0이 아니면
+                    else {
+                        cell.textLabel?.text =  String(TimerViewModel.VM.timerlist[indexPaths.row])
+                    }
                     
-                    cell.textLabel?.text =  String(TimerViewModel.VM.timerlist[indexPaths.row])
-                    
+                   
                 }
                     
          
