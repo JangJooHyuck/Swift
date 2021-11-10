@@ -16,40 +16,9 @@ class DicViewModel {
     static let VM = DicViewModel()
     @Published var UserWord : String = ""
     @Published var UserWordContents : String = ""
+   
     
-        var container: NSPersistentContainer!
-  
-    func CoreData(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.container = appDelegate.persistentContainer
-        
-       // let entity = NSEntityDescription.entity(forEntityName: "WordNote", in: self.container.viewContext)
-        
-     //   let word = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
-        
-      //  word.setValue("Pingu", forKey: "word")
-      //  word.setValue("010-0000-0000", forKey: "wordcontents")
-        
-//        do {
-//            try self.container.viewContext.save()
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-        
-    }
-    func fetch() {
-        
-        do {
-            let contact = try self.container.viewContext.fetch(WordNote.fetchRequest()) as! [WordNote]
-            
-            contact.forEach {
-                print($0.word)
-                print($0.wordcontents)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+
     
     // 오늘의 단어
     @objc func Findword() {

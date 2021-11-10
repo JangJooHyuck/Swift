@@ -2,7 +2,7 @@
 //  WordNote+CoreDataProperties.swift
 //  SwiftApp
 //
-//  Created by 장주혁 on 2021/11/05.
+//  Created by 장주혁 on 2021/11/10.
 //
 //
 
@@ -16,11 +16,10 @@ extension WordNote {
         return NSFetchRequest<WordNote>(entityName: "WordNote")
     }
 
-    @NSManaged public var wordcontents: String?
     @NSManaged public var word: String?
+    @NSManaged public var wordcontents: String?
 
 }
-
 
 extension WordNote : Identifiable {
 

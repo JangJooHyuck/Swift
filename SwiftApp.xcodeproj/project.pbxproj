@@ -10,13 +10,12 @@
 		9E047750272AEFAD00A1BF20 /* sideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04774F272AEFAD00A1BF20 /* sideMenuCell.swift */; };
 		9E047752272AF00F00A1BF20 /* sideMenuCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E047751272AF00F00A1BF20 /* sideMenuCV.swift */; };
 		9E047754272B03EE00A1BF20 /* contentsCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E047753272B03EE00A1BF20 /* contentsCV.swift */; };
-		9E81A1D12734AB5400567C6F /* WordNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81A1CF2734AB5400567C6F /* WordNote+CoreDataClass.swift */; };
-		9E81A1D22734AB5400567C6F /* WordNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81A1D02734AB5400567C6F /* WordNote+CoreDataProperties.swift */; };
 		9E81A1D42734DA2900567C6F /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81A1D32734DA2900567C6F /* TimerViewModel.swift */; };
 		9E81A1D62734EC6800567C6F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81A1D52734EC6800567C6F /* MainViewModel.swift */; };
 		9E81A1D82734F23700567C6F /* DicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81A1D72734F23700567C6F /* DicViewModel.swift */; };
 		9E81A1DA2735115F00567C6F /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81A1D92735115F00567C6F /* NoteViewModel.swift */; };
 		9E86CD8C273A2ED600CB515D /* ContentCVTimerViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E86CD8B273A2ED600CB515D /* ContentCVTimerViewTableCell.swift */; };
+		9E86CD8E273A604700CB515D /* ContentsCVNoteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E86CD8D273A604700CB515D /* ContentsCVNoteViewCell.swift */; };
 		9E9131172732013700056330 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9131162732013700056330 /* menu.png */; };
 		9E930B9C272B87AA00F05BF2 /* contentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E930B9B272B87AA00F05BF2 /* contentsCell.swift */; };
 		9E930B9E272BDE3200F05BF2 /* ContentsCVMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E930B9D272BDE3200F05BF2 /* ContentsCVMainView.swift */; };
@@ -59,13 +58,12 @@
 		9E04774F272AEFAD00A1BF20 /* sideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideMenuCell.swift; sourceTree = "<group>"; };
 		9E047751272AF00F00A1BF20 /* sideMenuCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideMenuCV.swift; sourceTree = "<group>"; };
 		9E047753272B03EE00A1BF20 /* contentsCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contentsCV.swift; sourceTree = "<group>"; };
-		9E81A1CF2734AB5400567C6F /* WordNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WordNote+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9E81A1D02734AB5400567C6F /* WordNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WordNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9E81A1D32734DA2900567C6F /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		9E81A1D52734EC6800567C6F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		9E81A1D72734F23700567C6F /* DicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DicViewModel.swift; sourceTree = "<group>"; };
 		9E81A1D92735115F00567C6F /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
 		9E86CD8B273A2ED600CB515D /* ContentCVTimerViewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCVTimerViewTableCell.swift; sourceTree = "<group>"; };
+		9E86CD8D273A604700CB515D /* ContentsCVNoteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsCVNoteViewCell.swift; sourceTree = "<group>"; };
 		9E9131162732013700056330 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = ../../../Downloads/menu.png; sourceTree = "<group>"; };
 		9E930B9B272B87AA00F05BF2 /* contentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contentsCell.swift; sourceTree = "<group>"; };
 		9E930B9D272BDE3200F05BF2 /* ContentsCVMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsCVMainView.swift; sourceTree = "<group>"; };
@@ -122,8 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				9EAE3C512704296400E22064 /* SwiftApp.xcdatamodeld */,
-				9E81A1D02734AB5400567C6F /* WordNote+CoreDataProperties.swift */,
-				9E81A1CF2734AB5400567C6F /* WordNote+CoreDataClass.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -137,6 +133,7 @@
 				9E930BA3272BDFF800F05BF2 /* ContentsCVNoteView.swift */,
 				9E930BA5272BE00200F05BF2 /* ContentsCVTimerView.swift */,
 				9E86CD8B273A2ED600CB515D /* ContentCVTimerViewTableCell.swift */,
+				9E86CD8D273A604700CB515D /* ContentsCVNoteViewCell.swift */,
 			);
 			path = ContentsCVCell;
 			sourceTree = "<group>";
@@ -372,14 +369,13 @@
 				9E81A1D82734F23700567C6F /* DicViewModel.swift in Sources */,
 				9EAE3C532704296400E22064 /* SwiftApp.xcdatamodeld in Sources */,
 				9EFEC47C2729288F0094C4BB /* ViewModel.swift in Sources */,
-				9E81A1D22734AB5400567C6F /* WordNote+CoreDataProperties.swift in Sources */,
 				9EFEC47A272925750094C4BB /* topMenuCV.swift in Sources */,
 				9E930BA0272BDF0700F05BF2 /* ContentsCVDicView.swift in Sources */,
 				9E930B9C272B87AA00F05BF2 /* contentsCell.swift in Sources */,
 				9E930BA2272BDFEC00F05BF2 /* ContentsCVEmailView.swift in Sources */,
+				9E86CD8E273A604700CB515D /* ContentsCVNoteViewCell.swift in Sources */,
 				9E81A1D42734DA2900567C6F /* TimerViewModel.swift in Sources */,
 				9E930BA6272BE00200F05BF2 /* ContentsCVTimerView.swift in Sources */,
-				9E81A1D12734AB5400567C6F /* WordNote+CoreDataClass.swift in Sources */,
 				9E81A1D62734EC6800567C6F /* MainViewModel.swift in Sources */,
 				9E047750272AEFAD00A1BF20 /* sideMenuCell.swift in Sources */,
 				9E930BA4272BDFF800F05BF2 /* ContentsCVNoteView.swift in Sources */,

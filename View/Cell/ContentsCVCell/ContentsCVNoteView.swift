@@ -13,6 +13,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     
+    var NoteArray = [NSManagedObject]()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -60,16 +62,17 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        return NoteArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
+        let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
-        cell.textLabel?.text = "ㅎㅇ"
+        let Note = NoteArray[indexPath.row]
         
-     
+        cell.lbl.text = Note.value(forKey: "word") as? String
+        
         return cell
     }
     

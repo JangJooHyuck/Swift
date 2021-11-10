@@ -16,6 +16,7 @@ class ContentsCVMainView:UICollectionViewCell{
     var TodayWordLabel = UILabel()
     var TodayWordContentLabel = UILabel()
     var TodayWordReplaceBT = UIButton(type: .custom)
+    var addWordtoNoteBT = UIButton(type: .custom)
    
     
     
@@ -64,6 +65,18 @@ class ContentsCVMainView:UICollectionViewCell{
         TodayWordReplaceBT.addTarget(self, action: #selector(replaceAction), for: .touchUpInside)
         // 버튼을 뷰에 추가
         addSubview(TodayWordReplaceBT)
+        
+        //단어장 추가하기 버튼
+        addWordtoNoteBT.setTitle("단어장에 추가하기", for: .normal)
+        addWordtoNoteBT.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        // 버튼 원형으로 생성
+        addWordtoNoteBT.layer.cornerRadius = 0.2 * addWordtoNoteBT.bounds.size.width
+        addWordtoNoteBT.clipsToBounds = true
+        
+        // 버튼 클릭시 repalaceAction 호출
+        addWordtoNoteBT.addTarget(self, action: #selector(replaceAction), for: .touchUpInside)
+        // 버튼을 뷰에 추가
+        addSubview(addWordtoNoteBT)
         
         // TodayWord func 실행
         MainViewModel.VM.Todayword()
@@ -115,6 +128,7 @@ class ContentsCVMainView:UICollectionViewCell{
         TodayWordTextLabel.translatesAutoresizingMaskIntoConstraints = false
         TodayWordReplaceBT.translatesAutoresizingMaskIntoConstraints = false
         TodayWordContentLabel.translatesAutoresizingMaskIntoConstraints = false
+        addWordtoNoteBT.translatesAutoresizingMaskIntoConstraints = false
         
         //todayword 단순텍스트
         TodayWordTextLabel.textAlignment = .center
@@ -155,6 +169,15 @@ class ContentsCVMainView:UICollectionViewCell{
        
         TodayWordReplaceBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
         TodayWordReplaceBT.layer.cornerRadius = 10
+        
+        // 단어장 추가하기버튼
+
+        addWordtoNoteBT.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        addWordtoNoteBT.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        addWordtoNoteBT.topAnchor.constraint(equalTo: TodayWordReplaceBT.bottomAnchor, constant:10).isActive = true
+
+        addWordtoNoteBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        addWordtoNoteBT.layer.cornerRadius = 10
        
     }
    

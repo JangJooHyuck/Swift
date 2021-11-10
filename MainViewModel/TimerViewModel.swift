@@ -37,20 +37,14 @@ class TimerViewModel {
         let leftDate = Int(flowDate.timeIntervalSince(nowDate))
         //구한 값을 배열에 추가
         self.timerlist.append(leftDate)
-        print("현재시간 : "+"\(nowDate)")
-        print("더한시간 : "+"\(flowDate)")
-        print("시간차이 : "+"\(leftDate)")
+        print("현재시간    : "+"\(nowDate)")
+        print("종료예정시간 : "+"\(flowDate)")
+        print("시간차이    : "+"\(leftDate)")
         
     }
     
     func startTimer() {
         
-    
-        
-       
-        
-        
-       
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
             //timerlist 가 비어있지 않다면 실행
