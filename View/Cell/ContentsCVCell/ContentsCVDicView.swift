@@ -7,13 +7,14 @@
 
 import UIKit
 import Combine
+import CoreData
 
 
 class ContentsCVDicView:UICollectionViewCell{
 
     var cancellable = Set<AnyCancellable>()
     
-  
+    
     // 사용자가 단어를 입력하는 곳
     let WordTextField =  UITextField()
     
@@ -68,9 +69,30 @@ class ContentsCVDicView:UICollectionViewCell{
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+     // https://selfish-developer.com/entry/CoreData
         
         
+        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        let context = container.viewContext
+        let newWord = NoteEntity(context: context)
+        newWord.word = WordTextField.text!
+        newWord.wordcontents = WordLabel.text!
+        
+        print(newWord.word!)
+        print(newWord.wordcontents!)
+        
+       
+//        DicViewModel.VM.UserWordData.append("\(newWord.word)")
+//        DicViewModel.VM.UserWordContentsData.append("\(newWord.wordcontents)")
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving Contents \(error)")
+        }
+    
     }
+    
    
     //사전 레이아웃
     func DicLayout(){

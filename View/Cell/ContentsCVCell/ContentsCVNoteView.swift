@@ -18,7 +18,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
+  
+  
        
         self.addSubview(NoteText)
         self.addSubview(NoteTableView)
@@ -29,7 +30,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         self.NoteTableView.dataSource = self
         self.NoteTableView.delegate = self
         
-        self.NoteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.NoteTableView.register(ContentsCVNoteViewCell.self, forCellReuseIdentifier: "cell")
         
         
         tableviewLayout()
@@ -37,6 +38,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         
     }
+   
     
     func textLayout() {
         NoteText.textAlignment = .center
@@ -62,16 +64,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NoteArray.count
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
-        let Note = NoteArray[indexPath.row]
-        
-        cell.lbl.text = Note.value(forKey: "word") as? String
         
         return cell
     }
