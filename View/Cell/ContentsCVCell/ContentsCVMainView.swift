@@ -124,9 +124,10 @@ class ContentsCVMainView:UICollectionViewCell{
         let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
         let context = container.viewContext
         let newWord = NoteEntity(context: context)
+        
         newWord.word = TodayWordLabel.text!
         newWord.wordcontents = TodayWordContentLabel.text!
-        
+   
         do {
             try context.save()
         } catch {
@@ -135,6 +136,8 @@ class ContentsCVMainView:UICollectionViewCell{
         
         print(newWord.word!)
         print(newWord.wordcontents!)
+       
+    
         ContentsCVNoteView.init().NoteTableView.reloadData()
     }
     

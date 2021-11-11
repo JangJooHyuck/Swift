@@ -16,6 +16,8 @@ class MainViewModel {
     static let VM = MainViewModel()
     @Published var word : String = ""
     @Published var wordContents : String = ""
+    
+    
     @Published var UserWordData: [String] = []
     @Published var UserWordContentsData: [String] = []
     
@@ -25,6 +27,22 @@ class MainViewModel {
         
     }()
    //get data in tableview
+    
+    func delete(obejct: NSManagedObject) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        context.delete(obejct)
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            return false
+        }
+    }
+
     
     // read Data
     func fetch() -> [NSManagedObject] {
@@ -39,6 +57,7 @@ class MainViewModel {
         let result = try! context.fetch(fetchRequest)
         return result
     }
+    
     
     // 오늘의 단어
     func Todayword() {

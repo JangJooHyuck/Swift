@@ -13,6 +13,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     
+    //셀이 비어있나요?
+    let emptyText = UILabel()
     //선택된 셀의 행이 뭔지 판단함.
     var selectedIndex: Int = -1
     // 셀이 커졌는지 ?
@@ -24,7 +26,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         super.init(frame: frame)
         
         
-  
+        self.addSubview(emptyText)
        
         self.addSubview(NoteText)
         self.addSubview(NoteTableView)
@@ -43,7 +45,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         
     }
-   
+  
     
     func textLayout() {
         NoteText.textAlignment = .center
@@ -60,15 +62,30 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         NoteTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         NoteTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         NoteTableView.topAnchor.constraint(equalTo: NoteText.bottomAnchor, constant: 20).isActive = true
-        NoteTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         NoteTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let object = MainViewModel.VM.wordlist[indexPath.row] /// NSManagedObject객체
+        if MainViewModel.VM.delete(obejct: object) { /// DB에서 삭제
+            MainViewModel.VM.wordlist.remove(at: indexPath.row) /// 데이터 삭제
+           NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
+        }
     }
     
     
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
+       
         return MainViewModel.VM.wordlist.count
+      
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,8 +95,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         let word = record.value(forKey: "word") as? String
         let contents = record.value(forKey: "wordcontents") as? String
+        let wordidx = record.value(forKey: "wordidx") as? String
         
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
+        
+        if MainViewModel.VM.wordlist.count == 0 {
+            cell.textLabel?.text = "단어를 입력해주세요"
+        }
         
         cell.wordLB.layer.borderWidth = 1
         
@@ -95,7 +117,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         }
         else {
             cell.wordLB.layer.borderWidth = 0
-            cell.wordLB.text = word
+            cell.wordLB.text = wordidx
            
             cell.wordContentsLB.isHidden = false
             cell.wordContentsLB.text = contents
@@ -107,15 +129,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
                     cell.wordLB.transform = CGAffineTransform(translationX: -170, y: -80)
                     cell.wordContentsLB.alpha = 1
                     })
-            
-           
-            
-            
+            }
+            return cell
             
         }
-       
-        return cell
-    }
+    
     
     // 셀을 선택했을때 선택한 셀의 행을 저장
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
