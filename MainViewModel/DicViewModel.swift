@@ -17,33 +17,11 @@ class DicViewModel {
     @Published var UserWord : String = ""
     @Published var UserWordContents : String = ""
     
-    @Published var UserWordData: [String] = []
-    @Published var UserWordContentsData: [String] = []
-    
-    lazy var wordlist : [NSManagedObject] = {
-        
-        return fetch()
-        
-    }()
-   //get data in tableview
-    
-    // read Data
-    func fetch() -> [NSManagedObject] {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
-        
-        // sort
-        let sort = NSSortDescriptor(key: "word", ascending: false)
-        fetchRequest.sortDescriptors = [sort]
-        
-        let result = try! context.fetch(fetchRequest)
-        return result
-    }
+  
     
 
     
-    // 오늘의 단어
+    // 사전
     @objc func Findword() {
         
         //urlString에 vs에서 만든 api를 호출하고 wordTextField의 텍스트를 붙인다.

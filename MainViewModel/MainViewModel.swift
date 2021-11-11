@@ -7,6 +7,8 @@
 
 import Foundation
 import Combine
+import CoreData
+import UIKit
 
 class MainViewModel {
 
@@ -14,7 +16,29 @@ class MainViewModel {
     static let VM = MainViewModel()
     @Published var word : String = ""
     @Published var wordContents : String = ""
+    @Published var UserWordData: [String] = []
+    @Published var UserWordContentsData: [String] = []
     
+    lazy var wordlist : [NSManagedObject] = {
+        
+        return fetch()
+        
+    }()
+   //get data in tableview
+    
+    // read Data
+    func fetch() -> [NSManagedObject] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
+        
+        // sort
+        let sort = NSSortDescriptor(key: "word", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        
+        let result = try! context.fetch(fetchRequest)
+        return result
+    }
     
     // 오늘의 단어
     func Todayword() {

@@ -68,13 +68,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DicViewModel.VM.wordlist.count
+        return MainViewModel.VM.wordlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //데이터 가져오기
-        let record = DicViewModel.VM.wordlist[indexPath.row]
+        let record = MainViewModel.VM.wordlist[indexPath.row]
         
         let word = record.value(forKey: "word") as? String
         let contents = record.value(forKey: "wordcontents") as? String
@@ -82,20 +82,37 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
         cell.wordLB.layer.borderWidth = 1
+        
         if isCellup == false{
         
-        cell.wordLB.text = word
-        cell.wordLB.textAlignment = .center
-                    
+            cell.wordLB.text = word
+            cell.wordLB.textAlignment = .center
+            cell.wordLB.layer.borderWidth = 1
+            cell.wordContentsLB.isHidden = true
+            cell.wordContentsLB.alpha = 0
+          
         }
         else {
-            cell.wordLB.text = contents
-            cell.wordLB.textAlignment = .left
+            cell.wordLB.layer.borderWidth = 0
+            cell.wordLB.text = word
+           
+            cell.wordContentsLB.isHidden = false
+            cell.wordContentsLB.text = contents
+            cell.wordContentsLB.alpha = 0
+            
+            UIView.animate(withDuration: 0.5,
+                animations: {
+                    // 셀 단어 텍스트 이동 애니메이션
+                    cell.wordLB.transform = CGAffineTransform(translationX: -170, y: -80)
+                    cell.wordContentsLB.alpha = 1
+                    })
+            
+           
+            
+            
             
         }
        
-        
-        
         return cell
     }
     
@@ -103,6 +120,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.NoteTableView.beginUpdates()
+        
         //만약 현재 idx 가 selectedIndex 와 같다면
         if indexPath.row == selectedIndex {
             selectedIndex = -1

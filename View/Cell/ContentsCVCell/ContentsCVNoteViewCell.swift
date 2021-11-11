@@ -16,6 +16,12 @@ class ContentsCVNoteViewCell: UITableViewCell {
         return wordLB
     }()
     
+    let wordContentsLB: UILabel = {
+        let wordContentsLB = UILabel()
+        wordContentsLB.textAlignment = .left
+        return wordContentsLB
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,6 +29,7 @@ class ContentsCVNoteViewCell: UITableViewCell {
         
         //셀에 추가하고
         addSubview(wordLB)
+        addSubview(wordContentsLB)
         
 
         //해당 라벨의 크기 및 배경을 설정
@@ -34,6 +41,21 @@ class ContentsCVNoteViewCell: UITableViewCell {
         wordLB.heightAnchor.constraint(equalToConstant: 100).isActive = true
 
         wordLB.backgroundColor = .white
+        
+        //해당 라벨의 크기 및 배경을 설정
+        wordContentsLB.translatesAutoresizingMaskIntoConstraints = false
+        wordContentsLB.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
+        wordContentsLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        wordContentsLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        wordContentsLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        wordContentsLB.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        
+        wordContentsLB.textAlignment = .center
+        wordContentsLB.layer.borderWidth = 1
+        wordContentsLB.isHidden = true
+        wordContentsLB.backgroundColor = .clear
+        
 
         
       

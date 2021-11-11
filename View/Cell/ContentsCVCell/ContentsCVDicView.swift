@@ -21,21 +21,19 @@ class ContentsCVDicView:UICollectionViewCell{
     // 사용자가 입력한 단어의 뜻이 표출되는 라벨
     var WordLabel = UILabel()
     
-    // 단어장 추가 버튼
-    var addWord = UIButton(type: .custom)
+  
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(WordLabel)
         addSubview(WordTextField)
-        addSubview(addWord)
+       
         
         // textField 에 입력된값 실시간 체크
         WordTextField.addTarget(self, action: #selector(ChangeWord), for:UIControl.Event.editingChanged)
         
-        // 버튼 클릭시 searchAction 호출
-        addWord.addTarget(self, action: #selector(addwordBT), for: .touchUpInside)
+       
         // 버튼을 뷰에 추가
         DicLayout()
         ChangeWordContents()
@@ -60,38 +58,7 @@ class ContentsCVDicView:UICollectionViewCell{
         }.store(in: &cancellable)
     }
 
-    //  add word 버튼 이벤트 설정
-    @objc func addwordBT(sender: UIButton!)
-    {
-        // 버튼 클릭시 애니메이션 설정
-        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
-        colorAnimation.fromValue = UIColor.white.cgColor
-        colorAnimation.duration = 1  // animation duration
-        sender.layer.add(colorAnimation, forKey: "ColorPulse")
-        
-     // https://selfish-developer.com/entry/CoreData
-        
-        
-        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-        let context = container.viewContext
-        let newWord = NoteEntity(context: context)
-        newWord.word = WordTextField.text!
-        newWord.wordcontents = WordLabel.text!
-        
-        print(newWord.word!)
-        print(newWord.wordcontents!)
-        
-       
-//        DicViewModel.VM.UserWordData.append("\(newWord.word)")
-//        DicViewModel.VM.UserWordContentsData.append("\(newWord.wordcontents)")
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error saving Contents \(error)")
-        }
-    
-    }
+   
     
    
     //사전 레이아웃
@@ -99,7 +66,7 @@ class ContentsCVDicView:UICollectionViewCell{
         
         WordTextField.translatesAutoresizingMaskIntoConstraints = false
         WordLabel.translatesAutoresizingMaskIntoConstraints = false
-        addWord.translatesAutoresizingMaskIntoConstraints = false
+        
         
         //사용자가 값을 입력하는 곳
         WordTextField.textAlignment = .center
@@ -107,7 +74,7 @@ class ContentsCVDicView:UICollectionViewCell{
         WordTextField.widthAnchor.constraint(equalToConstant: 400).isActive = true
         WordTextField.topAnchor.constraint(equalTo: topAnchor, constant: 250).isActive = true
         WordTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        WordTextField.placeholder = "Enter Word here"
+        WordTextField.placeholder = "검색하실 단어를 입력해주세요."
         WordTextField.font = UIFont.systemFont(ofSize: 15)
         WordTextField.borderStyle = UITextField.BorderStyle.roundedRect
         WordTextField.backgroundColor = UIColor(red: 102/255, green: 240/255, blue: 10/255, alpha: 0.5)
@@ -130,17 +97,7 @@ class ContentsCVDicView:UICollectionViewCell{
         WordLabel.layer.cornerRadius = 10
         WordLabel.layer.borderWidth = 1
         
-        //단어장 추가 버튼
-        
-        addWord.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        addWord.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        addWord.topAnchor.constraint(equalTo: WordLabel.bottomAnchor, constant: 50).isActive = true
-        addWord.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        addWord.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-        addWord.setTitle("단어장에 추가하기", for: .normal)
-        addWord.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-        addWord.layer.cornerRadius = 0.05 * addWord.bounds.size.width
-        addWord.clipsToBounds = true
+      
         
     }
     

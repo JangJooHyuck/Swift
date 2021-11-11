@@ -2,9 +2,11 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Note" representedClassName="NoteEntity" syncable="YES" codeGenerationType="class">
         <attribute name="word" optional="YES" attributeType="String" customClassName="[String]"/>
+        <attribute name="wordcc" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wordcontents" optional="YES" attributeType="String" customClassName="[String]"/>
+        <attribute name="wordidx" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="Note" positionX="-63" positionY="-18" width="128" height="89"/>
     </elements>
 </model>

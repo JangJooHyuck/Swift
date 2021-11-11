@@ -73,8 +73,8 @@ class ContentsCVMainView:UICollectionViewCell{
         addWordtoNoteBT.layer.cornerRadius = 0.2 * addWordtoNoteBT.bounds.size.width
         addWordtoNoteBT.clipsToBounds = true
         
-        // 버튼 클릭시 repalaceAction 호출
-        addWordtoNoteBT.addTarget(self, action: #selector(replaceAction), for: .touchUpInside)
+        // 버튼 클릭시 addNoteAction 호출
+        addWordtoNoteBT.addTarget(self, action: #selector(addNoteAction), for: .touchUpInside)
         // 버튼을 뷰에 추가
         addSubview(addWordtoNoteBT)
         
@@ -114,8 +114,29 @@ class ContentsCVMainView:UICollectionViewCell{
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         // TodayWord() 실행
         MainViewModel.VM.Todayword()
+        
+        
+        
     }
-    
+    @objc func addNoteAction(sender: UIButton!)
+    {
+        
+        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        let context = container.viewContext
+        let newWord = NoteEntity(context: context)
+        newWord.word = TodayWordLabel.text!
+        newWord.wordcontents = TodayWordContentLabel.text!
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving Contents \(error)")
+        }
+        
+        print(newWord.word!)
+        print(newWord.wordcontents!)
+        ContentsCVNoteView.init().NoteTableView.reloadData()
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
