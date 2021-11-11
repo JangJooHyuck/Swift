@@ -145,8 +145,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let object = MainViewModel.VM.wordlist[indexPath.row] /// NSManagedObject객체
         if MainViewModel.VM.delete(obejct: object) { /// DB에서 삭제
             MainViewModel.VM.wordlist.remove(at: indexPath.row) /// 데이터 삭제
-           NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
-            
+        NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
+        self.NoteTableView.reloadData()
         HiddenTablewhenlistisEmpty()
         }
     }
@@ -169,7 +169,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
         let word = record.value(forKey: "word") as! String
         let contents = record.value(forKey: "wordcontents") as? String
-        let wordidx = record.value(forKey: "wordidx") as? String
+        var wordcc = record.value(forKey: "wordcc") as! Int
+        
         
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
@@ -179,18 +180,20 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         if isCellup == false{
         
-            cell.wordLB.text = "["+"\(indexPath.row)" + "]" + "\(word)"
+            
+            cell.wordLB.text = "\(word)" + "       클릭한 횟수 : " + "\(String(describing: wordcc))"
             
             cell.wordLB.textAlignment = .center
             cell.wordLB.layer.borderWidth = 1
             cell.wordContentsLB.isHidden = true
             cell.wordContentsLB.alpha = 0
             cell.wordLB.transform = CGAffineTransform(translationX: 0, y: 0)
-          
+            cell.wordLB.font = UIFont.systemFont(ofSize: 20)
         }
         else {
+            wordcc += 1
             cell.wordLB.layer.borderWidth = 0
-            cell.wordLB.text = word
+            cell.wordLB.text = "[ "+"\(word)"+" ]"
            
             cell.wordContentsLB.isHidden = false
             cell.wordContentsLB.text = contents
@@ -199,7 +202,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             UIView.animate(withDuration: 0.5,
                 animations: {
                     // 셀 단어 텍스트 이동 애니메이션
-                    cell.wordLB.transform = CGAffineTransform(translationX: -140, y: -80)
+                    cell.wordLB.font = UIFont.systemFont(ofSize: 40)
+                    cell.wordLB.transform = CGAffineTransform(translationX: -120, y: -70)
                     cell.wordContentsLB.alpha = 1
                     })
             }

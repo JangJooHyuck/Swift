@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import CoreData
 
 class ContentsCVMainView:UICollectionViewCell{
 
@@ -127,13 +128,18 @@ class ContentsCVMainView:UICollectionViewCell{
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+        
+        
         let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
         let context = container.viewContext
         let newWord = NoteEntity(context: context)
         
+        // 단어넣기
         newWord.word = TodayWordLabel.text!
+        // 단어뜻 넣기
         newWord.wordcontents = TodayWordContentLabel.text!
-        newWord.wordidx += 1
+        // 단어클릭횟수 넣기, 초기값은 0
+        newWord.wordcc = 0
       
    
         do {
