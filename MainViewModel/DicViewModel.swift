@@ -19,7 +19,27 @@ class DicViewModel {
     
     @Published var UserWordData: [String] = []
     @Published var UserWordContentsData: [String] = []
-   
+    
+    lazy var wordlist : [NSManagedObject] = {
+        
+        return fetch()
+        
+    }()
+   //get data in tableview
+    
+    // read Data
+    func fetch() -> [NSManagedObject] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
+        
+        // sort
+        let sort = NSSortDescriptor(key: "word", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        
+        let result = try! context.fetch(fetchRequest)
+        return result
+    }
     
 
     

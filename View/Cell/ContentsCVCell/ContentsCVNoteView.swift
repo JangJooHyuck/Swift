@@ -13,12 +13,17 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     
+    //선택된 셀의 행이 뭔지 판단함.
+    var selectedIndex: NSInteger! = -1
+    // 셀이 커졌는지 ?
+    var isCellup :Bool = false
+    
     var NoteArray = [NSManagedObject]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-  
+        
   
        
         self.addSubview(NoteText)
@@ -52,7 +57,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     }
     func tableviewLayout() {
        
-     
         NoteTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         NoteTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         NoteTableView.topAnchor.constraint(equalTo: NoteText.bottomAnchor, constant: 20).isActive = true
@@ -64,15 +68,58 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return DicViewModel.VM.wordlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        //데이터 가져오기
+        let record = DicViewModel.VM.wordlist[indexPath.row]
+        
+        let word = record.value(forKey: "word") as? String
+        let contents = record.value(forKey: "wordcontents") as? String
+        
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
+        
+        if isCellup == false{
+        
+        cell.wordLB.text = word
+        }
+        else {
+            cell.wordLB.text = contents
+        }
+       
         
         
         return cell
+    }
+    
+    // 셀을 선택했을때 선택한 셀의 행을 저장
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == selectedIndex {
+            selectedIndex = -1
+        } else {
+            selectedIndex = indexPath.row
+        }
+        self.NoteTableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+      
+        
+        if indexPath.row == selectedIndex
+        {
+            
+            isCellup = true
+            return 200
+            
+        }else {
+            
+            isCellup = false
+            return 45
+        }
+        
     }
     
     

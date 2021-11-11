@@ -10,30 +10,33 @@ import UIKit
 
 class ContentsCVNoteViewCell: UITableViewCell {
     
-    let lbl: UILabel = {
-        let lbl = UILabel()
-        lbl.textAlignment = .center
-        return lbl
+    let wordLB: UILabel = {
+        let wordLB = UILabel()
+        wordLB.textAlignment = .center
+        return wordLB
     }()
-
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         
         //셀에 추가하고
-        addSubview(lbl)
+        addSubview(wordLB)
+        
 
         //해당 라벨의 크기 및 배경을 설정
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
-        lbl.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
-        lbl.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        lbl.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        wordLB.translatesAutoresizingMaskIntoConstraints = false
+        wordLB.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
+        wordLB.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
+        wordLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        wordLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        wordLB.heightAnchor.constraint(equalToConstant: 100).isActive = true
 
-        lbl.backgroundColor = .white
+        wordLB.backgroundColor = .white
 
+        
+      
         
        
         
