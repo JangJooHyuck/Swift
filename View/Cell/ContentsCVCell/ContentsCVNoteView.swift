@@ -15,6 +15,10 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     //셀이 비어있나요?
     let emptyText = UILabel()
+    //단어장이 비어있으니 추가하러 가시죠
+    let goTomainBT = UIButton()
+    
+    
     //선택된 셀의 행이 뭔지 판단함.
     var selectedIndex: Int = -1
     // 셀이 커졌는지 ?
@@ -25,11 +29,15 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        NoteTableView.isHidden = true
         
+        self.addSubview(goTomainBT)
         self.addSubview(emptyText)
-       
         self.addSubview(NoteText)
         self.addSubview(NoteTableView)
+        
+        goTomainBT.translatesAutoresizingMaskIntoConstraints = false
+        emptyText.translatesAutoresizingMaskIntoConstraints = false
         
         NoteTableView.translatesAutoresizingMaskIntoConstraints = false
         NoteText.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +50,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         tableviewLayout()
         textLayout()
-        
+        emptyTextLayout()
+        gotomainLayout()
         
     }
   
@@ -55,8 +64,43 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         NoteText.widthAnchor.constraint(equalToConstant: 300).isActive = true
         NoteText.heightAnchor.constraint(equalToConstant: 100).isActive = true
         NoteText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50).isActive = true
-        NoteText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        NoteText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
     }
+    func emptyTextLayout(){
+        emptyText.textAlignment = .center
+        emptyText.font = UIFont.systemFont(ofSize: 30)
+        emptyText.text = "단어장이 비어있습니다."
+        emptyText.backgroundColor = .clear
+        emptyText.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        emptyText.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        emptyText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50).isActive = true
+        emptyText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 250).isActive = true
+    }
+    func gotomainLayout(){
+       
+        goTomainBT.addTarget(self, action: #selector(gotoMainAction), for: .touchUpInside)
+        goTomainBT.setTitle("단어추가하러 가기", for: .normal)
+        goTomainBT.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        goTomainBT.layer.cornerRadius = 0.2 * goTomainBT.bounds.size.width
+        goTomainBT.clipsToBounds = true
+        goTomainBT.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        goTomainBT.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        goTomainBT.topAnchor.constraint(equalTo: emptyText.bottomAnchor, constant:50).isActive = true
+        goTomainBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        goTomainBT.layer.cornerRadius = 10
+    }
+    
+    @objc func gotoMainAction(sender: UIButton!){
+        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
+        colorAnimation.fromValue = UIColor.white.cgColor
+        colorAnimation.duration = 1  // animation duration
+        sender.layer.add(colorAnimation, forKey: "ColorPulse")
+        
+        // 버튼 클릭시 메인화면으로 이동
+        ViewModel.VM.CurrentCell = 0
+        print("gotoMain!")
+    }
+    
     func tableviewLayout() {
        
         NoteTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
@@ -83,12 +127,12 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
-       
         return MainViewModel.VM.wordlist.count
       
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         
         //데이터 가져오기
         let record = MainViewModel.VM.wordlist[indexPath.row]
