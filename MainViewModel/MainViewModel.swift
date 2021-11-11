@@ -17,16 +17,13 @@ class MainViewModel {
     @Published var word : String = ""
     @Published var wordContents : String = ""
     
-    
-    @Published var UserWordData: [String] = []
-    @Published var UserWordContentsData: [String] = []
-    
-    lazy var wordlist : [NSManagedObject] = {
+    @Published var wordlist : [NSManagedObject] = {
         
         return fetch()
         
     }()
-   //get data in tableview
+   
+   
     
     func delete(obejct: NSManagedObject) -> Bool {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -45,7 +42,7 @@ class MainViewModel {
 
     
     // read Data
-    func fetch() -> [NSManagedObject] {
+    static func fetch() -> [NSManagedObject] {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")

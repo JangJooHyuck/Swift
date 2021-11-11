@@ -120,6 +120,11 @@ class ContentsCVMainView:UICollectionViewCell{
     }
     @objc func addNoteAction(sender: UIButton!)
     {
+        // 버튼 클릭시 애니메이션 설정
+        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
+        colorAnimation.fromValue = UIColor.white.cgColor
+        colorAnimation.duration = 1  // animation duration
+        sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
         let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
         let context = container.viewContext
@@ -137,8 +142,7 @@ class ContentsCVMainView:UICollectionViewCell{
         print(newWord.word!)
         print(newWord.wordcontents!)
        
-    
-        ContentsCVNoteView.init().NoteTableView.reloadData()
+        
     }
     
     required init?(coder: NSCoder) {

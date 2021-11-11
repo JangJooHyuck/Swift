@@ -210,7 +210,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         self.myTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         self.myTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.myTableView.topAnchor.constraint(equalTo: startTimerBT.bottomAnchor, constant: 20).isActive = true
-        self.myTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+       
         self.myTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
     }
     func TMBTlayout(){

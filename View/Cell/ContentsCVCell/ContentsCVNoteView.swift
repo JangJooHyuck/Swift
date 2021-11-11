@@ -29,13 +29,16 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        NoteTableView.isHidden = true
+        emptyText.layer.zPosition = 99
+        goTomainBT.layer.zPosition = 99
         
+      
         self.addSubview(goTomainBT)
         self.addSubview(emptyText)
         self.addSubview(NoteText)
         self.addSubview(NoteTableView)
         
+       
         goTomainBT.translatesAutoresizingMaskIntoConstraints = false
         emptyText.translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,7 +55,23 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         textLayout()
         emptyTextLayout()
         gotomainLayout()
-        
+        HiddenTablewhenlistisEmpty()
+      
+     
+    }
+    
+    
+    func HiddenTablewhenlistisEmpty(){
+        if MainViewModel.VM.wordlist.count == 0 {
+            NoteTableView.isHidden = true
+            emptyText.isHidden = false
+            goTomainBT.isHidden = false
+        }
+        else{
+            NoteTableView.isHidden = false
+            emptyText.isHidden = true
+            goTomainBT.isHidden = true
+        }
     }
   
     
@@ -75,6 +94,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         emptyText.heightAnchor.constraint(equalToConstant: 100).isActive = true
         emptyText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50).isActive = true
         emptyText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 250).isActive = true
+        
+    
     }
     func gotomainLayout(){
        
@@ -88,7 +109,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         goTomainBT.topAnchor.constraint(equalTo: emptyText.bottomAnchor, constant:50).isActive = true
         goTomainBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
         goTomainBT.layer.cornerRadius = 10
+        
+       
+        
     }
+   
     
     @objc func gotoMainAction(sender: UIButton!){
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
@@ -119,6 +144,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         if MainViewModel.VM.delete(obejct: object) { /// DB에서 삭제
             MainViewModel.VM.wordlist.remove(at: indexPath.row) /// 데이터 삭제
            NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
+            
+        HiddenTablewhenlistisEmpty()
         }
     }
     
@@ -161,7 +188,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         }
         else {
             cell.wordLB.layer.borderWidth = 0
-            cell.wordLB.text = wordidx
+            cell.wordLB.text = word
            
             cell.wordContentsLB.isHidden = false
             cell.wordContentsLB.text = contents
