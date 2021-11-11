@@ -81,14 +81,17 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
+        cell.wordLB.layer.borderWidth = 1
         if isCellup == false{
         
         cell.wordLB.text = word
         cell.wordLB.textAlignment = .center
+                    
         }
         else {
             cell.wordLB.text = contents
             cell.wordLB.textAlignment = .left
+            
         }
        
         
@@ -99,12 +102,22 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     // 셀을 선택했을때 선택한 셀의 행을 저장
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        self.NoteTableView.beginUpdates()
+        //만약 현재 idx 가 selectedIndex 와 같다면
         if indexPath.row == selectedIndex {
             selectedIndex = -1
         } else {
             selectedIndex = indexPath.row
+            
         }
-        self.NoteTableView.reloadData()
+        
+        self.NoteTableView.endUpdates()
+        // 0.25초후 reloadData, 셀이 펴지기 전에 리로드가 되면 펴지는 애니메이션이 나오지 않음.
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+            self.NoteTableView.reloadData()
+        }
+
+        
     }
     
     
@@ -113,7 +126,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         if indexPath.row == selectedIndex
         {
-            
             isCellup = true
             return 200
             

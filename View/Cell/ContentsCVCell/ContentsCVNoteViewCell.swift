@@ -28,7 +28,7 @@ class ContentsCVNoteViewCell: UITableViewCell {
         //해당 라벨의 크기 및 배경을 설정
         wordLB.translatesAutoresizingMaskIntoConstraints = false
         wordLB.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
-        wordLB.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
+        wordLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         wordLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         wordLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         wordLB.heightAnchor.constraint(equalToConstant: 100).isActive = true
