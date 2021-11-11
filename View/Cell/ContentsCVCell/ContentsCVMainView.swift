@@ -83,6 +83,7 @@ class ContentsCVMainView:UICollectionViewCell{
         MainCellLayout()
         ChangeWord()
         ChangeContents()
+    
         
     }
     // 뷰모델에 word 가 바뀌면, TodayWordlabel 의 텍스트를 VM 에 word 로 바꾼다.
@@ -132,6 +133,8 @@ class ContentsCVMainView:UICollectionViewCell{
         
         newWord.word = TodayWordLabel.text!
         newWord.wordcontents = TodayWordContentLabel.text!
+        newWord.wordidx += 1
+      
    
         do {
             try context.save()
@@ -148,6 +151,8 @@ class ContentsCVMainView:UICollectionViewCell{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+
     //메인 셀 레이아웃
     func MainCellLayout(){
     

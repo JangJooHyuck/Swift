@@ -7,9 +7,11 @@
 
 import UIKit
 import CoreData
+import Combine
 
 class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     
+    private var cancellable = Set<AnyCancellable>()
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     
@@ -56,11 +58,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         emptyTextLayout()
         gotomainLayout()
         HiddenTablewhenlistisEmpty()
-      
+       
      
     }
     
-    
+    // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
     func HiddenTablewhenlistisEmpty(){
         if MainViewModel.VM.wordlist.count == 0 {
             NoteTableView.isHidden = true
@@ -164,21 +166,21 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         //데이터 가져오기
         let record = MainViewModel.VM.wordlist[indexPath.row]
         
-        let word = record.value(forKey: "word") as? String
+        // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
+        let word = record.value(forKey: "word") as! String
         let contents = record.value(forKey: "wordcontents") as? String
         let wordidx = record.value(forKey: "wordidx") as? String
         
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
-        if MainViewModel.VM.wordlist.count == 0 {
-            cell.textLabel?.text = "단어를 입력해주세요"
-        }
+        
         
         cell.wordLB.layer.borderWidth = 1
         
         if isCellup == false{
         
-            cell.wordLB.text = word
+            cell.wordLB.text = "["+"\(indexPath.row)" + "]" + "\(word)"
+            
             cell.wordLB.textAlignment = .center
             cell.wordLB.layer.borderWidth = 1
             cell.wordContentsLB.isHidden = true
@@ -197,10 +199,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             UIView.animate(withDuration: 0.5,
                 animations: {
                     // 셀 단어 텍스트 이동 애니메이션
-                    cell.wordLB.transform = CGAffineTransform(translationX: -170, y: -80)
+                    cell.wordLB.transform = CGAffineTransform(translationX: -140, y: -80)
                     cell.wordContentsLB.alpha = 1
                     })
             }
+        
             return cell
             
         }
@@ -244,10 +247,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         }
         
     }
-    
-    
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

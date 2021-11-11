@@ -38,7 +38,7 @@ class ContentsCVNoteViewCell: UITableViewCell {
         wordLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         wordLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         wordLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        wordLB.heightAnchor.constraint(equalToConstant: 100).isActive = true
+      
 
         wordLB.backgroundColor = .white
         
@@ -48,7 +48,7 @@ class ContentsCVNoteViewCell: UITableViewCell {
         wordContentsLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         wordContentsLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         wordContentsLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        wordContentsLB.heightAnchor.constraint(equalToConstant: 100).isActive = true
+      
         
         
         wordContentsLB.textAlignment = .center

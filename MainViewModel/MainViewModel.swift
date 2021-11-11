@@ -55,6 +55,21 @@ class MainViewModel {
         return result
     }
     
+    func update(object: NSManagedObject, word: String, wordcontents: String) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        object.setValue(word, forKey: "word")
+        object.setValue(wordcontents, forKey: "wordcontents")
+       
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            return false
+        }
+    }
     
     // 오늘의 단어
     func Todayword() {
