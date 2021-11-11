@@ -8,13 +8,13 @@
 import UIKit
 import CoreData
 
-class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate{
+class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     
     //선택된 셀의 행이 뭔지 판단함.
-    var selectedIndex: NSInteger! = -1
+    var selectedIndex: Int = -1
     // 셀이 커졌는지 ?
     var isCellup :Bool = false
     
@@ -84,9 +84,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         if isCellup == false{
         
         cell.wordLB.text = word
+        cell.wordLB.textAlignment = .center
         }
         else {
             cell.wordLB.text = contents
+            cell.wordLB.textAlignment = .left
         }
        
         
@@ -105,6 +107,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         self.NoteTableView.reloadData()
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       
         
@@ -117,7 +120,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         }else {
             
             isCellup = false
-            return 45
+            return 50
         }
         
     }
