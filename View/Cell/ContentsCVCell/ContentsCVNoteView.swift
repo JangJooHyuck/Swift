@@ -90,6 +90,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             cell.wordLB.layer.borderWidth = 1
             cell.wordContentsLB.isHidden = true
             cell.wordContentsLB.alpha = 0
+            cell.wordLB.transform = CGAffineTransform(translationX: 0, y: 0)
           
         }
         else {
