@@ -73,30 +73,14 @@ class ContentsCVDicView:UICollectionViewCell{
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
         
+        let word = WordTextField.text!
+        let wordcontents = WordLabel.text!
         
-        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-        let context = container.viewContext
-        let newWord = NoteEntity(context: context)
         
-        // 단어넣기
-        newWord.word = WordTextField.text!
-        // 단어뜻 넣기
-        newWord.wordcontents = WordLabel.text!
-        
-        newWord.wordDate = Date()
-        
-        ContentsCVNoteView.init().NoteTableView.reloadData()
-
-        do {
-            try context.save()
-            
-        } catch {
-            print("Error saving Contents \(error)")
+        if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true {
+            print("gd")
         }
-        
-        print(newWord.word!)
-        print(newWord.wordcontents!)
-        print(newWord.wordDate)
+        ContentsCVNoteView.init().NoteTableView.reloadData()
     }
     
     @objc func ChangeWord(){

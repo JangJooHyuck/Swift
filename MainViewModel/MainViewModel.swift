@@ -58,18 +58,23 @@ class MainViewModel {
     
     
     func save(word: String, wordcontents: String) -> Bool {
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         let object = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context)
-        
+
         object.setValue(word, forKey: "word")
         object.setValue(wordcontents, forKey: "wordcontents")
+        object.setValue(Date(), forKey: "wordDate")
        
         // 영구 저장소에 commit후에 list프로퍼티에 추가
         do {
             try context.save()
-            self.wordlist.insert(object, at: 0)
+         
+            self.wordlist.insert(object, at: self.wordlist.count)
+            
+           
             return true
         } catch {
             context.rollback()
@@ -83,6 +88,7 @@ class MainViewModel {
         
         object.setValue(word, forKey: "word")
         object.setValue(contents, forKey: "wordcontents")
+        object.setValue(Date(), forKey: "wordDate")
         
         do {
             try context.save()

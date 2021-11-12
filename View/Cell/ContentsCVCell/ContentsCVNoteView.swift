@@ -93,25 +93,24 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        //삭제 액션
-        
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        // 저장소가져오기
-        let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-
-        // 삭제실행
-        do {
-            try persistentContainer.viewContext.execute(deleteRequest)
-        } catch let error as NSError {
-            print(error)
-        }
-        
-        MainViewModel.VM.wordlist.removeAll()
-        self.NoteTableView.reloadData()
+//        //삭제 액션
+//
+//        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
+//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//
+//        // 저장소가져오기
+//        let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+//
+//        // 삭제실행
+//        do {
+//            try persistentContainer.viewContext.execute(deleteRequest)
+//        } catch let error as NSError {
+//            print(error)
+//        }
+//
+//        MainViewModel.VM.wordlist.removeAll()
         HiddenTablewhenlistisEmpty()
-        
+        self.NoteTableView.reloadData()
     }
    
     // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
@@ -206,8 +205,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     func tableViewReload(){
         MainViewModel.VM.$wordlist.sink { value in
             
-            self.NoteTableView.reloadData()
             self.HiddenTablewhenlistisEmpty()
+            self.NoteTableView.reloadData()
+           
             print("reloading success")
             
         }.store(in: &cancellable)
@@ -226,14 +226,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         //데이터 가져오기
         let record = MainViewModel.VM.wordlist[indexPath.row]
        
-        
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
         let word = record.value(forKey: "word") as? String
         let contents = record.value(forKey: "wordcontents") as? String
        
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
-        
-        
         
         cell.wordLB.layer.borderWidth = 1
         

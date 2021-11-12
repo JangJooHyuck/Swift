@@ -129,30 +129,14 @@ class ContentsCVMainView:UICollectionViewCell{
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
         
+        let word = TodayWordLabel.text!
+        let wordcontents = TodayWordContentLabel.text!
         
-        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-        let context = container.viewContext
-        let newWord = NoteEntity(context: context)
         
-        // 단어넣기
-        newWord.word = TodayWordLabel.text!
-        // 단어뜻 넣기
-        newWord.wordcontents = TodayWordContentLabel.text!
-        
-        newWord.wordDate = Date()
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error saving Contents \(error)")
+        if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true {
+            print("gd")
         }
-        
-        print(newWord.word!)
-        print(newWord.wordcontents!)
-        print(newWord.wordDate!)
-        print(MainViewModel.VM.wordlist.count)
-        
-       
+        ContentsCVNoteView.init().NoteTableView.reloadData()
     }
     
     required init?(coder: NSCoder) {
