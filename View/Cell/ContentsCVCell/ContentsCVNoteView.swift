@@ -102,34 +102,37 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-//        //삭제 액션
-//
-//        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
-//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-//
-//        // 저장소가져오기
-//        let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-//
-//        // 삭제실행
-//        do {
-//            try persistentContainer.viewContext.execute(deleteRequest)
-//        } catch let error as NSError {
-//            print(error)
-//        }
-//
-//        MainViewModel.VM.wordlist.removeAll()
+        //삭제 액션
+
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        // 저장소가져오기
+        let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+
+        // 삭제실행
+        do {
+            try persistentContainer.viewContext.execute(deleteRequest)
+        } catch let error as NSError {
+            print(error)
+        }
+
+        MainViewModel.VM.wordlist.removeAll()
+        //모두다 삭제된건아닌지?
         HiddenTablewhenlistisEmpty()
         self.NoteTableView.reloadData()
     }
    
     // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
     func HiddenTablewhenlistisEmpty(){
-        if MainViewModel.VM.wordlist.count == 0 {
+       
+        if MainViewModel.VM.wordlist.isEmpty == true {
             NoteTableView.isHidden = true
             emptyText.isHidden = false
             goTomainBT.isHidden = false
         }
-        else{
+        
+        else {
             NoteTableView.isHidden = false
             emptyText.isHidden = true
             goTomainBT.isHidden = true
@@ -213,8 +216,20 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     func tableViewReload(){
         MainViewModel.VM.$wordlist.sink { value in
             
-            self.HiddenTablewhenlistisEmpty()
             self.NoteTableView.reloadData()
+            
+            if value.isEmpty == true {
+                self.NoteTableView.isHidden = true
+                self.emptyText.isHidden = false
+                self.goTomainBT.isHidden = false
+            }
+            
+            else {
+                self.NoteTableView.isHidden = false
+                self.emptyText.isHidden = true
+                self.goTomainBT.isHidden = true
+            }
+            
            
             print("reloading success")
             
