@@ -21,6 +21,8 @@ class ContentsCVDicView:UICollectionViewCell{
     // 사용자가 입력한 단어의 뜻이 표출되는 라벨
     var WordLabel = UILabel()
     
+    // 단어장에 추가하기 버튼
+    var addWordtoNoteBT = UIButton(type: .custom)
   
     
     override init(frame: CGRect) {
@@ -28,7 +30,9 @@ class ContentsCVDicView:UICollectionViewCell{
         
         addSubview(WordLabel)
         addSubview(WordTextField)
+        addSubview(addWordtoNoteBT)
        
+        addWordtoNoteBT.translatesAutoresizingMaskIntoConstraints = false
         
         // textField 에 입력된값 실시간 체크
         WordTextField.addTarget(self, action: #selector(ChangeWord), for:UIControl.Event.editingChanged)
@@ -37,8 +41,62 @@ class ContentsCVDicView:UICollectionViewCell{
         // 버튼을 뷰에 추가
         DicLayout()
         ChangeWordContents()
-       
+        addnoteBTLayout()
         
+    }
+    func addnoteBTLayout(){
+        // 단어장 추가하기버튼
+        
+        addWordtoNoteBT.setTitle("단어장에 추가하기", for: .normal)
+        addWordtoNoteBT.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        // 버튼 원형으로 생성
+        addWordtoNoteBT.layer.cornerRadius = 0.2 * addWordtoNoteBT.bounds.size.width
+        addWordtoNoteBT.clipsToBounds = true
+        
+        // 버튼 클릭시 addNoteAction 호출
+        addWordtoNoteBT.addTarget(self, action: #selector(addNoteAction), for: .touchUpInside)
+        addWordtoNoteBT.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        addWordtoNoteBT.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        addWordtoNoteBT.topAnchor.constraint(equalTo: topAnchor, constant:100).isActive = true
+
+        addWordtoNoteBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        addWordtoNoteBT.layer.cornerRadius = 10
+     
+        
+    }
+    @objc func addNoteAction(sender: UIButton!)
+    {
+        // 버튼 클릭시 애니메이션 설정
+        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
+        colorAnimation.fromValue = UIColor.white.cgColor
+        colorAnimation.duration = 1  // animation duration
+        sender.layer.add(colorAnimation, forKey: "ColorPulse")
+        
+        
+        
+        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        let context = container.viewContext
+        let newWord = NoteEntity(context: context)
+        
+        // 단어넣기
+        newWord.word = WordTextField.text!
+        // 단어뜻 넣기
+        newWord.wordcontents = WordLabel.text!
+        
+        newWord.wordDate = Date()
+        
+        ContentsCVNoteView.init().NoteTableView.reloadData()
+
+        do {
+            try context.save()
+            
+        } catch {
+            print("Error saving Contents \(error)")
+        }
+        
+        print(newWord.word!)
+        print(newWord.wordcontents!)
+        print(newWord.wordDate)
     }
     
     @objc func ChangeWord(){

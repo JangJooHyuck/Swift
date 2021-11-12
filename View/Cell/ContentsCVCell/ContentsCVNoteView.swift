@@ -92,13 +92,14 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
         //삭제 액션
+        
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
-        // get reference to the persistent container
+        // 저장소가져오기
         let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
 
-        // perform the delete
+        // 삭제실행
         do {
             try persistentContainer.viewContext.execute(deleteRequest)
         } catch let error as NSError {
@@ -110,13 +111,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         HiddenTablewhenlistisEmpty()
         
     }
-    func ClickCount(){
-        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-        let context = container.viewContext
-        let newWord = NoteEntity(context: context)
-       
-        print(newWord.wordcc)
-    }
+   
     // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
     func HiddenTablewhenlistisEmpty(){
         if MainViewModel.VM.wordlist.count == 0 {
@@ -226,7 +221,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let contents = record.value(forKey: "wordcontents") as? String
        
         
-        
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
         
@@ -246,7 +240,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             cell.wordLB.font = UIFont.systemFont(ofSize: 20)
         }
         else {
-            ClickCount()
+           
             cell.wordLB.layer.borderWidth = 0
             cell.wordLB.text = word
            
@@ -263,9 +257,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
                     })
             }
         
+        
             return cell
-            
+        
         }
+    
     
     
     // 셀을 선택했을때 선택한 셀의 행을 저장

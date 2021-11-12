@@ -48,21 +48,41 @@ class MainViewModel {
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
         
-        // sort
-        let sort = NSSortDescriptor(key: "word", ascending: false)
+        // sort// 정렬기준
+        let sort = NSSortDescriptor(key: "wordDate", ascending: true)
         fetchRequest.sortDescriptors = [sort]
         
         let result = try! context.fetch(fetchRequest)
         return result
     }
     
-    func update(object: NSManagedObject, word: String, wordcontents: String) -> Bool {
+    
+    func save(word: String, wordcontents: String) -> Bool {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
+        
+        let object = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context)
         
         object.setValue(word, forKey: "word")
         object.setValue(wordcontents, forKey: "wordcontents")
        
+        do {
+            try context.save()
+            self.wordlist.insert(object, at: 0)
+            return true
+        } catch {
+            context.rollback()
+            return false
+        }
+    }
+    
+    func update(object: NSManagedObject, word: String, contents: String)  -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        object.setValue(word, forKey: "word")
+        object.setValue(contents, forKey: "wordcontents")
+        
         do {
             try context.save()
             return true

@@ -4,7 +4,7 @@
         <attribute name="word" optional="YES" attributeType="String" customClassName="[String]"/>
         <attribute name="wordcc" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wordcontents" optional="YES" attributeType="String" customClassName="[String]"/>
-        <attribute name="wordidx" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="wordDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <elements>
         <element name="Note" positionX="-63" positionY="-18" width="128" height="89"/>
