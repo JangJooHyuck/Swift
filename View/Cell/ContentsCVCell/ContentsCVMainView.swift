@@ -133,10 +133,12 @@ class ContentsCVMainView:UICollectionViewCell{
         let wordcontents = TodayWordContentLabel.text!
         
         
-        if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true {
-            print("gd")
+        if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true{
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         }
-        ContentsCVNoteView.init().NoteTableView.reloadData()
+           
+       
+      
     }
     
     required init?(coder: NSCoder) {

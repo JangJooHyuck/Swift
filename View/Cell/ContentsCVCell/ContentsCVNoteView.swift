@@ -32,6 +32,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        //다른곳에서 해당 테이블뷰를 리로드하기위함
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        
         emptyText.layer.zPosition = 99
         goTomainBT.layer.zPosition = 99
         
@@ -64,6 +67,12 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
        
      
     }
+    //다른곳에서 해당 테이블뷰를 리로드하기위함
+    @objc func loadList(notification: NSNotification){
+        //load data here
+        self.NoteTableView.reloadData()
+    }
+    
     func DeleteAllBTLayout(){
         
     
@@ -163,7 +172,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         goTomainBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
         goTomainBT.layer.cornerRadius = 10
         
-       
         
     }
    
