@@ -59,6 +59,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         emptyTextLayout()
         gotomainLayout()
         HiddenTablewhenlistisEmpty()
+        // VM에 있는 wordList 값이 바뀌면 리로드
+        tableViewReload()
        
      
     }
@@ -201,7 +203,15 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         }
     }
     
-    
+    func tableViewReload(){
+        MainViewModel.VM.$wordlist.sink { value in
+            
+            self.NoteTableView.reloadData()
+            self.HiddenTablewhenlistisEmpty()
+            print("reloading success")
+            
+        }.store(in: &cancellable)
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -215,12 +225,12 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         //데이터 가져오기
         let record = MainViewModel.VM.wordlist[indexPath.row]
+       
         
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
         let word = record.value(forKey: "word") as? String
         let contents = record.value(forKey: "wordcontents") as? String
        
-        
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
         

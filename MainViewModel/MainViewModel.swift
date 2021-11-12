@@ -66,6 +66,7 @@ class MainViewModel {
         object.setValue(word, forKey: "word")
         object.setValue(wordcontents, forKey: "wordcontents")
        
+        // 영구 저장소에 commit후에 list프로퍼티에 추가
         do {
             try context.save()
             self.wordlist.insert(object, at: 0)

@@ -141,21 +141,18 @@ class ContentsCVMainView:UICollectionViewCell{
         
         newWord.wordDate = Date()
         
-        ContentsCVNoteView.init().NoteTableView.reloadData()
-
         do {
             try context.save()
-            
         } catch {
             print("Error saving Contents \(error)")
         }
         
         print(newWord.word!)
         print(newWord.wordcontents!)
-        print(newWord.wordDate)
-       
-       
+        print(newWord.wordDate!)
+        print(MainViewModel.VM.wordlist.count)
         
+       
     }
     
     required init?(coder: NSCoder) {

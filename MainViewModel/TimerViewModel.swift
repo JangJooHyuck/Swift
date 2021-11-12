@@ -25,6 +25,7 @@ class TimerViewModel {
     var UserSetTime: Int = 0
     
     
+    
     func TimeCalculate(){
         
         // 버튼을 눌렀을 때 현재의 Date
