@@ -138,8 +138,13 @@ class ContentsCVMainView:UICollectionViewCell{
         newWord.word = TodayWordLabel.text!
         // 단어뜻 넣기
         newWord.wordcontents = TodayWordContentLabel.text!
+      
+//        // 단어 고유 idx 넣기, 추후 중복된 데이터 검색해서 저장해야함.
+//        newWord.wordidx = NSManagedObjectID
+        
         // 단어클릭횟수 넣기, 초기값은 0
         newWord.wordcc = 0
+     
       
    
         do {
@@ -150,6 +155,7 @@ class ContentsCVMainView:UICollectionViewCell{
         
         print(newWord.word!)
         print(newWord.wordcontents!)
+        print(newWord.word?.propertyList())
        
         
     }

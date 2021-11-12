@@ -14,6 +14,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     private var cancellable = Set<AnyCancellable>()
     let NoteText = UILabel()
     let NoteTableView = UITableView()
+    let deleteAll = UIButton()
     
     //셀이 비어있나요?
     let emptyText = UILabel()
@@ -34,13 +35,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         emptyText.layer.zPosition = 99
         goTomainBT.layer.zPosition = 99
         
-      
+        self.addSubview(deleteAll)
         self.addSubview(goTomainBT)
         self.addSubview(emptyText)
         self.addSubview(NoteText)
         self.addSubview(NoteTableView)
         
-       
+        deleteAll.translatesAutoresizingMaskIntoConstraints = false
         goTomainBT.translatesAutoresizingMaskIntoConstraints = false
         emptyText.translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,7 +53,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         self.NoteTableView.register(ContentsCVNoteViewCell.self, forCellReuseIdentifier: "cell")
         
-        
+        DeleteAllBTLayout()
         tableviewLayout()
         textLayout()
         emptyTextLayout()
@@ -61,7 +62,61 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
        
      
     }
+    func DeleteAllBTLayout(){
+        
     
+        // 버튼 타이틀
+        deleteAll.setTitle("단어 모두삭제", for: .normal)
+        deleteAll.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        // 버튼 백그라운드 컬러 설정
+        deleteAll.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        // 버튼 원형으로 생성
+        deleteAll.layer.cornerRadius = 0.2 * deleteAll.bounds.size.width
+        deleteAll.clipsToBounds = true
+        
+        // 버튼 클릭시 repalaceAction 호출
+        deleteAll.addTarget(self, action: #selector(DeleteAllAction), for: .touchUpInside)
+        deleteAll.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        deleteAll.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        deleteAll.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
+       
+        deleteAll.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        deleteAll.layer.cornerRadius = 10
+    }
+    @objc func DeleteAllAction(sender: UIButton!){
+        
+        // 버튼 클릭시 애니메이션 설정
+        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
+        colorAnimation.fromValue = UIColor.white.cgColor
+        colorAnimation.duration = 1  // animation duration
+        sender.layer.add(colorAnimation, forKey: "ColorPulse")
+        
+        //삭제 액션
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        // get reference to the persistent container
+        let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+
+        // perform the delete
+        do {
+            try persistentContainer.viewContext.execute(deleteRequest)
+        } catch let error as NSError {
+            print(error)
+        }
+        
+        MainViewModel.VM.wordlist.removeAll()
+        self.NoteTableView.reloadData()
+        HiddenTablewhenlistisEmpty()
+        
+    }
+    func ClickCount(){
+        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        let context = container.viewContext
+        let newWord = NoteEntity(context: context)
+       
+        print(newWord.wordcc)
+    }
     // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
     func HiddenTablewhenlistisEmpty(){
         if MainViewModel.VM.wordlist.count == 0 {
@@ -167,9 +222,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let record = MainViewModel.VM.wordlist[indexPath.row]
         
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
-        let word = record.value(forKey: "word") as! String
+        let word = record.value(forKey: "word") as? String
         let contents = record.value(forKey: "wordcontents") as? String
-        var wordcc = record.value(forKey: "wordcc") as! Int
+       
         
         
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
@@ -180,8 +235,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         if isCellup == false{
         
-            
-            cell.wordLB.text = "\(word)" + "       클릭한 횟수 : " + "\(String(describing: wordcc))"
+         
+            cell.wordLB.text = word
             
             cell.wordLB.textAlignment = .center
             cell.wordLB.layer.borderWidth = 1
@@ -191,9 +246,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             cell.wordLB.font = UIFont.systemFont(ofSize: 20)
         }
         else {
-            wordcc += 1
+            ClickCount()
             cell.wordLB.layer.borderWidth = 0
-            cell.wordLB.text = "[ "+"\(word)"+" ]"
+            cell.wordLB.text = word
            
             cell.wordContentsLB.isHidden = false
             cell.wordContentsLB.text = contents
