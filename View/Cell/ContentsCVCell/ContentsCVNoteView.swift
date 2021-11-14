@@ -15,6 +15,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     let deleteAll = UIButton()
+    let sortList = UIButton()
+    var issort  = false
     
     //셀이 비어있나요?
     let emptyText = UILabel()
@@ -38,12 +40,14 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         emptyText.layer.zPosition = 99
         goTomainBT.layer.zPosition = 99
         
+        self.addSubview(sortList)
         self.addSubview(deleteAll)
         self.addSubview(goTomainBT)
         self.addSubview(emptyText)
         self.addSubview(NoteText)
         self.addSubview(NoteTableView)
         
+        sortList.translatesAutoresizingMaskIntoConstraints = false
         deleteAll.translatesAutoresizingMaskIntoConstraints = false
         goTomainBT.translatesAutoresizingMaskIntoConstraints = false
         emptyText.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +68,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         HiddenTablewhenlistisEmpty()
         // VM에 있는 wordList 값이 바뀌면 리로드
         tableViewReload()
-       
+        sortListBTlayout()
      
     }
     //다른곳에서 해당 테이블뷰를 리로드하기위함
@@ -73,6 +77,44 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         self.NoteTableView.reloadData()
     }
     
+    func sortListBTlayout(){
+        // 버튼 타이틀
+        sortList.setTitle("단어 정렬하기 \n현재정렬\n[오래된순]", for: .normal)
+        sortList.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        sortList.titleLabel?.numberOfLines = 5
+        sortList.titleLabel?.textAlignment = .center
+        // 버튼 백그라운드 컬러 설정
+        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        // 버튼 원형으로 생성
+        sortList.layer.cornerRadius = 0.2 * deleteAll.bounds.size.width
+        sortList.clipsToBounds = true
+        
+        // 버튼 클릭시 repalaceAction 호출
+        sortList.addTarget(self, action: #selector(sortAction), for: .touchUpInside)
+        sortList.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        sortList.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        sortList.topAnchor.constraint(equalTo: self.topAnchor, constant: 30).isActive = true
+       
+        sortList.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
+        sortList.layer.cornerRadius = 10
+    }
+    
+    @objc func sortAction(sender: UIButton!) {
+        // 버튼 클릭시 애니메이션 설정
+        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
+        colorAnimation.fromValue = UIColor.white.cgColor
+        colorAnimation.duration = 1  // animation duration
+        sender.layer.add(colorAnimation, forKey: "ColorPulse")
+        
+        if issort == false {
+        sortList.setTitle("단어 정렬하기 \n현재정렬\n[최신순]", for: .normal)
+            issort = true
+        }
+        else {
+            sortList.setTitle("단어 정렬하기 \n현재정렬\n[오래된순]", for: .normal)
+            issort = false
+        }
+    }
     func DeleteAllBTLayout(){
         
     
@@ -147,7 +189,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         NoteText.backgroundColor = .clear
         NoteText.widthAnchor.constraint(equalToConstant: 300).isActive = true
         NoteText.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        NoteText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50).isActive = true
+        NoteText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 55).isActive = true
         NoteText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
     }
     func emptyTextLayout(){
