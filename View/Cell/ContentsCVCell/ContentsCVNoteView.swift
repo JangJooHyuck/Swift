@@ -69,6 +69,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         // VM에 있는 wordList 값이 바뀌면 리로드
         tableViewReload()
         sortListBTlayout()
+        sortBinding()
      
     }
     //다른곳에서 해당 테이블뷰를 리로드하기위함
@@ -99,6 +100,15 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList.layer.cornerRadius = 10
     }
     
+    func sortBinding(){
+        MainViewModel.VM.$changeSort.sink { value in
+            MainViewModel.VM.wordlist = {
+                return MainViewModel.VM.sortList()
+            }()
+        }.store(in: &cancellable)
+    }
+    
+    
     @objc func sortAction(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
@@ -107,11 +117,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
         if issort == false {
-        sortList.setTitle("단어 정렬하기 \n현재정렬\n[최신순]", for: .normal)
+        sortList.setTitle("단어 정렬하기 [최신순]", for: .normal)
+            MainViewModel.VM.changeSort = true
             issort = true
         }
         else {
-            sortList.setTitle("단어 정렬하기 \n현재정렬\n[오래된순]", for: .normal)
+            sortList.setTitle("단어 정렬하기 [오래된순]", for: .normal)
+            MainViewModel.VM.changeSort = false
             issort = false
         }
     }
