@@ -129,8 +129,8 @@
 			children = (
 				9E930B9D272BDE3200F05BF2 /* ContentsCVMainView.swift */,
 				9E930B9F272BDF0700F05BF2 /* ContentsCVDicView.swift */,
-				9E930BA1272BDFEC00F05BF2 /* ContentsCVEmailView.swift */,
 				9E930BA5272BE00200F05BF2 /* ContentsCVTimerView.swift */,
+				9E930BA1272BDFEC00F05BF2 /* ContentsCVEmailView.swift */,
 				9E86CD8B273A2ED600CB515D /* ContentCVTimerViewTableCell.swift */,
 				9E930BA3272BDFF800F05BF2 /* ContentsCVNoteView.swift */,
 				9E86CD8D273A604700CB515D /* ContentsCVNoteViewCell.swift */,

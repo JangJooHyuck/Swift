@@ -16,7 +16,7 @@ class MainViewModel {
     static let VM = MainViewModel()
     @Published var word : String = ""
     @Published var wordContents : String = ""
-    @Published var changeSort = false
+    @Published var changeSort = true
     @Published var wordlist : [NSManagedObject] = {
     
         return fetch()
@@ -33,14 +33,15 @@ class MainViewModel {
         context.delete(obejct)
         
         do {
-            try context.save()
+            //try context.save()
             return true
         } catch {
-            context.rollback()
+           // context.rollback()
             return false
         }
     }
 
+    
     
     // read Data
     static func fetch() -> [NSManagedObject] {
@@ -56,7 +57,7 @@ class MainViewModel {
         return result
     }
     
-    func sortList() -> [NSManagedObject] {
+    func sortList() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
@@ -64,9 +65,11 @@ class MainViewModel {
         // sort// 정렬기준
         let sort = NSSortDescriptor(key: "wordDate", ascending: changeSort)
         fetchRequest.sortDescriptors = [sort]
-        
-        let result = try! context.fetch(fetchRequest)
-        return result
+        do {
+            wordlist = try context.fetch(fetchRequest)
+        } catch {
+            print("failed")
+        }
     }
    
     func save(word: String, wordcontents: String) -> Bool {
@@ -82,10 +85,9 @@ class MainViewModel {
         // 영구 저장소에 commit후에 list프로퍼티에 추가
         do {
             let result = try context.fetch(fetchRequest)
-            print("Fetch Count = \(result.count)")
             if result.count > 0 {
-                //데이터에 이미 존재하네..그러면 리턴
-                print ("이미 값이 존재합니다.")
+                //데이터에 이미 존재하네..그러면 리턴 false
+                
                 return false
             } else {
 //                //데이터에 값이 없으니 저장하자
@@ -96,18 +98,16 @@ class MainViewModel {
                 object.setValue(7, forKey: "wordcc")
                 self.wordlist.insert(object, at: self.wordlist.count)
                 try context.save()
+                return true
             }
             
-
-          
-            
-           
         } catch {
+            context.rollback()
             print ("Error")
             return false
         }
         
-        return true
+       
     }
     
     func update(object: NSManagedObject, word: String, contents: String)  -> Bool {

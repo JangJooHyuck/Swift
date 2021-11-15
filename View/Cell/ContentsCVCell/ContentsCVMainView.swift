@@ -131,17 +131,19 @@ class ContentsCVMainView:UICollectionViewCell{
         
         let word = TodayWordLabel.text!
         let wordcontents = TodayWordContentLabel.text!
-        
+        print(MainViewModel.VM.wordlist.count)
         
         
         if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true{
             //단어장 탭 리로드
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-            print("단어추가완료")
+            print("단어추가완료 -> [\(word)]")
         }
         else {
-            print("no")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+            print ("이미 값이 존재합니다. -> [\(word)]")
         }
+        
            
        
       
