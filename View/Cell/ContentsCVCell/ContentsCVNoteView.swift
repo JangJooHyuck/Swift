@@ -82,10 +82,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     @objc func loadList(notification: NSNotification){
         //load data here
         HiddenTablewhenlistisEmpty()
+        MainViewModel.VM.changeSort = false
+        MainViewModel.VM.changeSort = true
+        
         self.NoteTableView.reloadData()
-        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-        sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-        sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+       
     }
     
     func sortListBTlayout(){
@@ -389,6 +390,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
         cell.wordLB.layer.borderWidth = 1
+        
         if word == nil {
             let object = MainViewModel.VM.wordlist[indexPath.row] /// NSManagedObject객체
             if MainViewModel.VM.delete(obejct: object) { /// DB에서 삭제
