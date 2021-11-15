@@ -19,7 +19,7 @@ class MainViewModel {
     @Published var changeSort = true
     @Published var wordlist : [NSManagedObject] = {
     
-        return fetch()
+       fetch()
         
     }()
    
@@ -61,12 +61,13 @@ class MainViewModel {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
-        
         // sort// 정렬기준
         let sort = NSSortDescriptor(key: "wordDate", ascending: changeSort)
         fetchRequest.sortDescriptors = [sort]
+        
         do {
             wordlist = try context.fetch(fetchRequest)
+           
         } catch {
             print("failed")
         }
@@ -91,9 +92,11 @@ class MainViewModel {
                 return false
             } else {
 //                //데이터에 값이 없으니 저장하자
+               
                 object.setValue(word, forKey: "word")
                 object.setValue(wordcontents, forKey: "wordcontents")
                 object.setValue(Date(), forKey: "wordDate")
+           
                 // 클릭 카운트
                 object.setValue(7, forKey: "wordcc")
                 self.wordlist.insert(object, at: self.wordlist.count)
@@ -102,7 +105,7 @@ class MainViewModel {
             }
             
         } catch {
-            context.rollback()
+          
             print ("Error")
             return false
         }
