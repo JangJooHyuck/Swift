@@ -102,6 +102,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     func sortBinding(){
         MainViewModel.VM.$changeSort.sink { value in
+            
             MainViewModel.VM.wordlist = {
                 return MainViewModel.VM.sortList()
             }()
@@ -307,12 +308,15 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let word = record.value(forKey: "word") as? String
         let contents = record.value(forKey: "wordcontents") as? String
        
+       
+       
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
         cell.wordLB.layer.borderWidth = 1
         
         if isCellup == false{
         
+          
          
             cell.wordLB.text = word
             
@@ -351,6 +355,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     // 셀을 선택했을때 선택한 셀의 행을 저장
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+
         self.NoteTableView.beginUpdates()
         
         //만약 현재 idx 가 selectedIndex 와 같다면
@@ -362,6 +367,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         }
         
         self.NoteTableView.endUpdates()
+        
         // 0.25초후 reloadData, 셀이 펴지기 전에 리로드가 되면 펴지는 애니메이션이 나오지 않음.
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
             self.NoteTableView.reloadData()
