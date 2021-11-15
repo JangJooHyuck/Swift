@@ -368,18 +368,16 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let record = MainViewModel.VM.wordlist[indexPath.row]
        
         var wordcc = record.value(forKey: "wordcc") as! Int
-        
-        
-       
-
+    
         self.NoteTableView.beginUpdates()
         
         //만약 현재 idx 가 selectedIndex 와 같다면
         if indexPath.row == selectedIndex {
             selectedIndex = -1
+            
         } else {
             selectedIndex = indexPath.row
-            
+            print("클릭횟수추가하기")
         }
         
         self.NoteTableView.endUpdates()

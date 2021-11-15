@@ -68,49 +68,46 @@ class MainViewModel {
         let result = try! context.fetch(fetchRequest)
         return result
     }
-    
+   
     func save(word: String, wordcontents: String) -> Bool {
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
-        let predicate = NSPredicate(format: "word == %@", word)
-        request.predicate = predicate
-       
-        
-        
-       
-        print("predicate is " + "\(predicate)")
-        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate!.persistentContainer.viewContext
         let object = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context)
-         
-      
-        object.setValue(word, forKey: "word")
-        object.setValue(wordcontents, forKey: "wordcontents")
-        object.setValue(Date(), forKey: "wordDate")
-        // 클릭 카운트
-        object.setValue(7, forKey: "wordcc")
-     
-       
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
+        let predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.predicate = predicate
+        
         // 영구 저장소에 commit후에 list프로퍼티에 추가
         do {
-            try context.save()
-         
-            self.wordlist.insert(object, at: self.wordlist.count)
+            let result = try context.fetch(fetchRequest)
+            print("Fetch Count = \(result.count)")
+            if result.count > 0 {
+                //데이터에 이미 존재하네..그러면 리턴
+                print ("이미 값이 존재합니다.")
+                return false
+            } else {
+//                //데이터에 값이 없으니 저장하자
+                object.setValue(word, forKey: "word")
+                object.setValue(wordcontents, forKey: "wordcontents")
+                object.setValue(Date(), forKey: "wordDate")
+                // 클릭 카운트
+                object.setValue(7, forKey: "wordcc")
+                self.wordlist.insert(object, at: self.wordlist.count)
+
+            }
+            
+
+          
             
            
-            return true
         } catch {
-            context.rollback()
+            print ("Error")
             return false
         }
-    }
-    
-    func filterToEntity(lattitude: Double) -> NSFetchRequest<NSFetchRequestResult> {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
-        fetchRequest.predicate = NSPredicate(format: "word", "\(lattitude)")
-        return fetchRequest
+        
+        return true
     }
     
     func update(object: NSManagedObject, word: String, contents: String)  -> Bool {
