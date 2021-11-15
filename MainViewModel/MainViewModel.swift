@@ -16,7 +16,7 @@ class MainViewModel {
     static let VM = MainViewModel()
     @Published var word : String = ""
     @Published var wordContents : String = ""
-    @Published var changeSort = true
+    @Published var changeSort = false
     @Published var wordlist : [NSManagedObject] = {
     
         return fetch()
@@ -76,9 +76,12 @@ class MainViewModel {
         
         let object = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context)
 
+      
         object.setValue(word, forKey: "word")
         object.setValue(wordcontents, forKey: "wordcontents")
         object.setValue(Date(), forKey: "wordDate")
+        // 클릭 카운트
+        object.setValue(7, forKey: "wordcc")
      
        
         // 영구 저장소에 commit후에 list프로퍼티에 추가

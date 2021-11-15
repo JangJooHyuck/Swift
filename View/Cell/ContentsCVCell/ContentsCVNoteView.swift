@@ -75,12 +75,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     //다른곳에서 해당 테이블뷰를 리로드하기위함
     @objc func loadList(notification: NSNotification){
         //load data here
+        HiddenTablewhenlistisEmpty()
         self.NoteTableView.reloadData()
     }
     
     func sortListBTlayout(){
         // 버튼 타이틀
-        sortList.setTitle("단어 정렬하기 \n현재정렬\n[오래된순]", for: .normal)
+        sortList.setTitle("단어 정렬하기 [오래된순]", for: .normal)
         sortList.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         sortList.titleLabel?.numberOfLines = 5
         sortList.titleLabel?.textAlignment = .center
@@ -102,10 +103,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     func sortBinding(){
         MainViewModel.VM.$changeSort.sink { value in
-            
+            print(value)
             MainViewModel.VM.wordlist = {
                 return MainViewModel.VM.sortList()
             }()
+            
         }.store(in: &cancellable)
     }
     
@@ -117,15 +119,17 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        if issort == false {
+        if issort == true {
         sortList.setTitle("단어 정렬하기 [최신순]", for: .normal)
-            MainViewModel.VM.changeSort = true
-            issort = true
+            issort = false
+            MainViewModel.VM.changeSort = false
+            
         }
         else {
             sortList.setTitle("단어 정렬하기 [오래된순]", for: .normal)
-            MainViewModel.VM.changeSort = false
-            issort = false
+            issort = true
+            MainViewModel.VM.changeSort = true
+            
         }
     }
     func DeleteAllBTLayout(){
@@ -183,12 +187,17 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
        
         if MainViewModel.VM.wordlist.isEmpty == true {
             NoteTableView.isHidden = true
+            sortList.isHidden = true
+            deleteAll.isHidden = true
             emptyText.isHidden = false
             goTomainBT.isHidden = false
+            
         }
         
         else {
             NoteTableView.isHidden = false
+            sortList.isHidden = false
+            deleteAll.isHidden = false
             emptyText.isHidden = true
             goTomainBT.isHidden = true
         }
@@ -286,8 +295,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             }
             
            
-            print("reloading success")
-            
+          
         }.store(in: &cancellable)
     }
     
@@ -355,6 +363,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     // 셀을 선택했을때 선택한 셀의 행을 저장
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        //데이터 가져오기
+        let record = MainViewModel.VM.wordlist[indexPath.row]
+       
+        var wordcc = record.value(forKey: "wordcc") as! Int
+        
+        
+       
 
         self.NoteTableView.beginUpdates()
         
