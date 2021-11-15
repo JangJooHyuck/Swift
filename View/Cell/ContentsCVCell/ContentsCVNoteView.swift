@@ -250,7 +250,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
         // 버튼 클릭시 메인화면으로 이동
-        ViewModel.VM.CurrentCell = 0
+        ViewModel.VM.CurrentCell = 1
         print("gotoMain!")
     }
     

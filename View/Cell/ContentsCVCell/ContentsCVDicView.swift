@@ -57,7 +57,7 @@ class ContentsCVDicView:UICollectionViewCell{
         addWordtoNoteBT.addTarget(self, action: #selector(addNoteAction), for: .touchUpInside)
         addWordtoNoteBT.heightAnchor.constraint(equalToConstant: 100).isActive = true
         addWordtoNoteBT.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        addWordtoNoteBT.topAnchor.constraint(equalTo: topAnchor, constant:100).isActive = true
+        addWordtoNoteBT.topAnchor.constraint(equalTo: WordLabel.bottomAnchor, constant:50).isActive = true
 
         addWordtoNoteBT.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
         addWordtoNoteBT.layer.cornerRadius = 10
@@ -72,6 +72,7 @@ class ContentsCVDicView:UICollectionViewCell{
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+        if WordTextField.text != "" {
         
         let word = WordTextField.text!
         let wordcontents = WordLabel.text!
@@ -81,6 +82,10 @@ class ContentsCVDicView:UICollectionViewCell{
             print("gd")
         }
         ContentsCVNoteView.init().NoteTableView.reloadData()
+        }
+        else {
+            print("please Enter the word")
+        }
     }
     
     @objc func ChangeWord(){

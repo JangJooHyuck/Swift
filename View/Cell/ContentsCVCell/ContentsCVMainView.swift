@@ -135,7 +135,12 @@ class ContentsCVMainView:UICollectionViewCell{
         
         
         if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true{
+            //단어장 탭 리로드
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+            print("단어추가완료")
+        }
+        else {
+            print("no")
         }
            
        
