@@ -48,7 +48,8 @@ class ContentsCVNoteViewCell: UITableViewCell {
         wordContentsLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         wordContentsLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         wordContentsLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        wordContentsLB.numberOfLines = 5
+        wordContentsLB.numberOfLines = 10
+        
         
         
         wordContentsLB.textAlignment = .center

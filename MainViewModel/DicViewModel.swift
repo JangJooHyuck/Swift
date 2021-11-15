@@ -16,6 +16,7 @@ class DicViewModel {
     static let VM = DicViewModel()
     @Published var UserWord : String = ""
     @Published var UserWordContents : String = ""
+  
     
   
     

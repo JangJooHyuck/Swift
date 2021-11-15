@@ -84,7 +84,7 @@ class ContentsCVDicView:UICollectionViewCell{
         ContentsCVNoteView.init().NoteTableView.reloadData()
         }
         else {
-            print("please Enter the word")
+           print("단어가 입력되지 않았습니다!")
         }
     }
     

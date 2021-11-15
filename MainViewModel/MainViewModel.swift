@@ -74,8 +74,17 @@ class MainViewModel {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
+        let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
+        let predicate = NSPredicate(format: "word == %@", word)
+        request.predicate = predicate
+       
+        
+        
+       
+        print("predicate is " + "\(predicate)")
+        
         let object = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context)
-
+         
       
         object.setValue(word, forKey: "word")
         object.setValue(wordcontents, forKey: "wordcontents")
@@ -96,6 +105,12 @@ class MainViewModel {
             context.rollback()
             return false
         }
+    }
+    
+    func filterToEntity(lattitude: Double) -> NSFetchRequest<NSFetchRequestResult> {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        fetchRequest.predicate = NSPredicate(format: "word", "\(lattitude)")
+        return fetchRequest
     }
     
     func update(object: NSManagedObject, word: String, contents: String)  -> Bool {

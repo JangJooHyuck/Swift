@@ -271,9 +271,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let object = MainViewModel.VM.wordlist[indexPath.row] /// NSManagedObject객체
         if MainViewModel.VM.delete(obejct: object) { /// DB에서 삭제
             MainViewModel.VM.wordlist.remove(at: indexPath.row) /// 데이터 삭제
-        NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
-        self.NoteTableView.reloadData()
-        HiddenTablewhenlistisEmpty()
+            NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
+            self.NoteTableView.reloadData()
+            HiddenTablewhenlistisEmpty()
         }
     }
     
@@ -321,6 +321,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
         cell.wordLB.layer.borderWidth = 1
+        cell.wordLB.adjustsFontSizeToFitWidth = true
         
         if isCellup == false{
         
