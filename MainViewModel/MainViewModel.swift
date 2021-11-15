@@ -95,7 +95,7 @@ class MainViewModel {
                 // 클릭 카운트
                 object.setValue(7, forKey: "wordcc")
                 self.wordlist.insert(object, at: self.wordlist.count)
-
+                try context.save()
             }
             
 
