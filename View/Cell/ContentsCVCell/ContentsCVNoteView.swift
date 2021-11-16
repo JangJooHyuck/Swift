@@ -338,6 +338,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     }
     
     func tableviewLayout() {
+        NoteTableView.isScrollEnabled = true
+        NoteTableView.flashScrollIndicators()
        
         NoteTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         NoteTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
@@ -348,7 +350,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
-    
+   
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         let object = MainViewModel.VM.wordlist[indexPath.row] /// NSManagedObject객체
