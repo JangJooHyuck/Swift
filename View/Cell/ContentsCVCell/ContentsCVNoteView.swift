@@ -82,12 +82,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     //다른곳에서 해당 테이블뷰를 리로드하기위함
     @objc func loadList(notification: NSNotification){
         //load data here
-        HiddenTablewhenlistisEmpty()
-        
-        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-        sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-        sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         self.NoteTableView.reloadData()
+        HiddenTablewhenlistisEmpty()
        
     }
     
@@ -159,9 +155,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         colorAnimation.fromValue = UIColor.white.cgColor
         colorAnimation.duration = 0.5  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
-        
+        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
+        sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         //최신순
-        MainViewModel.VM.changeSort = true
+       
+        
+       
        
     }
     @objc func sortAction1(sender: UIButton!) {
@@ -170,10 +170,11 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         colorAnimation.fromValue = UIColor.white.cgColor
         colorAnimation.duration = 0.5  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
-        
-        //오래된 순
-        MainViewModel.VM.changeSort = false
+        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
+        sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
        
+        
     }
     @objc func sortAction2(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
@@ -181,8 +182,12 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         colorAnimation.fromValue = UIColor.white.cgColor
         colorAnimation.duration = 0.5  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
-       
+        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
+        
     }
+    
     func DeleteAllBTLayout(){
         
     
