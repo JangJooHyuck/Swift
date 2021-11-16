@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class NoteViewModel {
     
@@ -15,6 +16,19 @@ class NoteViewModel {
     
     @Published var sortingHow : Bool = true
     
+    func update(object: NSManagedObject, Click: Int) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        object.setValue(Click, forKey: "wordcc")
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            return false
+        }
+    }
 //    // 같은라인에 텍스트 정렬방식
 //    func alignLeftAndRight(left: String, right: String, length: Int) -> String {
 //        // calculate how many spaces are needed

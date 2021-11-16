@@ -81,7 +81,7 @@ class MainViewModel {
                 object.setValue(wordcontents, forKey: "wordcontents")
                 object.setValue(Date(), forKey: "wordDate")
                 // 클릭 카운트
-                object.setValue(123, forKey: "wordcc")
+                object.setValue(0, forKey: "wordcc")
                 self.wordlist.insert(object, at: 0)
                 try context.save()
                 return true

@@ -430,7 +430,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         //데이터 가져오기
         let record = MainViewModel.VM.wordlist[indexPath.row]
        
-        var wordcc = record.value(forKey: "wordcc") as! Int
+        
     
         self.NoteTableView.beginUpdates()
       
@@ -441,7 +441,18 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             
         } else {
             selectedIndex = indexPath.row
-            print("여기에 클릭횟수 증감 넣기")
+            
+            let object = MainViewModel.VM.wordlist[indexPath.row]
+            // 현재 클릭 값 (바뀌기전)
+            let currnetCC = (object.value(forKey: "wordcc") as? Int)!
+            // 클릭한 이후 값 (바뀐 이후)
+            let FlowCC = currnetCC + 1
+            // 바뀐 이후 값을 wordcc 에 저장
+            if NoteViewModel.VM.update(object: object, Click: FlowCC) == true {
+                object.setValue(FlowCC, forKey: "wordcc")
+            }
+           
+           
         }
         
         self.NoteTableView.endUpdates()
