@@ -18,6 +18,10 @@ class MainViewModel {
     @Published var wordContents : String = ""
 
     @Published var wordlist : [NSManagedObject] = []
+    // 정렬할때 기준단어
+    var sortSubject: String = "wordDate"
+    // 정렬할때 오름차순,내림차순
+    @Published var sortBool: Bool = true
     
     init() {
         self.wordlist = fetch()
@@ -51,13 +55,13 @@ class MainViewModel {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
         
         // sort// 정렬기준
-        let sort = NSSortDescriptor(key: "wordDate", ascending: true)
+        let sort = NSSortDescriptor(key: sortSubject, ascending: sortBool)
         fetchRequest.sortDescriptors = [sort]
         
         let result = try! context.fetch(fetchRequest)
         return result
     }
-    
+   
    
     
     func save(word: String, wordcontents: String) -> Bool {
@@ -83,12 +87,13 @@ class MainViewModel {
                 object.setValue(word, forKey: "word")
                 object.setValue(wordcontents, forKey: "wordcontents")
                 object.setValue(Date(), forKey: "wordDate")
+                
                 // 클릭 카운트
                 object.setValue(0, forKey: "wordcc")
                
                 try context.save()
                 self.wordlist = fetch()
-                print(wordlist)
+                print(wordlist.count)
                 return true
             }
             

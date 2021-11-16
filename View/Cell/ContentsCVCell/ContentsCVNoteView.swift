@@ -76,15 +76,19 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         // VM에 있는 wordList 값이 바뀌면 리로드
         tableViewReload()
         sortListBTlayout()
-    
+        sortBoolBinding()
      
     }
     //다른곳에서 해당 테이블뷰를 리로드하기위함
     @objc func loadList(notification: NSNotification){
         //load data here
+        MainViewModel.VM.sortSubject = "wordDate"
+        MainViewModel.VM.sortBool = false
+        MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
         self.NoteTableView.reloadData()
         HiddenTablewhenlistisEmpty()
-       
+        
     }
     
     func sortListBTlayout(){
@@ -159,12 +163,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
                 //최신순
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
-//        let sortDescriptor = NSSortDescriptor(key: "wordDate", ascending: true)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
-//        do {
-//            
-//        }
+        MainViewModel.VM.sortSubject = "wordDate"
+        MainViewModel.VM.sortBool = true
     }
     @objc func sortAction1(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
@@ -176,6 +176,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         
+        MainViewModel.VM.sortSubject = "wordDate"
+        MainViewModel.VM.sortBool = false
        
     }
            
@@ -195,6 +197,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
         
+        MainViewModel.VM.sortSubject = "wordcc"
+        MainViewModel.VM.sortBool = false
+        MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
     }
     
     func DeleteAllBTLayout(){
@@ -247,6 +252,14 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         self.NoteTableView.reloadData()
     }
     
+   
+    func sortBoolBinding(){
+        MainViewModel.VM.$sortBool.sink { value in
+           
+            MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+            self.NoteTableView.reloadData()
+        }.store(in: &cancellable)
+    }
    
     // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
     func HiddenTablewhenlistisEmpty(){
@@ -383,7 +396,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let record = MainViewModel.VM.wordlist[indexPath.row]
        
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
-        let word = record.value(forKey: "word") as? String
+        let word = record.value(forKey: "word") as! String
         let contents = record.value(forKey: "wordcontents") as? String
         let wordcc = record.value(forKey: "wordcc")as! Int
        
