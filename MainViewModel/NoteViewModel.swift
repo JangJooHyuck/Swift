@@ -25,7 +25,7 @@ class NoteViewModel {
             try context.save()
             return true
         } catch {
-            context.rollback()
+            
             return false
         }
     }

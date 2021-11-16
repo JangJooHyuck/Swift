@@ -17,9 +17,12 @@ class MainViewModel {
     @Published var word : String = ""
     @Published var wordContents : String = ""
 
-    @Published var wordlist : [NSManagedObject] = {
-        fetch()
-    }()
+    @Published var wordlist : [NSManagedObject] = []
+    
+    init() {
+        self.wordlist = fetch()
+    }
+       
    
    
     
@@ -42,7 +45,7 @@ class MainViewModel {
     
     
     // read Data
-     static func fetch() -> [NSManagedObject] {
+        func fetch() -> [NSManagedObject] {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
@@ -61,7 +64,6 @@ class MainViewModel {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegate!.persistentContainer.viewContext
-        let object = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context)
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
         let predicate = NSPredicate(format: "word = %@", word)
@@ -76,14 +78,17 @@ class MainViewModel {
                 
                 return false
             } else {
-//                //데이터에 값이 없으니 저장하자
+                let object = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context)
+                //데이터에 값이 없으니 저장하자
                 object.setValue(word, forKey: "word")
                 object.setValue(wordcontents, forKey: "wordcontents")
                 object.setValue(Date(), forKey: "wordDate")
                 // 클릭 카운트
                 object.setValue(0, forKey: "wordcc")
-                self.wordlist.insert(object, at: 0)
+               
                 try context.save()
+                self.wordlist = fetch()
+                print(wordlist)
                 return true
             }
             

@@ -246,6 +246,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         HiddenTablewhenlistisEmpty()
         self.NoteTableView.reloadData()
     }
+    
    
     // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
     func HiddenTablewhenlistisEmpty(){
@@ -382,7 +383,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let record = MainViewModel.VM.wordlist[indexPath.row]
        
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
-        let word = record.value(forKey: "word") as! String
+        let word = record.value(forKey: "word") as? String
         let contents = record.value(forKey: "wordcontents") as? String
         let wordcc = record.value(forKey: "wordcc")as! Int
        
@@ -418,13 +419,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
                     // 셀 단어 텍스트 이동 애니메이션
                     
                     cell.wordLB.font = UIFont.systemFont(ofSize: 40)
-                  
-                    if word.count > 7 {
-                    cell.wordLB.transform = CGAffineTransform(translationX: -100, y: -70)
-                    }
-                    else{
-                        cell.wordLB.transform = CGAffineTransform(translationX: -140, y: -70)
-                    }
+                    cell.wordLB.transform = CGAffineTransform(translationX: -140, y: -70)
+                    
                     cell.wordContentsLB.alpha = 1
                     })
             }
