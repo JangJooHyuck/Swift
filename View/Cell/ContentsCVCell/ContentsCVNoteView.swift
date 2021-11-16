@@ -159,7 +159,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         //최신순
-       
         
        
        
@@ -173,8 +172,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-       
         
+      
     }
     @objc func sortAction2(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
