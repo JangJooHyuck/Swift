@@ -400,6 +400,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             cell.wordContentsLB.alpha = 0
             cell.wordLB.transform = CGAffineTransform(translationX: 0, y: 0)
             cell.wordLB.font = UIFont.systemFont(ofSize: 20)
+            
         }
         else {
            
@@ -412,9 +413,18 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             
             UIView.animate(withDuration: 0.5,
                 animations: {
+                    //단어의 따라 무브먼트 조정
+                    
                     // 셀 단어 텍스트 이동 애니메이션
+                    
                     cell.wordLB.font = UIFont.systemFont(ofSize: 40)
-                    cell.wordLB.transform = CGAffineTransform(translationX: -120, y: -70)
+                  
+                    if word.count > 7 {
+                    cell.wordLB.transform = CGAffineTransform(translationX: -100, y: -70)
+                    }
+                    else{
+                        cell.wordLB.transform = CGAffineTransform(translationX: -140, y: -70)
+                    }
                     cell.wordContentsLB.alpha = 1
                     })
             }
@@ -430,8 +440,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         //데이터 가져오기
         let record = MainViewModel.VM.wordlist[indexPath.row]
        
-        
-    
         self.NoteTableView.beginUpdates()
       
         

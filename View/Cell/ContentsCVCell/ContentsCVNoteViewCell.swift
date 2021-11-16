@@ -59,7 +59,7 @@ class ContentsCVNoteViewCell: UITableViewCell {
         
         
         
-       
+        wordContentsLB.textAlignment = .center
         wordContentsLB.layer.borderWidth = 1
         wordContentsLB.isHidden = true
         wordContentsLB.backgroundColor = .clear
