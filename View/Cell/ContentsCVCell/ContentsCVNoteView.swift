@@ -19,8 +19,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     let sortList = UIButton()
     let sortList1 = UIButton()
     let sortList2 = UIButton()
-    var issort  = false
     
+    var heightAtIndexPath = NSMutableDictionary()
     //셀이 비어있나요?
     let emptyText = UILabel()
     //단어장이 비어있으니 추가하러 가시죠
@@ -76,16 +76,13 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         // VM에 있는 wordList 값이 바뀌면 리로드
         tableViewReload()
         sortListBTlayout()
-        sortBoolBinding()
+        //sortBoolBinding()
      
     }
     //다른곳에서 해당 테이블뷰를 리로드하기위함
     @objc func loadList(notification: NSNotification){
         //load data here
-        MainViewModel.VM.sortSubject = "wordDate"
-        MainViewModel.VM.sortBool = false
-        MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
-        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
+       
         self.NoteTableView.reloadData()
         HiddenTablewhenlistisEmpty()
         
@@ -98,7 +95,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList.titleLabel?.numberOfLines = 1
         sortList.titleLabel?.textAlignment = .center
         // 버튼 백그라운드 컬러 설정
-        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
+        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         // 버튼 원형으로 생성
         sortList.layer.cornerRadius = 0.2 * deleteAll.bounds.size.width
         sortList.clipsToBounds = true
@@ -164,7 +161,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
                 //최신순
         MainViewModel.VM.sortSubject = "wordDate"
-        MainViewModel.VM.sortBool = true
+        MainViewModel.VM.sortBool = false
+        MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+        self.NoteTableView.reloadData()
     }
     @objc func sortAction1(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
@@ -177,7 +176,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         
         MainViewModel.VM.sortSubject = "wordDate"
-        MainViewModel.VM.sortBool = false
+        MainViewModel.VM.sortBool = true
+        MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+        self.NoteTableView.reloadData()
        
     }
            
@@ -253,13 +254,12 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     }
     
    
-    func sortBoolBinding(){
-        MainViewModel.VM.$sortBool.sink { value in
-           
-            MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
-            self.NoteTableView.reloadData()
-        }.store(in: &cancellable)
-    }
+//    func sortBoolBinding(){
+//        MainViewModel.VM.$sortBool.sink { value in
+//            MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+//            self.NoteTableView.reloadData()
+//        }.store(in: &cancellable)
+//    }
    
     // 리스트가 비어있으면 자동으로 테이블뷰 감추고 텍스트와 버튼 표시
     func HiddenTablewhenlistisEmpty(){
@@ -448,14 +448,16 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         //데이터 가져오기
         let record = MainViewModel.VM.wordlist[indexPath.row]
-       
+        
+        
         self.NoteTableView.beginUpdates()
       
         
         //만약 현재 idx 가 selectedIndex 와 같다면
         if indexPath.row == selectedIndex {
             selectedIndex = -1
-            
+            MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+            self.NoteTableView.reloadData()
         } else {
             selectedIndex = indexPath.row
             
@@ -467,6 +469,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             // 바뀐 이후 값을 wordcc 에 저장
             if NoteViewModel.VM.update(object: object, Click: FlowCC) == true {
                 object.setValue(FlowCC, forKey: "wordcc")
+                
             }
            
            
