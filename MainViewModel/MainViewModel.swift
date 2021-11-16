@@ -16,7 +16,7 @@ class MainViewModel {
     static let VM = MainViewModel()
     @Published var word : String = ""
     @Published var wordContents : String = ""
-    @Published var changeSort = true
+
     @Published var wordlist : [NSManagedObject] = {
         fetch()
     }()
@@ -55,18 +55,7 @@ class MainViewModel {
         return result
     }
     
-    static func sort() -> [NSManagedObject] {
-       let appDelegate = UIApplication.shared.delegate as! AppDelegate
-       let context = appDelegate.persistentContainer.viewContext
-       let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
-       
-       // sort// 정렬기준
-       let sort = NSSortDescriptor(key: "wordDate", ascending: false)
-       fetchRequest.sortDescriptors = [sort]
-       
-       let result = try! context.fetch(fetchRequest)
-       return result
-   }
+   
     
     func save(word: String, wordcontents: String) -> Bool {
         
@@ -92,9 +81,9 @@ class MainViewModel {
                 object.setValue(wordcontents, forKey: "wordcontents")
                 object.setValue(Date(), forKey: "wordDate")
                 // 클릭 카운트
-                object.setValue(7, forKey: "wordcc")
+                object.setValue(123, forKey: "wordcc")
                 self.wordlist.insert(object, at: 0)
-               try  context.save()
+                try context.save()
                 return true
             }
             

@@ -141,8 +141,6 @@ class ContentsCVMainView:UICollectionViewCell{
             print("단어추가완료 -> [\(word)]")
         }
         else {
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
             print ("이미 값이 존재합니다. -> [\(word)]")
         }
         

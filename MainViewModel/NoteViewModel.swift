@@ -15,10 +15,17 @@ class NoteViewModel {
     
     @Published var sortingHow : Bool = true
     
-    func sortList(){
-       
-        
-    }
+//    // 같은라인에 텍스트 정렬방식
+//    func alignLeftAndRight(left: String, right: String, length: Int) -> String {
+//        // calculate how many spaces are needed
+//        let numberOfSpacesToAdd = length - left.count - right.count
+//
+//        // create those spaces
+//        let spaces = Array(repeating: " ", count: numberOfSpacesToAdd < 0 ? 0 : numberOfSpacesToAdd).joined()
+//
+//        // join these three things together
+//        return left + spaces + right
+//    }
    
 }
 

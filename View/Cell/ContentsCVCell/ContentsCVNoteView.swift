@@ -159,11 +159,12 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
                 //최신순
-        MainViewModel.VM.wordlist = {
-            MainViewModel.fetch()
-        }()
-       
-       
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+//        let sortDescriptor = NSSortDescriptor(key: "wordDate", ascending: true)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
+//        do {
+//            
+//        }
     }
     @objc func sortAction1(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
@@ -175,11 +176,15 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         
-        MainViewModel.VM.wordlist = {
-            MainViewModel.sort()
-        }()
-      
+       
     }
+           
+    // sort// 정렬기준
+//    let sort = NSSortDescriptor(key: "wordDate", ascending: true)
+//    fetchRequest.sortDescriptors = [sort]
+//
+//    let result = try! context.fetch(fetchRequest)
+//    return result
     @objc func sortAction2(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
@@ -379,16 +384,16 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
         let word = record.value(forKey: "word") as! String
         let contents = record.value(forKey: "wordcontents") as? String
-        var wordcc = record.value(forKey: "wordcc")as? String
+        let wordcc = record.value(forKey: "wordcc")as! Int
        
-    
-        let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
+        let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
+       
         cell.wordLB.layer.borderWidth = 1
         
         if isCellup == false{
         
-            cell.wordLB.text = word
+            cell.wordLB.text = "\(word) ❤️\(wordcc)"
             cell.wordLB.textAlignment = .center
             cell.wordLB.layer.borderWidth = 1
             cell.wordContentsLB.isHidden = true
@@ -399,7 +404,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         else {
            
             cell.wordLB.layer.borderWidth = 0
-            cell.wordLB.text = "[ \(word) ]"
+            cell.wordLB.text = word
            
             cell.wordContentsLB.isHidden = false
             cell.wordContentsLB.text = contents
@@ -413,11 +418,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
                     cell.wordContentsLB.alpha = 1
                     })
             }
-        
-        
             return cell
+    }
         
-        }
     
     
     
