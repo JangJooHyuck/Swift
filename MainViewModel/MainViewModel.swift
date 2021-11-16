@@ -31,10 +31,10 @@ class MainViewModel {
         context.delete(obejct)
         
         do {
-            //try context.save()
+            try context.save()
             return true
         } catch {
-           // context.rollback()
+            context.rollback()
             return false
         }
     }
@@ -55,6 +55,19 @@ class MainViewModel {
         return result
     }
     
+    static func sort() -> [NSManagedObject] {
+       let appDelegate = UIApplication.shared.delegate as! AppDelegate
+       let context = appDelegate.persistentContainer.viewContext
+       let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
+       
+       // sort// 정렬기준
+       let sort = NSSortDescriptor(key: "wordDate", ascending: false)
+       fetchRequest.sortDescriptors = [sort]
+       
+       let result = try! context.fetch(fetchRequest)
+       return result
+   }
+    
     func save(word: String, wordcontents: String) -> Bool {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -70,7 +83,8 @@ class MainViewModel {
             let result = try context.fetch(fetchRequest)
             if result.count > 0 {
                 //데이터에 이미 존재하네..그러면 리턴 false
-                print("데이터에 이미 존재하네..그러면 리턴 false")
+                print("데이터에 이미 존재 Return False")
+                
                 return false
             } else {
 //                //데이터에 값이 없으니 저장하자
@@ -80,7 +94,7 @@ class MainViewModel {
                 // 클릭 카운트
                 object.setValue(7, forKey: "wordcc")
                 self.wordlist.insert(object, at: 0)
-                try context.save()
+               try  context.save()
                 return true
             }
             

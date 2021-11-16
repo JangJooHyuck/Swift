@@ -158,8 +158,10 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-        //최신순
-        
+                //최신순
+        MainViewModel.VM.wordlist = {
+            MainViewModel.fetch()
+        }()
        
        
     }
@@ -173,6 +175,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
         sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         
+        MainViewModel.VM.wordlist = {
+            MainViewModel.sort()
+        }()
       
     }
     @objc func sortAction2(sender: UIButton!) {
@@ -372,7 +377,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let record = MainViewModel.VM.wordlist[indexPath.row]
        
         // list배열 내부 타입은 NSManagedObject이기 때문에 원하는 적절한 캐스팅이 필요함
-        let word = record.value(forKey: "word") as? String
+        let word = record.value(forKey: "word") as! String
         let contents = record.value(forKey: "wordcontents") as? String
         var wordcc = record.value(forKey: "wordcc")as? String
        
@@ -394,7 +399,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         else {
            
             cell.wordLB.layer.borderWidth = 0
-            cell.wordLB.text = word
+            cell.wordLB.text = "[ \(word) ]"
            
             cell.wordContentsLB.isHidden = false
             cell.wordContentsLB.text = contents
