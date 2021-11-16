@@ -18,9 +18,7 @@ class MainViewModel {
     @Published var wordContents : String = ""
     @Published var changeSort = true
     @Published var wordlist : [NSManagedObject] = {
-    
-       fetch()
-        
+        fetch()
     }()
    
    
@@ -44,7 +42,7 @@ class MainViewModel {
     
     
     // read Data
-    static func fetch() -> [NSManagedObject] {
+     static func fetch() -> [NSManagedObject] {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
@@ -57,22 +55,6 @@ class MainViewModel {
         return result
     }
     
-    func sortList() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
-        // sort// 정렬기준
-        let sort = NSSortDescriptor(key: "wordDate", ascending: changeSort)
-        fetchRequest.sortDescriptors = [sort]
-        
-        do {
-            wordlist = try context.fetch(fetchRequest)
-           
-        } catch {
-            print("failed")
-        }
-    }
-   
     func save(word: String, wordcontents: String) -> Bool {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -88,18 +70,16 @@ class MainViewModel {
             let result = try context.fetch(fetchRequest)
             if result.count > 0 {
                 //데이터에 이미 존재하네..그러면 리턴 false
-                
+                print("데이터에 이미 존재하네..그러면 리턴 false")
                 return false
             } else {
 //                //데이터에 값이 없으니 저장하자
-               
                 object.setValue(word, forKey: "word")
                 object.setValue(wordcontents, forKey: "wordcontents")
                 object.setValue(Date(), forKey: "wordDate")
-           
                 // 클릭 카운트
                 object.setValue(7, forKey: "wordcc")
-                self.wordlist.insert(object, at: self.wordlist.count)
+                self.wordlist.insert(object, at: 0)
                 try context.save()
                 return true
             }

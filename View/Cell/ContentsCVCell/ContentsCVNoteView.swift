@@ -12,6 +12,7 @@ import Combine
 class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     
     private var cancellable = Set<AnyCancellable>()
+    
     let NoteText = UILabel()
     let NoteTableView = UITableView()
     let deleteAll = UIButton()
@@ -31,7 +32,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     // 셀이 커졌는지 ?
     var isCellup :Bool = false
     
-    var NoteArray = [NSManagedObject]()
+  
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,16 +76,17 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         // VM에 있는 wordList 값이 바뀌면 리로드
         tableViewReload()
         sortListBTlayout()
-        sortBinding()
+    
      
     }
     //다른곳에서 해당 테이블뷰를 리로드하기위함
     @objc func loadList(notification: NSNotification){
         //load data here
         HiddenTablewhenlistisEmpty()
-        MainViewModel.VM.changeSort = false
-        MainViewModel.VM.changeSort = true
         
+        sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
+        sortList2.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
         self.NoteTableView.reloadData()
        
     }
@@ -148,23 +150,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         sortList2.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
         sortList2.layer.cornerRadius = 10
     }
-    
-    func sortBinding(){
-        MainViewModel.VM.$changeSort.sink { value in
-          
-            MainViewModel.VM.sortList()
-            
-            if value == true {
-                self.sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
-                self.sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-            }
-            else {
-                self.sortList.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.5)
-                self.sortList1.backgroundColor = UIColor(red: 102/255, green: 100/255, blue: 10/255, alpha: 0.8)
-            }
-            
-        }.store(in: &cancellable)
-    }
+
     
     
     @objc func sortAction(sender: UIButton!) {
@@ -390,16 +376,6 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let cell: ContentsCVNoteViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContentsCVNoteViewCell
         
         cell.wordLB.layer.borderWidth = 1
-        
-        if word == nil {
-            let object = MainViewModel.VM.wordlist[indexPath.row] /// NSManagedObject객체
-            if MainViewModel.VM.delete(obejct: object) { /// DB에서 삭제
-                MainViewModel.VM.wordlist.remove(at: indexPath.row) /// 데이터 삭제
-                NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
-                self.NoteTableView.reloadData()
-                HiddenTablewhenlistisEmpty()
-            }
-        }
         
         if isCellup == false{
         
