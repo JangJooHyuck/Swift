@@ -111,13 +111,13 @@ class ViewController: UIViewController {
        
         //사이드 메뉴레이아웃
         sideMenu.translatesAutoresizingMaskIntoConstraints = false
-        sideMenu.backgroundColor = .clear
-        sideMenu.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -320).isActive = true
-        sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 10).isActive = true
+        sideMenu.backgroundColor = .yellow
+        sideMenu.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -230).isActive = true
+        sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: -50).isActive = true
         sideMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
-        sideMenu.heightAnchor.constraint(equalToConstant: CGFloat((ViewModel.VM.MenuList.count) * 100)).isActive = true
+        sideMenu.heightAnchor.constraint(equalToConstant: CGFloat((ViewModel.VM.MenuList.count) * 140)).isActive = true
         sideMenu.bringSubviewToFront(blurView)
-        sideMenu.isHidden = true
+       
         
         //콘텐츠 레이아웃
         contents.translatesAutoresizingMaskIntoConstraints = false
@@ -158,7 +158,7 @@ class ViewController: UIViewController {
         
         //사이드메뉴 무브
         UIView.animate(withDuration: 0.5, animations: {
-            self.sideMenu.transform = CGAffineTransform(translationX: -10, y: -10)
+            self.sideMenu.transform = CGAffineTransform(translationX: 50, y: 0)
         })
       
         //콘텐츠 및 탑 메뉴 클릭 제한
@@ -169,21 +169,25 @@ class ViewController: UIViewController {
     // 사이드메뉴 클로즈
     func SideMenuClose(){
         print("sideMenuClose")
-        HamBT.backgroundColor = .clear
-        sideMenu.isHidden = true
-        buttonTap = false
-        blurView.isHidden = true
+       
         
         //사이드메뉴 무브
         UIView.animate(withDuration: 0.5, animations: {
-            self.sideMenu.transform = CGAffineTransform(translationX: -200, y: -10)
+            
+            self.sideMenu.transform = CGAffineTransform(translationX: -50, y: 0)
+            self.HamBT.backgroundColor = .clear
+            self.sideMenu.isHidden = true
+            self.buttonTap = false
+            self.blurView.isHidden = true
+            self.topMenu.isUserInteractionEnabled = true
+            self.contents.isUserInteractionEnabled = true
+            self.topMenu.backgroundColor = .clear
+            self.contents.backgroundColor = .clear
         })
         
+        
         //콘텐츠 및 탑 메뉴 클릭 제한 해제
-        topMenu.isUserInteractionEnabled = true
-        contents.isUserInteractionEnabled = true
-        topMenu.backgroundColor = .clear
-        contents.backgroundColor = .clear
+        
     }
     
     func indicatorMove(){

@@ -10,6 +10,29 @@ import UIKit
 
 class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    
+        
+        
+        addSubview(SidecollectionView)
+
+        SidecollectionView.translatesAutoresizingMaskIntoConstraints = false
+        SidecollectionView.delegate = self
+        SidecollectionView.dataSource = self
+        SidecollectionView.backgroundColor = .clear
+
+        SidecollectionView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        SidecollectionView.heightAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count * 140)).isActive = true
+        SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+
+        SidecollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+
+        SidecollectionView.register(sideMenuCell.self, forCellWithReuseIdentifier: "sideMenu")
+        
+        
+                
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         ViewModel.VM.MenuList.count
     }
@@ -23,19 +46,19 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         cell.sideMenutext.layer.borderWidth = 1
         cell.sideMenutext.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 0.5)
         if cell.sideMenutext.text == "메인" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "🏠", right: "메인", length: 15)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "🏠", right: "메인", length: 5)
         }
         if cell.sideMenutext.text == "사전" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📚", right: "사전", length: 15)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📚", right: "사전", length: 5)
         }
         if cell.sideMenutext.text == "이메일" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📨", right: "이메일", length: 15)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📨", right: "이메일", length: 5)
         }
         if cell.sideMenutext.text == "단어장" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📋", right: "단어장", length: 15)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📋", right: "단어장", length: 5)
         }
         if cell.sideMenutext.text == "타이머" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "⏰", right: "타이머", length: 15)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "⏰", right: "타이머", length: 5)
         }
         
         return cell
@@ -51,9 +74,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         
         print("CurrentCell = \(ViewModel.VM.CurrentCell)")
     }
-     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        
-    }
+    
     let SidecollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -70,29 +91,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
    
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    
-        
-        
-        addSubview(SidecollectionView)
-        
-        SidecollectionView.translatesAutoresizingMaskIntoConstraints = false
-        SidecollectionView.delegate = self
-        SidecollectionView.dataSource = self
-        SidecollectionView.backgroundColor = .white
-       
-        SidecollectionView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        SidecollectionView.heightAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count * 140)).isActive = true
-        SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        
-        SidecollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-       
-        SidecollectionView.register(sideMenuCell.self, forCellWithReuseIdentifier: "sideMenu")
-        
-        
-                
-    }
+ 
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

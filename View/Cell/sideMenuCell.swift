@@ -22,10 +22,10 @@ class sideMenuCell:UICollectionViewCell{
         addSubview(sideMenutext)
        
         sideMenutext.translatesAutoresizingMaskIntoConstraints = false
-        sideMenutext.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        sideMenutext.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
+        sideMenutext.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        sideMenutext.heightAnchor.constraint(equalToConstant: 50).isActive = true
         sideMenutext.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        sideMenutext.topAnchor.constraint(equalTo: topAnchor, constant: 200).isActive = true
+        sideMenutext.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         
 
         
