@@ -14,6 +14,7 @@ class ViewModel {
     static let VM = ViewModel()
     
     @Published var MenuList = ["메인","사전","이메일","단어장","타이머"]
+    @Published var MenuListSide = ["메인","사전","이메일","단어장","타이머","종료"]
  
     @Published var CurrentCell = 0
     @Published var SideCurrentCell = 0
