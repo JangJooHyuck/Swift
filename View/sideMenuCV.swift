@@ -43,7 +43,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         
         cell.sideMenutext.text = ViewModel.VM.MenuList[indexPath.item]
         cell.sideMenutext.backgroundColor = .clear
-        cell.sideMenutext.layer.borderWidth = 1
+        
         cell.sideMenutext.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 0.5)
         if cell.sideMenutext.text == "메인" {
             cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "🏠", right: "메인", length: 5)

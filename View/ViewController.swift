@@ -112,10 +112,10 @@ class ViewController: UIViewController {
         //사이드 메뉴레이아웃
         sideMenu.translatesAutoresizingMaskIntoConstraints = false
         sideMenu.backgroundColor = .yellow
-        sideMenu.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -230).isActive = true
+        sideMenu.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -320).isActive = true
         sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: -50).isActive = true
         sideMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
-        sideMenu.heightAnchor.constraint(equalToConstant: CGFloat((ViewModel.VM.MenuList.count) * 140)).isActive = true
+        sideMenu.heightAnchor.constraint(equalToConstant: CGFloat((ViewModel.VM.MenuList.count) * 80)).isActive = true
         sideMenu.bringSubviewToFront(blurView)
        
         
