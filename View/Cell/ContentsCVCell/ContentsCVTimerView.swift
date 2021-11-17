@@ -293,33 +293,37 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         else {
             let alert = UIAlertController(title: "실패", message:"시간이 입력되지 않았습니다." , preferredStyle: UIAlertController.Style.alert)
             
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            let emptyAction = UIAlertAction(title: "OK", style: .default){_ in
+                // shake 애니메이션
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / -0.52)
+                    self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / 0.52)
+                    self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / -0.52)
+
+                    self.hourText.layer.borderColor = UIColor.red.cgColor
+                    self.minText.layer.borderColor = UIColor.red.cgColor
+                    self.secText.layer.borderColor = UIColor.red.cgColor
+                    self.hourText.layer.borderWidth = 2
+                    self.minText.layer.borderWidth = 2
+                    self.secText.layer.borderWidth = 2
+                    
+                    
+                })
+                UIView.animate(withDuration: 0.3, animations: {
+                    
+                    self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / 0.52)
+                    self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / -0.52)
+                    self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / 0.52)
+
+                    
+                })
+            }
+            alert.addAction(emptyAction)
             alert.view.layer.borderWidth = 1
             alert.view.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1.0)
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
-            // shake 애니메이션
-            UIView.animate(withDuration: 0.05, animations: {
-                self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / -0.52)
-                self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / 0.52)
-                self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / -0.52)
-
-                self.hourText.layer.borderColor = UIColor.red.cgColor
-                self.minText.layer.borderColor = UIColor.red.cgColor
-                self.secText.layer.borderColor = UIColor.red.cgColor
-                self.hourText.layer.borderWidth = 2
-                self.minText.layer.borderWidth = 2
-                self.secText.layer.borderWidth = 2
-                
-                
-            })
-            UIView.animate(withDuration: 0.3, animations: {
-                
-                self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / 0.52)
-                self.minText.transform = self.minText.transform.rotated(by: CGFloat.pi / -0.52)
-                self.secText.transform = self.secText.transform.rotated(by: CGFloat.pi / 0.52)
-
-                
-            })
+           
           
             self.isInsertTime = false
            
