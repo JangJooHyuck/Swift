@@ -73,18 +73,33 @@ class ContentsCVDicView:UICollectionViewCell{
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
         if WordTextField.text != "" {
-        
         let word = WordTextField.text!
         let wordcontents = WordLabel.text!
+        print(MainViewModel.VM.wordlist.count)
         
         
-        if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true {
-            print("gd")
-        }
-        ContentsCVNoteView.init().NoteTableView.reloadData()
+        if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true{
+            //단어장 탭 리로드
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+            
+            let alert = UIAlertController(title: "완료", message:"단어장에 단어가 추가되었습니다." , preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         else {
-           print("단어가 입력되지 않았습니다!")
+            
+            let alert = UIAlertController(title: "실패", message:"해당 단어는 이미 단어장에 존재합니다." , preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+        }
+        else{
+            let alert = UIAlertController(title: "실패", message:"단어가 입력되지 않았습니다" , preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     

@@ -164,6 +164,10 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         MainViewModel.VM.sortBool = false
         MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
         self.NoteTableView.reloadData()
+        let alert = UIAlertController(title: "완료", message:"모든 단어가 최신 순으로 정렬되었습니다." , preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
     }
     @objc func sortAction1(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
@@ -179,6 +183,10 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         MainViewModel.VM.sortBool = true
         MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
         self.NoteTableView.reloadData()
+        let alert = UIAlertController(title: "완료", message:"모든 단어가 오래된 순으로 정렬되었습니다." , preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
        
     }
            
@@ -201,6 +209,10 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         MainViewModel.VM.sortSubject = "wordcc"
         MainViewModel.VM.sortBool = false
         MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+        let alert = UIAlertController(title: "완료", message:"모든 단어가 클릭 순으로 정렬되었습니다." , preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         
     }
     
@@ -252,6 +264,10 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         //모두다 삭제된건아닌지?
         HiddenTablewhenlistisEmpty()
         self.NoteTableView.reloadData()
+        let alert = UIAlertController(title: "완료", message:"모든 단어가 삭제되었습니다." , preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
    

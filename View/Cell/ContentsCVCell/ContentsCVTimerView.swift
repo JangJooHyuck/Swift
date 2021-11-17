@@ -291,6 +291,10 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         }
         // (사용자가 시간을 입력하지 않았을 때)
         else {
+            let alert = UIAlertController(title: "실패", message:"시간이 입력되지 않았습니다." , preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
             // shake 애니메이션
             UIView.animate(withDuration: 0.05, animations: {
                 self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / -0.52)
@@ -355,6 +359,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
+        if TimerViewModel.VM.timerlist.isEmpty == false {
+        
         self.secText.text = nil
         self.minText.text = nil
         self.hourText.text = nil
@@ -369,6 +375,17 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         // 타이머리스트의 카운트를 0 으로 바꾼다
         TimerViewModel.VM.timerlistCount = 0
   
+        let alert = UIAlertController(title: "완료", message:"모든 타이머가 삭제되었습니다." , preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+        else {
+            let alert = UIAlertController(title: "실패", message:"삭제할 타이머가 없습니다." , preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        }
     }
    
   

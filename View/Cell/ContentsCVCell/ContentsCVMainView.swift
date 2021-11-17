@@ -19,8 +19,6 @@ class ContentsCVMainView:UICollectionViewCell{
     var TodayWordReplaceBT = UIButton(type: .custom)
     var addWordtoNoteBT = UIButton(type: .custom)
    
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -117,6 +115,12 @@ class ContentsCVMainView:UICollectionViewCell{
         // TodayWord() 실행
         MainViewModel.VM.Todayword()
         
+        let alert = UIAlertController(title: "완료", message:"변경이 완료되었습니다." , preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        
+        
         
         
     }
@@ -138,10 +142,18 @@ class ContentsCVMainView:UICollectionViewCell{
         if MainViewModel.VM.save(word: word, wordcontents: wordcontents) == true{
             //단어장 탭 리로드
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-            print("단어추가완료 -> [\(word)]")
+            
+            let alert = UIAlertController(title: "완료", message:"단어장에 단어가 추가되었습니다." , preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         else {
-            print ("이미 값이 존재합니다. -> [\(word)]")
+            
+            let alert = UIAlertController(title: "실패", message:"해당 단어는 이미 단어장에 존재합니다." , preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         
            

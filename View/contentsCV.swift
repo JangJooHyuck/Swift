@@ -86,6 +86,7 @@ extension contentsCV: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         ViewModel.VM.MenuList.count
     }
     
+    
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Main", for: indexPath)
