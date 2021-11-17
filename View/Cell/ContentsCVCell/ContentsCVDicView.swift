@@ -92,7 +92,7 @@ class ContentsCVDicView:UICollectionViewCell{
             }
             alert.addAction(okAction)
             alert.addAction(moveAction)
-            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         else {
             
@@ -106,14 +106,14 @@ class ContentsCVDicView:UICollectionViewCell{
             }
             alert.addAction(okAction)
             alert.addAction(moveAction)
-            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         }
         else{
             let alert = UIAlertController(title: "실패", message:"단어가 입력되지 않았습니다" , preferredStyle: UIAlertController.Style.alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
-            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     

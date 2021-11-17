@@ -294,7 +294,7 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             let alert = UIAlertController(title: "실패", message:"시간이 입력되지 않았습니다." , preferredStyle: UIAlertController.Style.alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
-            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
             // shake 애니메이션
             UIView.animate(withDuration: 0.05, animations: {
                 self.hourText.transform = self.hourText.transform.rotated(by: CGFloat.pi / -0.52)
@@ -378,13 +378,13 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         let alert = UIAlertController(title: "완료", message:"모든 타이머가 삭제되었습니다." , preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
-        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         else {
             let alert = UIAlertController(title: "실패", message:"삭제할 타이머가 없습니다." , preferredStyle: UIAlertController.Style.alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
-            UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
    

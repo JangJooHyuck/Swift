@@ -167,7 +167,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let alert = UIAlertController(title: "완료", message:"모든 단어가 최신 순으로 정렬되었습니다." , preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
-        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
     }
     @objc func sortAction1(sender: UIButton!) {
         // 버튼 클릭시 애니메이션 설정
@@ -186,7 +186,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let alert = UIAlertController(title: "완료", message:"모든 단어가 오래된 순으로 정렬되었습니다." , preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
-        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
        
     }
            
@@ -212,7 +212,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         let alert = UIAlertController(title: "완료", message:"모든 단어가 클릭 순으로 정렬되었습니다." , preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
-        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         
     }
     
@@ -248,9 +248,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         let alert = UIAlertController(title: "경고", message:"모든 단어를 삭제하시겠습니까?" , preferredStyle: UIAlertController.Style.alert)
         let alert2 = UIAlertController(title: "완료", message:"모든 단어를 삭제하였습니다." , preferredStyle: UIAlertController.Style.alert)
-        let okAction2 = UIAlertAction(title: "완료", style: UIAlertAction.Style.default, handler: nil)
+        let okAction2 = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         alert2.addAction(okAction2)
-        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+        let okAction = UIAlertAction(title: "OK", style: .destructive){_ in
             //삭제 액션
 
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
@@ -270,12 +270,12 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
             //모두다 삭제된건아닌지?
             self.HiddenTablewhenlistisEmpty()
             self.NoteTableView.reloadData()
-            UIApplication.shared.keyWindow!.rootViewController?.present(alert2, animated: true, completion: nil)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert2, animated: true, completion: nil)
         }
-        let moveAction = UIAlertAction(title: "Cancel", style: .destructive)
+        let moveAction = UIAlertAction(title: "Cancel", style: .default)
         alert.addAction(okAction)
         alert.addAction(moveAction)
-        UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
    
