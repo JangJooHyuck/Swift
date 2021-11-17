@@ -82,16 +82,30 @@ class ContentsCVDicView:UICollectionViewCell{
             //단어장 탭 리로드
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
             
-            let alert = UIAlertController(title: "완료", message:"단어장에 단어가 추가되었습니다." , preferredStyle: UIAlertController.Style.alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            let alert = UIAlertController(title: "완료", message:"단어장에 해당 단어가 추가되었습니다." , preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            let moveAction = UIAlertAction(title: "단어장으로 이동", style: .destructive){_ in
+                // 단어장으로 이동
+                ViewModel.VM.CurrentCell = 3
+                // 해당단어 저장
+                // 해당단된
+            }
+            alert.addAction(okAction)
+            alert.addAction(moveAction)
             UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         else {
             
             let alert = UIAlertController(title: "실패", message:"해당 단어는 이미 단어장에 존재합니다." , preferredStyle: UIAlertController.Style.alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            let moveAction = UIAlertAction(title: "단어장으로 이동", style: .destructive){_ in
+                // 단어장으로 이동
+                ViewModel.VM.CurrentCell = 3
+                // 해당단어 저장
+                // 해당단된
+            }
+            alert.addAction(okAction)
+            alert.addAction(moveAction)
             UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         }

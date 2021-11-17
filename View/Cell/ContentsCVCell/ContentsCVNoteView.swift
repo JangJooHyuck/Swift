@@ -245,28 +245,36 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         colorAnimation.duration = 1  // animation duration
         sender.layer.add(colorAnimation, forKey: "ColorPulse")
         
-        //삭제 액션
-
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        // 저장소가져오기
-        let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-
-        // 삭제실행
-        do {
-            try persistentContainer.viewContext.execute(deleteRequest)
-        } catch let error as NSError {
-            print(error)
-        }
-
-        MainViewModel.VM.wordlist.removeAll()
-        //모두다 삭제된건아닌지?
-        HiddenTablewhenlistisEmpty()
-        self.NoteTableView.reloadData()
-        let alert = UIAlertController(title: "완료", message:"모든 단어가 삭제되었습니다." , preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        let alert = UIAlertController(title: "경고", message:"모든 단어를 삭제하시겠습니까?" , preferredStyle: UIAlertController.Style.alert)
+        let alert2 = UIAlertController(title: "완료", message:"모든 단어를 삭제하였습니다." , preferredStyle: UIAlertController.Style.alert)
+        let okAction2 = UIAlertAction(title: "완료", style: UIAlertAction.Style.default, handler: nil)
+        alert2.addAction(okAction2)
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            //삭제 액션
+
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NoteEntity.fetchRequest()
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+            // 저장소가져오기
+            let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+
+            // 삭제실행
+            do {
+                try persistentContainer.viewContext.execute(deleteRequest)
+            } catch let error as NSError {
+                print(error)
+            }
+
+            MainViewModel.VM.wordlist.removeAll()
+            //모두다 삭제된건아닌지?
+            self.HiddenTablewhenlistisEmpty()
+            self.NoteTableView.reloadData()
+            UIApplication.shared.keyWindow!.rootViewController?.present(alert2, animated: true, completion: nil)
+        }
+        let moveAction = UIAlertAction(title: "Cancel", style: .destructive)
+        alert.addAction(okAction)
+        alert.addAction(moveAction)
         UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
