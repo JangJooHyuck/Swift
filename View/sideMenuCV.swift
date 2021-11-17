@@ -18,7 +18,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sideMenu", for: indexPath) as! sideMenuCell
         
-        cell.sideMenutext.text = ViewModel.VM.MenuList[indexPath.item]
+        cell.sideMenutext.text = ViewModel.VM.MenuListSide[indexPath.item]
        
         return cell
         
@@ -65,7 +65,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         SidecollectionView.backgroundColor = .white
        
         SidecollectionView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        SidecollectionView.heightAnchor.constraint(equalToConstant: 750).isActive = true
+        SidecollectionView.heightAnchor.constraint(equalToConstant: CGFloat(ViewModel.VM.MenuList.count * 140)).isActive = true
         SidecollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         SidecollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true

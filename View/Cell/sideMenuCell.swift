@@ -12,7 +12,7 @@ class sideMenuCell:UICollectionViewCell{
 
     let sideMenutext: UILabel = {
         let sideMenutext = UILabel()
-        sideMenutext.textAlignment = .center
+        sideMenutext.textAlignment = .left
         return sideMenutext
     }()
     
@@ -20,10 +20,12 @@ class sideMenuCell:UICollectionViewCell{
         super.init(frame: frame)
         
         addSubview(sideMenutext)
-        sideMenutext.translatesAutoresizingMaskIntoConstraints = false
         
-        sideMenutext.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
+        sideMenutext.translatesAutoresizingMaskIntoConstraints = false
+        sideMenutext.widthAnchor.constraint(equalToConstant: 100).isActive = true
         sideMenutext.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
+        sideMenutext.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        sideMenutext.topAnchor.constraint(equalTo: topAnchor, constant: 200).isActive = true
         
 
         
