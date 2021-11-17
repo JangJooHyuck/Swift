@@ -201,6 +201,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         MainViewModel.VM.sortSubject = "wordcc"
         MainViewModel.VM.sortBool = false
         MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
+        
     }
     
     func DeleteAllBTLayout(){
@@ -339,10 +340,10 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     
     func tableviewLayout() {
         NoteTableView.isScrollEnabled = true
-        NoteTableView.flashScrollIndicators()
        
-        NoteTableView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        NoteTableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        
+        NoteTableView.heightAnchor.constraint(equalTo: self.heightAnchor,constant: 10).isActive = true
+        NoteTableView.widthAnchor.constraint(equalTo: self.widthAnchor,constant: 10).isActive = true
         NoteTableView.topAnchor.constraint(equalTo: NoteText.bottomAnchor, constant: 20).isActive = true
         NoteTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
     }
@@ -357,7 +358,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         if MainViewModel.VM.delete(obejct: object) { /// DB에서 삭제
             MainViewModel.VM.wordlist.remove(at: indexPath.row) /// 데이터 삭제
             NoteTableView.deleteRows(at: [indexPath], with: .fade) /// 테이블 뷰에서 해당 행을 fade방법으로 제거
-            self.NoteTableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.NoteTableView.reloadData()
+            }
             HiddenTablewhenlistisEmpty()
         }
     }
@@ -365,7 +368,9 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     func tableViewReload(){
         MainViewModel.VM.$wordlist.sink { value in
          
-            self.NoteTableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                self.NoteTableView.reloadData()
+            }
             
             if value.isEmpty == true {
                 self.NoteTableView.isHidden = true
@@ -410,6 +415,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         if isCellup == false{
         
             cell.wordLB.text = "\(word) ❤️\(wordcc)"
+            
             cell.wordLB.textAlignment = .center
             cell.wordLB.layer.borderWidth = 1
             cell.wordContentsLB.isHidden = true
@@ -448,9 +454,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     // 셀을 선택했을때 선택한 셀의 행을 저장
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //데이터 가져오기
-        let record = MainViewModel.VM.wordlist[indexPath.row]
-        
+       
         
         self.NoteTableView.beginUpdates()
       
@@ -459,7 +463,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         if indexPath.row == selectedIndex {
             selectedIndex = -1
             MainViewModel.VM.wordlist = MainViewModel.VM.fetch()
-            self.NoteTableView.reloadData()
+            
         } else {
             selectedIndex = indexPath.row
             
