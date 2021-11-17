@@ -96,8 +96,6 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
                 
             }
                 
-            
-            
             alert.addAction(okAction)
             alert.addAction(cancelAction)
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)

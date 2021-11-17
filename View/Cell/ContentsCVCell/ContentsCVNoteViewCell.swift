@@ -37,8 +37,8 @@ class ContentsCVNoteViewCell: UITableViewCell {
         //해당 라벨의 크기 및 배경을 설정
         wordLB.translatesAutoresizingMaskIntoConstraints = false
    
-        wordLB.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        wordLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
+        wordLB.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        wordLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32).isActive = true
         wordLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         wordLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
       
@@ -47,8 +47,8 @@ class ContentsCVNoteViewCell: UITableViewCell {
         
         //해당 라벨의 크기 및 배경을 설정
         wordContentsLB.translatesAutoresizingMaskIntoConstraints = false
-        wordContentsLB.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        wordContentsLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
+        wordContentsLB.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        wordContentsLB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32).isActive = true
         wordContentsLB.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         wordContentsLB.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         wordContentsLB.numberOfLines = 10

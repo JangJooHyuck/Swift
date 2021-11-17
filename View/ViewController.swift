@@ -199,7 +199,7 @@ class ViewController: UIViewController {
                         self.indicator.transform = CGAffineTransform(translationX: CGFloat(((value + 1)) * 70), y: 0)
                     }
                     else {
-                        self.indicator.transform = CGAffineTransform(translationX: CGFloat(((value + 1)) * 64), y: 0)
+                        self.indicator.transform = CGAffineTransform(translationX: CGFloat((value + 1) * 65), y: 0)
                     }
                     
                 },

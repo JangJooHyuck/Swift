@@ -371,7 +371,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         NoteTableView.heightAnchor.constraint(equalTo: self.heightAnchor,constant: 10).isActive = true
         NoteTableView.widthAnchor.constraint(equalTo: self.widthAnchor,constant: 10).isActive = true
         NoteTableView.topAnchor.constraint(equalTo: NoteText.bottomAnchor, constant: 20).isActive = true
-        NoteTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        NoteTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -440,7 +440,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         if isCellup == false{
         
-            cell.wordLB.text = "\(word) ❤️\(wordcc)"
+            cell.wordLB.text = "[\(word)]" + "    ❤️\(wordcc)"
             
             cell.wordLB.textAlignment = .center
             cell.wordLB.layer.borderWidth = 1
@@ -454,6 +454,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
            
             cell.wordLB.layer.borderWidth = 0
             cell.wordLB.text = word
+            cell.wordLB.backgroundColor = .clear
            
             cell.wordContentsLB.isHidden = false
             cell.wordContentsLB.text = contents
@@ -480,10 +481,7 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
     // 셀을 선택했을때 선택한 셀의 행을 저장
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-       
-        
         self.NoteTableView.beginUpdates()
-      
         
         //만약 현재 idx 가 selectedIndex 와 같다면
         if indexPath.row == selectedIndex {
