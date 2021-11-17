@@ -18,8 +18,26 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sideMenu", for: indexPath) as! sideMenuCell
         
-        cell.sideMenutext.text = ViewModel.VM.MenuListSide[indexPath.item]
-       
+        cell.sideMenutext.text = ViewModel.VM.MenuList[indexPath.item]
+        cell.sideMenutext.backgroundColor = .clear
+        cell.sideMenutext.layer.borderWidth = 1
+        cell.sideMenutext.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 0.5)
+        if cell.sideMenutext.text == "메인" {
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "🏠", right: "메인", length: 15)
+        }
+        if cell.sideMenutext.text == "사전" {
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📚", right: "사전", length: 15)
+        }
+        if cell.sideMenutext.text == "이메일" {
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📨", right: "이메일", length: 15)
+        }
+        if cell.sideMenutext.text == "단어장" {
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📋", right: "단어장", length: 15)
+        }
+        if cell.sideMenutext.text == "타이머" {
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "⏰", right: "타이머", length: 15)
+        }
+        
         return cell
         
     }
