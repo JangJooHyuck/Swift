@@ -115,7 +115,7 @@ class ContentsCVMainView:UICollectionViewCell{
         // TodayWord() 실행
         MainViewModel.VM.Todayword()
         
-        let alert = UIAlertController(title: "완료", message:"변경이 완료되었습니다." , preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "완료", message:"새로운 단어로 변경하였습니다." , preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
@@ -151,8 +151,15 @@ class ContentsCVMainView:UICollectionViewCell{
         else {
             
             let alert = UIAlertController(title: "실패", message:"해당 단어는 이미 단어장에 존재합니다." , preferredStyle: UIAlertController.Style.alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            let moveAction = UIAlertAction(title: "단어장으로 이동", style: .destructive){_ in
+                // 단어장으로 이동
+                ViewModel.VM.CurrentCell = 3
+                // 해당단어 저장
+                // 해당단된
+            }
+            alert.addAction(okAction)
+            alert.addAction(moveAction)
             UIApplication.shared.keyWindow!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         
