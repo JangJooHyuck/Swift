@@ -106,6 +106,8 @@ class ContentsCVDicView:UICollectionViewCell{
             }
             alert.addAction(okAction)
             alert.addAction(moveAction)
+            alert.view.layer.borderWidth = 1
+            alert.view.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1.0)
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         }
@@ -113,6 +115,8 @@ class ContentsCVDicView:UICollectionViewCell{
             let alert = UIAlertController(title: "실패", message:"단어가 입력되지 않았습니다" , preferredStyle: UIAlertController.Style.alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
+            alert.view.layer.borderWidth = 1
+            alert.view.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1.0)
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }

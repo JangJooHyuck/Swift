@@ -247,6 +247,8 @@ class ContentsCVNoteView:UICollectionViewCell, UITableViewDataSource, UITableVie
         
         
         let alert = UIAlertController(title: "경고", message:"모든 단어를 삭제하시겠습니까?" , preferredStyle: UIAlertController.Style.alert)
+        alert.view.layer.borderWidth = 1
+        alert.view.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1.0)
         let alert2 = UIAlertController(title: "완료", message:"모든 단어를 삭제하였습니다." , preferredStyle: UIAlertController.Style.alert)
         let okAction2 = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         alert2.addAction(okAction2)

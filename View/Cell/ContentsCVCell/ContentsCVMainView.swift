@@ -168,6 +168,10 @@ class ContentsCVMainView:UICollectionViewCell{
             }
             alert.addAction(okAction)
             alert.addAction(moveAction)
+           
+          
+            alert.view.layer.borderWidth = 1
+            alert.view.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1.0)
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
         

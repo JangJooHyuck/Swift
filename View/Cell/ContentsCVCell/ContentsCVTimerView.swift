@@ -294,6 +294,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
             let alert = UIAlertController(title: "실패", message:"시간이 입력되지 않았습니다." , preferredStyle: UIAlertController.Style.alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
+            alert.view.layer.borderWidth = 1
+            alert.view.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1.0)
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
             // shake 애니메이션
             UIView.animate(withDuration: 0.05, animations: {
@@ -382,7 +384,8 @@ class ContentsCVTimerView:UICollectionViewCell, UITableViewDataSource, UITableVi
         }
         else {
             let alert = UIAlertController(title: "실패", message:"삭제할 타이머가 없습니다." , preferredStyle: UIAlertController.Style.alert)
-            
+            alert.view.layer.borderWidth = 1
+            alert.view.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1.0)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         }
