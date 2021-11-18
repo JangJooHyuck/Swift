@@ -112,6 +112,7 @@ class ViewController: UIViewController {
         //사이드 메뉴레이아웃
         sideMenu.translatesAutoresizingMaskIntoConstraints = false
         sideMenu.backgroundColor = .yellow
+        sideMenu.layer.cornerRadius = 10
         sideMenu.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -320).isActive = true
         sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: -50).isActive = true
         sideMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
