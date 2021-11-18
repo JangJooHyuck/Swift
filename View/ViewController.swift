@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         
         
         blurView.isUserInteractionEnabled = false
-       
+        blurView.translatesAutoresizingMaskIntoConstraints = false
         blurView.topAnchor.constraint(equalTo: topMenu.topAnchor, constant: 0).isActive = true
         blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.5).isActive = true
