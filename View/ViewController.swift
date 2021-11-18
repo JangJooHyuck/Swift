@@ -10,12 +10,10 @@ import Combine
 
 class ViewController: UIViewController {
     
-    
-    
     private var cancellable = Set<AnyCancellable>()
   
     var blurView = UIView()
-    
+   
     var indicator = UIView()
     
     
@@ -42,6 +40,7 @@ class ViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         
@@ -57,10 +56,11 @@ class ViewController: UIViewController {
         closeSide()
         closeSideMenuMove()
     }
+   
     
     func Layout() {
         //blurview 레이아웃
-        blurView.translatesAutoresizingMaskIntoConstraints = false
+        
         
         blurView.isUserInteractionEnabled = false
        
@@ -112,6 +112,7 @@ class ViewController: UIViewController {
         //사이드 메뉴레이아웃
         sideMenu.translatesAutoresizingMaskIntoConstraints = false
         sideMenu.backgroundColor = .yellow
+        sideMenu.layer.zPosition = 0
         sideMenu.layer.cornerRadius = 10
         sideMenu.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -320).isActive = true
         sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: -50).isActive = true

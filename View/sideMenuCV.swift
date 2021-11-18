@@ -70,7 +70,7 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
     }
     // 클릭 이벤트
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sideMenu", for: indexPath) as! sideMenuCell
+       
         if indexPath.row < 5 {
             
         ViewModel.VM.CurrentCell = indexPath.row

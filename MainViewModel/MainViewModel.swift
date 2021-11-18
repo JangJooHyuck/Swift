@@ -75,6 +75,7 @@ class MainViewModel {
         
         // 영구 저장소에 commit후에 list프로퍼티에 추가
         do {
+            self.wordlist = fetch()
             let result = try context.fetch(fetchRequest)
             if result.count > 0 {
                 //데이터에 이미 존재하네..그러면 리턴 false
@@ -100,7 +101,8 @@ class MainViewModel {
         } catch {
           
             print ("Error")
-            return false
+            return true
+            
         }
         
        

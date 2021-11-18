@@ -120,7 +120,8 @@ class ContentsCVMainView:UICollectionViewCell{
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController?.present(alert, animated: true, completion: nil)
         
-        
+        let container = NSPersistentContainer(name: "SwiftApp")
+          print(container.persistentStoreDescriptions.first?.url)
         
         
     }
