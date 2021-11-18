@@ -24,7 +24,7 @@ class sideMenuCell:UICollectionViewCell{
         sideMenutext.translatesAutoresizingMaskIntoConstraints = false
         sideMenutext.widthAnchor.constraint(equalToConstant: 80).isActive = true
         sideMenutext.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        sideMenutext.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        sideMenutext.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
         sideMenutext.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         sideMenutext.backgroundColor = .clear
       

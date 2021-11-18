@@ -44,24 +44,25 @@ class sideMenuCV : UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         cell.sideMenutext.text = ViewModel.VM.MenuListSide[indexPath.item]
         cell.sideMenutext.backgroundColor = .clear
         cell.sideMenutext.layer.borderWidth = 1
+        cell.sideMenutext.layer.cornerRadius = 10
         cell.sideMenutext.layer.borderColor = CGColor(red: 255, green: 0, blue: 0, alpha: 0.5)
         if cell.sideMenutext.text == "메인" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "🏠", right: " 메인", length: 5)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: " 🏠", right: " 메인", length: 5)
         }
         if cell.sideMenutext.text == "사전" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📚", right: " 사전", length: 5)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: " 📚", right: " 사전", length: 5)
         }
         if cell.sideMenutext.text == "이메일" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📨", right: " 이메일", length: 5)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: " 📨", right: " 이메일", length: 5)
         }
         if cell.sideMenutext.text == "단어장" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "📋", right: " 단어장", length: 5)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: " 📋", right: " 단어장", length: 5)
         }
         if cell.sideMenutext.text == "타이머" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "⏰", right: " 타이머", length: 5)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: " ⏰", right: " 타이머", length: 5)
         }
         if cell.sideMenutext.text == "종료" {
-            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: "❌", right: " 종료", length: 5)
+            cell.sideMenutext.text = ViewModel.VM.alignLeftAndRight(left: " ❌", right: " 종료", length: 5)
         }
         
         return cell
