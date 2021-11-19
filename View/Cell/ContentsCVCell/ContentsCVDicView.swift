@@ -84,7 +84,7 @@ class ContentsCVDicView:UICollectionViewCell{
             
             let alert = UIAlertController(title: "완료", message:"단어장에 해당 단어가 추가되었습니다." , preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
-            let moveAction = UIAlertAction(title: "단어장으로 이동", style: .destructive){_ in
+            let moveAction = UIAlertAction(title: "단어장으로 이동", style: .default){_ in
                 // 단어장으로 이동
                 ViewModel.VM.CurrentCell = 3
                 // 해당단어 저장
@@ -98,7 +98,7 @@ class ContentsCVDicView:UICollectionViewCell{
             
             let alert = UIAlertController(title: "실패", message:"해당 단어는 이미 단어장에 존재합니다." , preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
-            let moveAction = UIAlertAction(title: "단어장으로 이동", style: .destructive){_ in
+            let moveAction = UIAlertAction(title: "단어장으로 이동", style: .default){_ in
                 // 단어장으로 이동
                 ViewModel.VM.CurrentCell = 3
                 // 해당단어 저장
